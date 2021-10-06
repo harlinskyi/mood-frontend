@@ -6,26 +6,14 @@ import LeftSide from './components/Main/LeftSide/LeftSide'
 import RightSide from './components/Main/RightSide/RightSide'
 import LoginPage from './components/Main/LoginPage/LoginPage'
 import Register from './components/Main/Register/Register';
+import Main from './components/Main/Main';
 
 class App extends Component {
   render() {
     return (
       <Router>
         <Navbar />
-        <main className="container-lg">
-          <div className="row loged-in">
-              <LeftSide/>
-              <RightSide/>
-          </div>
-          <div className="row-auto guest">
-            <Route exact path={["/login", "/"]}>
-              <LoginPage />
-            </Route>
-            <Route exact path="/register">
-              <Register />
-            </Route>
-          </div>
-        </main>
+        <Main />
       </Router>
     )
   }

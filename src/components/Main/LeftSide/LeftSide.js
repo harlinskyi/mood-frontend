@@ -6,8 +6,8 @@ import Article from './Article/Article';
 class LeftSide extends Component {
     render() {
         return (
-            <div className="col-9">
-                <ul className="RightSide-list-article">
+            <div className="LeftSide col-9">
+                <ul className="Leftside-list-article">
                     <Article />
                 </ul>
             </div>

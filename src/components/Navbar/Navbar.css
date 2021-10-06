@@ -21,6 +21,12 @@ header {
     margin-right: 40px;
 }
 
+@media (max-width: 992px) {
+    .logo {
+        margin: auto;
+    }
+}
+
 .header-login-page {
 
 }

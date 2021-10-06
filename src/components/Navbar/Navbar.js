@@ -9,7 +9,7 @@ class Navbar extends Component {
     render() {
         return (
             <header className="col-12 p-3 mb-3 border-bottom">
-                <div className="container">
+                <div className="container-lg">
                     <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between">
                         <Link to="/" className="logo mb-2 mb-lg-0 text-dark text-decoration-none">MOOD</Link>
                         {store_tmp.logged ?
@@ -25,10 +25,10 @@ class Navbar extends Component {
                                         <span className="header-username">Sveta Ivanova</span>
                                     </Link>
                                     <ul className="dropdown-menu text-small" aria-labelledby="profile-menu">
-                                        <li><Link className="dropdown-item" to="/settings">Settings</Link></li>
-                                        <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
+                                        <li><Link className="dropdown-item" to="/settings"><i class="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
+                                        <li><Link className="dropdown-item" to="/profile"><i class="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
                                         <li><hr className="dropdown-divider" /></li>
-                                        <li><Link className="dropdown-item" to="/sign-out">Sign out</Link></li>
+                                        <li><Link className="dropdown-item" to="/sign-out"><i class="fa fa-sign-out me-2" aria-hidden="true"></i>Sign out</Link></li>
                                     </ul>
                                 </div>
                             </>

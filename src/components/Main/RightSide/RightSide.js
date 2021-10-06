@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 class RightSide extends Component {
     render() {
         return (
-            <div className="col-3">
+            <div className="RightSide col-3 mb-3">
                 <div className="d-flex flex-column p-3 bg-body rounded-c shadow-sm">
                     <div className="m-2 mx-auto RightSide-profile-photo">
                         <img src="https://cdn.popcake.tv/wp-content/uploads/2020/09/pokrov90_118863382_963425367814685_6603924445247511753_n.jpg" className="rounded mx-auto d-block" alt="Profile"/>

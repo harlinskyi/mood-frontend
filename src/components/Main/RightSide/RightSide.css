@@ -21,6 +21,7 @@
         height: 110px;
     }
 }
+
 .RightSide-profile-username a {
     color: #439baf;
     display: block;
@@ -49,6 +50,9 @@
 .RightSide-profile-list-info li {
     color: #8C8C8C;
     list-style-type: none;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis;
 }
 .RightSide-profile-list-info li i {
     text-align: center;
