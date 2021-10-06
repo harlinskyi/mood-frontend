@@ -1,0 +1,35 @@
+.form-register button[type="submit"] {
+    background-color: #439baf;
+    border: 1px solid #3a8292;
+    border-radius: 10px;
+  }
+  
+  .form-register button[type="submit"]:hover {
+    background-color: #3a8292;
+  }
+  
+  .form-register {
+    width: 100%;
+    max-width: 450px;
+    padding: 15px;
+    margin: auto;
+  }
+  
+  .form-register .form-floating:focus-within {
+    z-index: 2;
+  }
+  
+  .form-register input {
+    border-radius: 10px;
+  }
+  .form-register input[type="email"] {
+    margin-bottom: -1px;
+  }
+  
+  .form-register input[type="password"] {
+    margin-bottom: 10px;
+  }
+  
+  .login-errors li {
+    color: #dc3545;
+  }

@@ -30,8 +30,8 @@ class Navbar extends Component {
                         </div> */}
                         {/* END Logged user */}
                         <div className="header-login-page">
-                            <Link to="/" className="header-sign-in">Sign In</Link>
-                            <Link to="/" className="header-register">Regsiter</Link>
+                            <Link to="/login" className="header-sign-in">Sign In</Link>
+                            <Link to="/register" className="header-register">Regsiter</Link>
                         </div>
                     </div>
                 </div>

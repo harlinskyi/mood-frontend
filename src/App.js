@@ -5,6 +5,7 @@ import Navbar from './components/Navbar/Navbar';
 import LeftSide from './components/Main/LeftSide/LeftSide'
 import RightSide from './components/Main/RightSide/RightSide'
 import LoginPage from './components/Main/LoginPage/LoginPage'
+import Register from './components/Main/Register/Register';
 
 class App extends Component {
   render() {
@@ -17,7 +18,12 @@ class App extends Component {
               <RightSide/>
           </div> */}
           <div className="row-auto guest">
-              <LoginPage/>
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
           </div>
         </main>
       </Router>
