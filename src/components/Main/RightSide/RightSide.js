@@ -11,7 +11,7 @@ class RightSide extends Component {
                         <img src="https://cdn.popcake.tv/wp-content/uploads/2020/09/pokrov90_118863382_963425367814685_6603924445247511753_n.jpg" className="rounded mx-auto d-block" alt="Profile"/>
                     </div>
                     <div className="mt-1 mx-auto fs-4 RightSide-profile-username">
-                        <Link to="#" >Sveta Ivanova</Link>
+                        <Link to="/userNickname" >Sveta Ivanova</Link>
                     </div>
                     <div className="mb-1 mx-auto fs-5 RightSide-profile-nickname">@sveta_666</div>
                     <div className="mb-1 mx-auto fs-6 RightSide-profile-quote">Eius quis inflammat in illis sensus et prope quamquam doloris virtutes quidem credo hos confirmandus cum.</div>

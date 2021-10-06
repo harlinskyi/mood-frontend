@@ -13,12 +13,12 @@ class App extends Component {
       <Router>
         <Navbar />
         <main className="container-lg">
-          {/* <div className="row loged-in">
+          <div className="row loged-in">
               <LeftSide/>
               <RightSide/>
-          </div> */}
+          </div>
           <div className="row-auto guest">
-            <Route exact path="/login">
+            <Route exact path={["/login", "/"]}>
               <LoginPage />
             </Route>
             <Route exact path="/register">
