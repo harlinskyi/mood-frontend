@@ -1,0 +1,59 @@
+.RightSide-profile-photo {
+    background-color: #949494;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+}
+
+.RightSide-profile-photo img {
+    margin: auto;
+    border-radius: 50%;
+    object-fit: cover; /* keep aspect ratio */
+    width: 180px;
+    height: 180px;
+}
+
+@media (max-width: 991px) {
+    .RightSide-profile-photo img,
+    .RightSide-profile-photo {
+        width: 110px;
+        height: 110px;
+    }
+}
+.RightSide-profile-username a {
+    color: #439baf;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    transition: color .3s;
+}
+
+.RightSide-profile-username a:hover {
+    color: #3a8697;
+}
+.RightSide-profile-nickname {
+    color: #5B5B5B;
+    text-align: center;
+}
+
+.RightSide-profile-quote {
+    color: #4E4E4E;
+    text-align: center;
+}
+.RightSide-profile-list-info {
+    padding: 0;
+    margin-top: 1em;
+}
+.RightSide-profile-list-info li {
+    color: #8C8C8C;
+    list-style-type: none;
+}
+.RightSide-profile-list-info li i {
+    text-align: center;
+    width: 16px;
+}
+.RightSide-profile-list-info li span {
+    margin-left: 10px;
+}

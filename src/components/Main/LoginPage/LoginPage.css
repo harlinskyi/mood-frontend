@@ -1,0 +1,35 @@
+.form-signin button[type="submit"] {
+  background-color: #439baf;
+  border: 1px solid #3a8292;
+  border-radius: 10px;
+}
+
+.form-signin button[type="submit"]:hover {
+  background-color: #3a8292;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input {
+  border-radius: 10px;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+}
+
+.login-errors li {
+  color: #dc3545;
+}

@@ -1,0 +1,51 @@
+header {
+    background-color: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+}
+
+#profile-menu img {
+    border-radius: 50%;
+    object-fit: cover; /* keep aspect ratio */
+    width: 32px;
+    height: 32px;
+}
+
+.header-username {
+    margin: 0 5px;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 27px;
+    font-family: monospace;
+    margin-right: 40px;
+}
+
+.header-login-page {
+
+}
+
+.header-login-page a {
+    padding: 0 5px;
+    font-size: 18px;
+    text-decoration: none;
+    color: initial;
+    font-weight: bold;
+    text-transform: capitalize;
+    transition: color 0.2s;
+}
+.header-login-page a.header-sign-in {
+    color: #DF4837;
+}
+
+.header-login-page a.header-sign-in:hover {
+    color: #c23d2f;
+}
+
+.header-login-page a.header-register {
+    color: #838383;
+}
+
+.header-login-page a.header-register:hover {
+    color: #555555;
+}
