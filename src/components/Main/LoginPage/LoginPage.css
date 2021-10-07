@@ -1,13 +1,3 @@
-.form-signin button[type="submit"] {
-  background-color: #439baf;
-  border: 1px solid #3a8292;
-  border-radius: 10px;
-}
-
-.form-signin button[type="submit"]:hover {
-  background-color: #3a8292;
-}
-
 .form-signin {
   width: 100%;
   max-width: 450px;

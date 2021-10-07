@@ -5,15 +5,19 @@ import LeftSide from './LeftSide/LeftSide'
 import RightSide from './RightSide/RightSide'
 import LoginPage from './LoginPage/LoginPage'
 import Register from './Register/Register';
+import Settings from './Settings/Settings';
 
 class Main extends Component {
     render() {
         return (
             <main className="container-lg">
                 <div className="row loged-in">
-                    <Route exact path={["/userID"]}>
+                    <Route exact path="/userID">
                         <LeftSide  />
                         <RightSide />
+                    </Route>
+                    <Route exact path="/userID/settings">
+                        <Settings />
                     </Route>
                 </div>
                 <div className="row-auto guest">

@@ -18,3 +18,19 @@ body {
 .dropdown-toggle {
   outline: 0;
 }
+
+button[type="submit"] {
+  background-color: #439baf;
+  border: 1px solid #3a8292;
+  border-radius: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #3a8292;
+  border: 1px solid #32707e;
+}
+
+input[required] + label:after {
+  content: " *";
+  color: red;
+}
