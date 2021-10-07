@@ -25,8 +25,8 @@ class Navbar extends Component {
                                         <span className="header-username">Sveta Ivanova</span>
                                     </Link>
                                     <ul className="dropdown-menu text-small" aria-labelledby="profile-menu">
-                                        <li><Link className="dropdown-item" to="/settings"><i class="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
-                                        <li><Link className="dropdown-item" to="/profile"><i class="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
+                                        <li><Link className="dropdown-item" to="/userID/settings"><i class="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
+                                        <li><Link className="dropdown-item" to="/userID"><i class="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
                                         <li><hr className="dropdown-divider" /></li>
                                         <li><Link className="dropdown-item" to="/sign-out"><i class="fa fa-sign-out me-2" aria-hidden="true"></i>Sign out</Link></li>
                                     </ul>

@@ -11,11 +11,13 @@ class Main extends Component {
         return (
             <main className="container-lg">
                 <div className="row loged-in">
-                    <LeftSide />
-                    <RightSide />
+                    <Route exact path={["/userID"]}>
+                        <LeftSide  />
+                        <RightSide />
+                    </Route>
                 </div>
                 <div className="row-auto guest">
-                    <Route exact path={["/login", "/"]}>
+                    <Route exact path={["/login"]}>
                         <LoginPage />
                     </Route>
                     <Route exact path="/register">

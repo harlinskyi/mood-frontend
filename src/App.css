@@ -4,6 +4,7 @@ body {
   background-color: #F1F1F1;
   color: #383838;
   min-width: 240px;
+  min-height: 240px;
 }
 
 .rounded-c {
