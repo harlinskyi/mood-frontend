@@ -3,8 +3,9 @@ import jwt from "jsonwebtoken";
 import { LOGIN_AUTH } from "./types";
 
 
+
 export const authUser = (token, dispatch) => {
-    var user = "eyJhbCI6IkhTMjU2IiwiYWxnIjoiSFMyNTYifQ.eyJtYWlsIjoidXNlckBtYWlsLmNvbSJ9.S6ZM7HBjFXaILwnWBmbMAl4pmO9kpsfxF5MVsTajXdE";
+    var user = jwt.decode(token);
     user = jwt.decode(token);
     console.log("user auth: ", user);
     // setAuthorisationToken(token);

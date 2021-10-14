@@ -1,8 +1,9 @@
 import './Register.css'
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import accountService from '../../../services/account.service';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { authUser } from '../../../actions/auth';
+import { connect } from 'react-redux';
 
 class Register extends Component {
   state = {
@@ -23,10 +24,11 @@ class Register extends Component {
         };
         const res = await accountService.register(model);
         
-        const {token} = res.data;
-        localStorage.setItem("authToken", token);
-        authUser(token, this.props.dispatch);
-        //this.props.dispatch({type: REGISTER_AUTH});
+        const { token } = res.data;
+
+        // localStorage.setItem("authToken", token);
+        // authUser(token, this.props.dispatch);
+        // this.props.dispatch({type: REGISTER_AUTH});
 
         console.log("Усе пройшло добре", res);
         
@@ -47,7 +49,7 @@ class Register extends Component {
 
     return (
       <div className="col-12 m-auto pt-5">
-        <form className="form-register p-4 mb-5 bg-body rounded-c shadow">
+        <form className="form-register p-4 mb-5 bg-body rounded-c shadow" onSubmit={this.onSubmitHandler} >
           <h1 className="h3 mb-3 fw-normal text-center fw-bold">Register</h1>
 
           <div className="form-floating mb-2">
@@ -87,4 +89,4 @@ class Register extends Component {
   }
 }
 
-export default withRouter(Register);
+export default connect(null)(withRouter(Register))
