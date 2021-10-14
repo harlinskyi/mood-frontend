@@ -28,7 +28,7 @@ class User extends Component {
                     <div className="fs-6 text-center peoples-user-nickname">
                         <span>@sveta_666</span>
                     </div>
-                    <Link className="mt-1 fs-6 text-center peoples-user-button">View</Link>
+                    <Link to="/" className="mt-1 fs-6 text-center peoples-user-button">View</Link>
                 </div>
             </div>
         )

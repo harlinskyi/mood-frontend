@@ -17,13 +17,13 @@ class RightSide extends Component {
                     <div className="mb-1 mx-auto fs-6 RightSide-profile-quote">Eius quis inflammat in illis sensus et prope quamquam doloris virtutes quidem credo hos confirmandus cum.</div>
                     <ul className="RightSide-profile-list-info">
                         <li className="mb-1">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i><span>Ukraine</span>
+                            <i className="fa fa-map-marker" aria-hidden="true"></i><span>Ukraine</span>
                         </li>
                         <li className="mb-1">
-                            <i class="fa fa-envelope-o" aria-hidden="true"></i><span>sveta.666@gmail.com</span>
+                            <i className="fa fa-envelope-o" aria-hidden="true"></i><span>sveta.666@gmail.com</span>
                         </li>
                         <li className="mb-1">
-                            <i class="fa fa-link" aria-hidden="true"></i><span>linkedin.com/sveta_666</span>
+                            <i className="fa fa-link" aria-hidden="true"></i><span>linkedin.com/sveta_666</span>
                         </li>
                     </ul>
                 </div>

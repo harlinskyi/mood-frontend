@@ -39,7 +39,7 @@ class Settings extends Component {
                     </div>
 
                     <div className="form-floating mb-2">
-                        <select class="form-select" aria-label="Default select example" required>
+                        <select className="form-select" aria-label="Default select example" required>
                             <option selected>Open this select menu</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -58,7 +58,7 @@ class Settings extends Component {
                     </div>
 
                     <div className="form-floating mb-2">
-                        <select class="form-select" aria-label="Default select example">
+                        <select className="form-select" aria-label="Default select example">
                             <option selected>Open this select menu</option>
                             <option value="Ukraine">Ukraine</option>
                             <option value="Poland">Poland</option>
