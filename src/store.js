@@ -6,7 +6,6 @@ import authReducer from "./reducers/auth";
 
 
 const initialState = {
-    user: "Semen"
 };
 
 const middleware = [thunk];

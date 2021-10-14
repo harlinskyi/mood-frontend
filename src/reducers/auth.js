@@ -12,14 +12,14 @@ function authReducer(auth = initialState, action) {
         case REGISTER_AUTH: {
             return {
                 isAuth: true,
-                username: data.name
+                // username: data.name
             }
             
         }
         case LOGIN_AUTH: {
             return {
                 isAuth: true,
-                username: data.name
+                // username: data.name
             }
         }
         default: 
