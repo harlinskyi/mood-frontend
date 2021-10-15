@@ -1,10 +1,20 @@
 import './Navbar.css';
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { logoutUser } from '../../actions/logoutUser';
 
 
 class Navbar extends Component {
+
+    handleClick = event => {
+        event.preventDefault()
+        // Удаление token из localStorage
+        localStorage.removeItem("authToken")
+        // удаление из Redux хранилица
+        this.props.logoutUser()
+    }
+
     render() {
         const { isAuth, email, role } = this.props;
         return (
@@ -28,7 +38,7 @@ class Navbar extends Component {
                                         <li><Link className="dropdown-item" to="/userID/settings"><i className="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
                                         <li><Link className="dropdown-item" to="/userID"><i className="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
                                         <li><hr className="dropdown-divider" /></li>
-                                        <li><Link className="dropdown-item" to="/"><i className="fa fa-sign-out me-2" aria-hidden="true"></i>Sign out</Link></li>
+                                        <li><Link className="dropdown-item" to="/" onClick={this.handleClick}><i className="fa fa-sign-out me-2" aria-hidden="true"></i>Sign out</Link></li>
                                     </ul>
                                 </div>
                             </>
@@ -45,6 +55,10 @@ class Navbar extends Component {
     }
 }
 
+const mapDispatchToProps = dispatch => ({
+    logoutUser: () => dispatch(logoutUser())
+  })
+
 function mapState(stateRedux) {
     return {
         isAuth: stateRedux.auth.isAuth,
@@ -52,4 +66,4 @@ function mapState(stateRedux) {
     }
 }
 
-export default connect(mapState)(Navbar);
+export default connect(mapState, mapDispatchToProps)(Navbar);

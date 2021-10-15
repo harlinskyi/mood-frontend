@@ -2,7 +2,6 @@ import { REGISTER_AUTH, LOGIN_AUTH, LOGOUT,  } from "../actions/types";
 import store from "../store";
 
 const initialState = {
-    isAuth: false
 };
 
 function authReducer(auth = initialState, action) {
@@ -22,6 +21,9 @@ function authReducer(auth = initialState, action) {
                 email: data.email,
                 role: data.role
             }
+        }
+        case LOGOUT : {
+            return {...auth, auth : {} }
         }
         default: 
             return auth;
