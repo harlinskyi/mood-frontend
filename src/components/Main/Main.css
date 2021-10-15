@@ -1,18 +1,18 @@
 @media (max-width: 830px) {
-    .loged-in .LeftSide  {
+    .logged-in .LeftSide  {
         flex: 0 0 auto !important;
         width: 100% !important;
         margin: auto;
     }
-    .loged-in .RightSide {
+    .logged-in .RightSide {
         flex: 0 0 auto !important;
         width: 80% !important;
         margin: auto;
     }
-    .loged-in .LeftSide .Leftside-list-article {
+    .logged-in .LeftSide .Leftside-list-article {
         padding: 0 !important
     }
-    main .loged-in {
+    main .logged-in {
         flex-direction: column-reverse;
     }
 }

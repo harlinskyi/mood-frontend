@@ -1,22 +1,22 @@
 import './LoginPage.css'
 import React, { Component } from 'react'
 import accountService from '../../../services/account.service';
+import { withRouter } from "react-router-dom";
 import { authUser } from '../../../actions/auth';
-import { LOGIN_AUTH } from '../../../actions/types';
-
+import { connect } from 'react-redux';
 class LoginPage extends Component {
-  state = {
-    email: "",
-    password: "",
-    errors: {
-      password: "",
-    },
-  };
 
+  state = {
+    email: '',
+    password: '',
+    errors: {
+        password: ''
+    }
+  };
 
   onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log("Hello state", this.state);
+    console.log("preventState: ", this.state);
     try {
       const model = {
         email: this.state.email,
@@ -25,17 +25,15 @@ class LoginPage extends Component {
 
       const res = await accountService.login(model);
       const token = res.data;
-      console.log("TOKEN", token)
+      console.log("Login response", res);
 
       localStorage.setItem("authToken", token);
       authUser(token, this.props.dispatch);
-    //   this.props.dispatch({type: LOGIN_AUTH});
 
-      console.log("Усе пройшло добре", res);
-
-      // this.props.history.push("/");
+      console.log("Усе пройшло добре //");
+      this.props.history.push("/");
     } catch (error) {
-      console.log("Виникли проблеми");
+      console.log("Виникли проблеми", error);
     }
   };
 
@@ -91,4 +89,4 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+export default connect(null)(withRouter(LoginPage))
