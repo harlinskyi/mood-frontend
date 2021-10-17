@@ -22,7 +22,7 @@
     }
 }
 
-.RightSide-profile-username a {
+.RightSide-profile-username span {
     color: #439baf;
     display: block;
     font-weight: bold;
@@ -31,7 +31,7 @@
     transition: color .3s;
 }
 
-.RightSide-profile-username a:hover {
+.RightSide-profile-username span:hover {
     color: #3a8697;
 }
 .RightSide-profile-nickname {

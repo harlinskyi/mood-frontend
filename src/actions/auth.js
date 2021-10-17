@@ -14,6 +14,7 @@ export const authUser = (token, dispatch) => {
             data: user
         }
     );
+    return user.userId;
 }
 
 export const logout = (dispatch) => {

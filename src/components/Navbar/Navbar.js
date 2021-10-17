@@ -18,7 +18,6 @@ class Navbar extends Component {
           }
     }
     render() {
-        console.log('1', this.props);
         const { isAuth, email, role, userId } = this.props;
 
         return (

@@ -4,38 +4,41 @@ import accountService from '../../../services/account.service';
 import { withRouter } from "react-router-dom";
 import { authUser } from '../../../actions/auth';
 import { connect } from 'react-redux';
+import EclipseWidget from '../../common/eclipse/eclipse';
 class LoginPage extends Component {
 
   state = {
     email: '',
     password: '',
     errors: {
-        password: ''
-    }
+      password: ''
+    },
+    loading: false
   };
 
   onSubmitHandler = async (e) => {
     e.preventDefault();
     console.log("preventState: ", this.state);
+    this.setState({loading: true})
     try {
       const model = {
         email: this.state.email,
         password: this.state.password,
       };
-
       const res = await accountService.login(model);
       const token = res.data;
       // const token = res;
       console.log("Login response", res);
 
       localStorage.setItem("authToken", token);
-      authUser(token, this.props.dispatch);
+      const userId = authUser(token, this.props.dispatch);
 
       console.log("Усе пройшло добре //");
-      this.props.history.push("/");
+      this.props.history.push(`/${userId}/profile`);
     } catch (error) {
       console.log("Виникли проблеми", error);
     }
+    this.setState({loading: true})
   };
 
   onChangeHandler = (e) => {
@@ -43,7 +46,7 @@ class LoginPage extends Component {
   };
 
   render() {
-    const { email, password, errors } = this.state;
+    const { email, password, errors, loading } = this.state;
     return (
       <div className="col-12 m-auto pt-5">
         <form
@@ -85,6 +88,8 @@ class LoginPage extends Component {
             Sign in
           </button>
         </form>
+
+        {loading && <EclipseWidget />}
       </div>
     );
   }
