@@ -6,24 +6,30 @@ const initialState = {
 
 function authReducer(auth = initialState, action) {
     const {type, data} = action;
+
     console.log("reducer data", data);
+
     switch(type){
         case REGISTER_AUTH: {
             return {
                 isAuth: true,
                 email: data.email,
-                role: data.role
+                role: data.role,
+                userId: data.userId
             }
         }
         case LOGIN_AUTH: {
             return {
                 isAuth: true,
                 email: data.email,
-                role: data.role
+                role: data.role,
+                userId: data.userId
             }
         }
-        case LOGOUT : {
-            return {...auth, auth : {} }
+        case LOGOUT: {
+            return { 
+                isAuth: false
+            }
         }
         default: 
             return auth;

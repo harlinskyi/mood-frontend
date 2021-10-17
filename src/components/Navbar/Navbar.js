@@ -1,22 +1,26 @@
 import './Navbar.css';
 import React, { Component } from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { Link, withRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logoutUser } from '../../actions/logoutUser';
-
+import { logout } from '../../actions/auth';
 
 class Navbar extends Component {
 
-    handleClick = event => {
-        event.preventDefault()
-        // Удаление token из localStorage
-        localStorage.removeItem("authToken")
-        // удаление из Redux хранилица
-        this.props.logoutUser()
+    onClickLogout = async (e) => {
+        e.preventDefault();
+        try {
+            logout(this.props.dispatch);
+            localStorage.removeItem('authToken');
+            this.props.history.push("/");
+            console.log("Logout був успішний!");
+          } catch (error) {
+            console.log("Logout був неуспішний:", error);
+          }
     }
-
     render() {
-        const { isAuth, email, role } = this.props;
+        console.log('1', this.props);
+        const { isAuth, email, role, userId } = this.props;
+
         return (
             <header className="col-12 p-3 mb-3 border-bottom">
                 <div className="container-lg">
@@ -35,10 +39,10 @@ class Navbar extends Component {
                                         <span className="header-username">{email}</span>
                                     </Link>
                                     <ul className="dropdown-menu text-small" aria-labelledby="profile-menu">
-                                        <li><Link className="dropdown-item" to="/userID/settings"><i className="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
-                                        <li><Link className="dropdown-item" to="/userID"><i className="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
+                                        <li><Link className="dropdown-item" to={`/${userId}/settings`}><i className="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
+                                        <li><Link className="dropdown-item" to={`/${userId}/profile`}><i className="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
                                         <li><hr className="dropdown-divider" /></li>
-                                        <li><Link className="dropdown-item" to="/" onClick={this.handleClick}><i className="fa fa-sign-out me-2" aria-hidden="true"></i>Sign out</Link></li>
+                                        <li><Link className="dropdown-item" to="/" onClick={this.onClickLogout}><i className="fa fa-sign-out me-2" aria-hidden="true"></i>Sign out</Link></li>
                                     </ul>
                                 </div>
                             </>
@@ -55,15 +59,14 @@ class Navbar extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    logoutUser: () => dispatch(logoutUser())
-  })
 
-function mapState(stateRedux) {
+function mapStateToProps(state) {
     return {
-        isAuth: stateRedux.auth.isAuth,
-        email: stateRedux.auth.email
-    }
+        isAuth: state.auth.isAuth,
+        email: state.auth.email,
+        userId: state.auth.userId
+    };
 }
 
-export default connect(mapState, mapDispatchToProps)(Navbar);
+
+export default connect(mapStateToProps)(withRouter(Navbar));

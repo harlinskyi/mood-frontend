@@ -25,6 +25,7 @@ class LoginPage extends Component {
 
       const res = await accountService.login(model);
       const token = res.data;
+      // const token = res;
       console.log("Login response", res);
 
       localStorage.setItem("authToken", token);

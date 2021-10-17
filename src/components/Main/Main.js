@@ -13,16 +13,16 @@ import { connect } from "react-redux";
 class Main extends Component {
 
     render() {
-        const { isAuth } = this.props;
+        const { isAuth, userId } = this.props;
         return (
             <main className="container-lg">
                 {isAuth ?
                     <div className="row logged-in">
-                        <Route exact path="/userID">
+                        <Route exact path={`/${userId}/profile`}>
                             <LeftSide />
                             <RightSide />
                         </Route>
-                        <Route exact path="/userID/settings">
+                        <Route exact path={`/${userId}/settings`}>
                             <Settings />
                         </Route>
                         <Route exact path="/peoples">
@@ -31,7 +31,7 @@ class Main extends Component {
                     </div>
                     :
                     <div className="row-auto guest">
-                        <Route exact path={["/login"]}>
+                        <Route exact path={["/", "/login"]}>
                             <LoginPage />
                         </Route>
                         <Route exact path="/register">
@@ -46,7 +46,8 @@ class Main extends Component {
 
 function mapState(stateRedux) {
     return {
-        isAuth: stateRedux.auth.isAuth
+        isAuth: stateRedux.auth.isAuth,
+        userId: stateRedux.auth.userId
     }
 }
 
