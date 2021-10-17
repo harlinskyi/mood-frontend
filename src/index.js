@@ -3,22 +3,22 @@ import 'bootstrap/dist/js/bootstrap.js';
 import 'font-awesome/css/font-awesome.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, useStore } from 'react-redux';
+import { Provider } from 'react-redux';
 import { authUser } from './actions/auth';
 import App from './App';
 import store from './store';
 
 const token = localStorage.authToken;
 
-if(token) {
-  authUser(token, store.dispatch);
-  //store.dispatch({type: REGISTER_AUTH});
+if (token) {
+  console.log("User is logged-in [Token true]")
+  authUser(token, store.dispatch);;
 }
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App/>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

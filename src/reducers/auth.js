@@ -1,8 +1,7 @@
-import { REGISTER_AUTH, LOGIN_AUTH } from "../actions/types";
+import { REGISTER_AUTH, LOGIN_AUTH, LOGOUT,  } from "../actions/types";
+import store from "../store";
 
 const initialState = {
-    isAuth: false, 
-    username: ""
 };
 
 function authReducer(auth = initialState, action) {
@@ -12,15 +11,19 @@ function authReducer(auth = initialState, action) {
         case REGISTER_AUTH: {
             return {
                 isAuth: true,
-                // username: data.name
+                email: data.email,
+                role: data.role
             }
-            
         }
         case LOGIN_AUTH: {
             return {
                 isAuth: true,
-                // username: data.name
+                email: data.email,
+                role: data.role
             }
+        }
+        case LOGOUT : {
+            return {...auth, auth : {} }
         }
         default: 
             return auth;
