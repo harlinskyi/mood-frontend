@@ -31,9 +31,7 @@
     transition: color .3s;
 }
 
-.RightSide-profile-username span:hover {
-    color: #3a8697;
-}
+
 .RightSide-profile-nickname {
     color: #5B5B5B;
     text-align: center;
@@ -60,4 +58,13 @@
 }
 .RightSide-profile-list-info li span {
     margin-left: 10px;
+}
+
+.fa-link + span a {
+    text-decoration: none;
+    color: #439baf;
+}
+
+.fa-link + span a:hover {
+    color: #3a8697;
 }

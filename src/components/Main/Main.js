@@ -9,7 +9,6 @@ import Settings from './Settings/Settings';
 import Peoples from './Peoples/Peoples.js'
 import { connect } from "react-redux";
 
-
 class Main extends Component {
 
     render() {

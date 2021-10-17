@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import { Link, withRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
+import default_photo from '../../images/default_photo.jpg';
 
 class Navbar extends Component {
-
     onClickLogout = async (e) => {
         e.preventDefault();
         try {
@@ -19,7 +19,6 @@ class Navbar extends Component {
     }
     render() {
         const { isAuth, email, role, userId } = this.props;
-
         return (
             <header className="col-12 p-3 mb-3 border-bottom">
                 <div className="container-lg">
@@ -34,7 +33,7 @@ class Navbar extends Component {
                                 </ul>
                                 <div className="dropdown text-end">
                                     <Link to="#" className="d-block link-dark text-decoration-none dropdown-toggle" id="profile-menu" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="https://cdn.popcake.tv/wp-content/uploads/2020/09/pokrov90_118863382_963425367814685_6603924445247511753_n.jpg" alt="mdo" width="32" height="32" className="rounded-circle" />
+                                        <img src={default_photo} alt="mdo" width="32" height="32" className="rounded-circle" />
                                         <span className="header-username">{email}</span>
                                     </Link>
                                     <ul className="dropdown-menu text-small" aria-labelledby="profile-menu">

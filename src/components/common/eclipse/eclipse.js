@@ -5,7 +5,7 @@ class EclipseWidgetContainer extends Component {
     render() {
         return (
             <div className="eclipse">
-                <div class="loader"></div>
+                <div className="loader"></div>
             </div>
 
         );

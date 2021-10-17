@@ -40,12 +40,10 @@ class Register extends Component {
 
   onChangeHandler = (e) => {
     this.setState({[e.target.name]: e.target.value});
-}
+  }
 
   render() {
     const { email, password, errors } = this.state;
-    console.log("state - ", this.state);
-    console.log("regiser props - ", this.props);
 
     return (
       <div className="col-12 m-auto pt-5">

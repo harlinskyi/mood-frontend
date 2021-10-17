@@ -6,7 +6,6 @@ class AccountService {
     }
     login(data){
         return http.post("log-in", data);
-        // return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJyZXJha2FoQGdtYWlsLmNvbSIsInVzZXIiOiIxIiwicm9sZSI6InVzZXIifQ.BFrwzwTq26MGr0VxvZd9g0pgL_iP5HI9wAl9mmZ8tr8";
     }
 }
 

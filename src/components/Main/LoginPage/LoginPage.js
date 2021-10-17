@@ -12,8 +12,7 @@ class LoginPage extends Component {
     password: '',
     errors: {
       password: ''
-    },
-    loading: false
+    }
   };
 
   onSubmitHandler = async (e) => {
@@ -38,7 +37,7 @@ class LoginPage extends Component {
     } catch (error) {
       console.log("Виникли проблеми", error);
     }
-    this.setState({loading: true})
+    this.setState({loading: false})
   };
 
   onChangeHandler = (e) => {
