@@ -8,6 +8,7 @@ import Register from './Register/Register';
 import Settings from './Settings/Settings';
 import Peoples from './Peoples/Peoples.js'
 import { connect } from "react-redux";
+import Home from './Home/Home';
 
 class Main extends Component {
 

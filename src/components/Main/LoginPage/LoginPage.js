@@ -12,9 +12,9 @@ class LoginPage extends Component {
     password: '',
     errors: {
       password: ''
-    }
+    },
   };
-
+  
   onSubmitHandler = async (e) => {
     e.preventDefault();
     console.log("preventState: ", this.state);
@@ -31,13 +31,14 @@ class LoginPage extends Component {
 
       localStorage.setItem("authToken", token);
       const userId = authUser(token, this.props.dispatch);
-
       console.log("Усе пройшло добре //");
       this.props.history.push(`/${userId}/profile`);
     } catch (error) {
       console.log("Виникли проблеми", error);
     }
-    this.setState({loading: false})
+    finally {
+      this.setState({loading: false})
+    }
   };
 
   onChangeHandler = (e) => {
@@ -46,6 +47,7 @@ class LoginPage extends Component {
 
   render() {
     const { email, password, errors, loading } = this.state;
+    console.log("1", this.state)
     return (
       <div className="col-12 m-auto pt-5">
         <form
@@ -78,7 +80,7 @@ class LoginPage extends Component {
             />
             <label htmlFor="password">Password</label>
           </div>
-          <span className="login-errors">
+          <span className="login-errors hidden">
             <ul>
               <li>Some problem 1</li>
             </ul>

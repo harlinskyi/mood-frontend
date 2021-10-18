@@ -16,3 +16,6 @@
         flex-direction: column-reverse;
     }
 }
+main {
+    min-height: calc(100vh - 162px);
+}

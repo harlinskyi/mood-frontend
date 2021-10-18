@@ -1,7 +1,7 @@
 import './Register.css'
 import React, { Component } from 'react'
 import accountService from '../../../services/account.service';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { authUser } from '../../../actions/auth';
 import { connect } from 'react-redux';
 
@@ -12,11 +12,14 @@ class Register extends Component {
     errors: {
       password: "",
     },
+    success: false,
+    loading: false
   };
 
   onSubmitHandler = async (e) => {
     e.preventDefault();
     console.log("Hello state", this.state);
+    this.setState({loading: true})
     try {
         const model = {
             email: this.state.email,
@@ -30,11 +33,14 @@ class Register extends Component {
         // authUser(token, this.props.dispatch);
         // this.props.dispatch({type: REGISTER_AUTH});
 
-        console.log("Усе пройшло добре", res);
+        // console.log("Усе пройшло добре", res);
         
-        this.props.history.push("/");
+        // this.props.history.push("/");
     } catch (error) {
       console.log("Виникли проблеми");
+    }
+    finally {
+      this.setState({loading: false})
     }
   };
 
@@ -43,7 +49,7 @@ class Register extends Component {
   }
 
   render() {
-    const { email, password, errors } = this.state;
+    const { email, password, errors, success } = this.state;
 
     return (
       <div className="col-12 m-auto pt-5">
@@ -75,11 +81,14 @@ class Register extends Component {
             />
             <label htmlFor="password">Password</label>
           </div>
-          <span className="login-errors">
+          <span className="login-errors hidden">
             <ul>
               <li>Some problem 1</li>
             </ul>
           </span>
+          <div className={`alert alert-success ${success ? 'show' : 'hidden'}`}role="alert">
+              Реєстрація пройшла успішно, <Link to="/login" className="login-msg" >авторизуйтесь</Link> використовуючи дані при реєстрації!
+          </div>
           <button className="w-100 btn btn-lg btn-primary mb-2" type="submit">Register</button>
         </form>
       </div>

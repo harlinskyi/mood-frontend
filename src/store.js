@@ -11,7 +11,7 @@ const initialState = {
 const middleware = [thunk];
 
 const rootReducer = combineReducers({
-    auth: authReducer,
+    auth: authReducer
     // users: usersReducer
 });
 

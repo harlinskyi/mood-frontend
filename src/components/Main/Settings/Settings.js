@@ -32,6 +32,7 @@ class Settings extends Component {
         try {
             const response = await http.post(`get-user-profile?id=${userId}`);
             const userProfile = response.data;
+            console.log(userProfile);
             this.setState(userProfile);
         } catch (badresponse) {
             console.log("problem", badresponse);
@@ -46,7 +47,7 @@ class Settings extends Component {
         const { loading, bithDay, email, firstName, lastName, nickName, location, quote, link, sex } = this.state;
         return (
             <div className="col-10 m-auto pt-2">
-                <form className="form-edit p-4 mb-5 bg-body rounded-c shadow" onSubmit={this.handleSubmit} >
+                <form className="form-edit p-4 mb-3 bg-body rounded-c shadow" onSubmit={this.handleSubmit} >
                     <h1 className="h3 mb-3 fw-normal text-center fw-bold">Settings</h1>
 
                     {/* <div className="mb-2">

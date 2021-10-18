@@ -7,6 +7,10 @@ body {
   min-height: 240px;
 }
 
+footer {
+  background-color: #fff;
+}
+
 .rounded-c {
   border-radius: 10px;
 }
@@ -33,4 +37,18 @@ button[type="submit"]:hover {
 input[required] + label:after {
   content: " *";
   color: red;
+}
+
+.hidden {
+  display: none;
+}
+
+.showed {
+  display: block;
+}
+
+a.login-msg {
+  text-decoration: none;
+  color: #3a8292;
+  font-weight: 500;
 }
