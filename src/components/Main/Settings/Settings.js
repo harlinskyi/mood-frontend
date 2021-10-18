@@ -4,47 +4,64 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import http from '../../../http-common';
 import store from '../../../store';
 import EclipseWidget from '../../common/eclipse/eclipse'
+import accountService from '../../../services/account.service';
+import classnames from 'classnames';
 
 
 class Settings extends Component {
 
-    
+
     constructor(props) {
         super(props);
-        this.state = {};
-    
+        this.state = {
+            user: "",
+            userId: store.getState().auth.userId,
+            errors: "",
+            success: false
+        };
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-      }
+    }
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
+        console.log(this.state)
     }
 
-    handleSubmit(event) {
-        alert('A name was submitted');
+    async handleSubmit(event) {
         event.preventDefault();
+        this.setState({ loading: true })
+        try {
+            console.log(this.state.user);
+            var formData = new FormData();
+            for (const [key, value] of Object.entries(this.state.user)) {
+                formData.append(key, value)
+            }
+            await accountService.updateSettings(formData, this.state.userId);
+        }
+        catch (badresponse) {
+            this.setState({errors: badresponse})
+        }
+        this.setState({ loading: false })
     }
 
     async componentDidMount() {
-        const { userId } = store.getState().auth;
         this.setState({ loading: true })
         try {
-            const response = await http.post(`get-user-profile?id=${userId}`);
+            const response = await http.post(`get-user-profile?id=${this.state.userId}`);
             const userProfile = response.data;
             console.log(userProfile);
-            this.setState(userProfile);
+            this.setState({ user: userProfile });
         } catch (badresponse) {
             console.log("problem", badresponse);
-            // if(badresponse.response.status===401) {
-            //     this.props.history.push("/login");
-            // }
         }
         this.setState({ loading: false })
     }
 
     render() {
-        const { loading, bithDay, email, firstName, lastName, nickName, location, quote, link, sex } = this.state;
+        const { bithDay, email, firstName, lastName, nickName, location, quote, link, sex } = this.state.user;
+        const { loading, success, errors } = this.state
         return (
             <div className="col-10 m-auto pt-2">
                 <form className="form-edit p-4 mb-3 bg-body rounded-c shadow" onSubmit={this.handleSubmit} >
@@ -109,7 +126,14 @@ class Settings extends Component {
                         <label htmlFor="siteInput">Country</label>
                     </div>
 
-
+                    <div className={`alert alert-success ${success ? "show" : "hidden"}`} role="alert">
+                        Зміни успішно збережено!
+                    </div>
+                    <span className={`login-errors ${!errors == "" ? "show" : "hidden"}`}>
+                        <ul>
+                            <li>{errors.toString()}</li>
+                        </ul>
+                    </span>
                     <div className="col-12">
                         <button className="d-block m-auto w-50 btn btn-lg btn-primary mb-2" type="submit">Save Changes</button>
                     </div>

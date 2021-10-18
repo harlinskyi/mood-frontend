@@ -24,7 +24,8 @@ class RightSide extends Component {
             this.setState(userProfile)
 
         } catch (badresponse) {
-            console.log("problem", badresponse.response);
+            alert(badresponse)
+            console.log("problem", badresponse);
             // if(badresponse.response.status===401) {
             //     this.props.history.push("/login");
             // }
