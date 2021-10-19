@@ -55,6 +55,7 @@ class Settings extends Component {
             this.setState({ user: userProfile });
         } catch (badresponse) {
             console.log("problem", badresponse);
+            this.setState({errors: badresponse})
         }
         this.setState({ loading: false })
     }

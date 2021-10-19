@@ -5,20 +5,19 @@ import { withRouter } from "react-router-dom";
 import { authUser } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import EclipseWidget from '../../common/eclipse/eclipse';
+import classnames from 'classnames';
 class LoginPage extends Component {
 
   state = {
     email: '',
     password: '',
-    errors: {
-      password: ''
-    },
+    errors: {}
   };
-  
+
   onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log("preventState: ", this.state);
-    this.setState({loading: true})
+
+    this.setState({ loading: true })
     try {
       const model = {
         email: this.state.email,
@@ -26,18 +25,31 @@ class LoginPage extends Component {
       };
       const res = await accountService.login(model);
       const token = res.data;
-      // const token = res;
-      console.log("Login response", res);
-
       localStorage.setItem("authToken", token);
       const userId = authUser(token, this.props.dispatch);
-      console.log("Усе пройшло добре //");
       this.props.history.push(`/${userId}/profile`);
-    } catch (error) {
-      console.log("Виникли проблеми", error);
+
+    } catch (badresponse) {
+
+      const { errors } = badresponse.response.data
+      // let problems = {};
+
+      // if (errors.Email) {
+      //   let msg = "";
+      //   errors.Email.forEach((message) => { msg += message; });
+      //   problems.email = msg;
+      // }
+
+      // if (errors.Password) {
+      //   let msg = "";
+      //   errors.Password.forEach((message) => { msg += message; });
+      //   problems.password = msg;
+      // }
+      this.setState({ errors: errors });
     }
     finally {
-      this.setState({loading: false})
+      this.setState({ loading: false })
+      console.log("Local state:", this.state)
     }
   };
 
@@ -46,8 +58,7 @@ class LoginPage extends Component {
   };
 
   render() {
-    const { email, password, errors, loading } = this.state;
-    console.log("1", this.state)
+    const { email, password, loading, errors } = this.state;
     return (
       <div className="col-12 m-auto pt-5">
         <form
@@ -58,7 +69,7 @@ class LoginPage extends Component {
           <div className="form-floating mb-2">
             <input
               type="email"
-              className="form-control is-invalid"
+              className={classnames("form-control", { "is-invalid": errors.Email })}
               onChange={this.onChangeHandler}
               value={email}
               name="email"
@@ -66,12 +77,12 @@ class LoginPage extends Component {
               placeholder="name@example.com"
               data-tempmail="0"
             />
-            <label htmlFor="email">Email address</label>
+            <label htmlFor="email">Email</label>
           </div>
           <div className="form-floating mb-2" data-children-count="1">
             <input
               type="password"
-              className="form-control is-valid"
+              className={classnames("form-control", { "is-invalid": errors.Password })}
               onChange={this.onChangeHandler}
               value={password}
               name="password"
@@ -80,10 +91,12 @@ class LoginPage extends Component {
             />
             <label htmlFor="password">Password</label>
           </div>
-          <span className="login-errors hidden">
+          <span className={`login-errors`}>
             <ul>
-              <li>Some problem 1</li>
+              {errors.Password && <ErrorListItem error={errors.Password} />}
+              {errors.Email && <ErrorListItem error={errors.Email} />}
             </ul>
+
           </span>
           <button className="w-100 btn btn-lg btn-primary mb-2" type="submit">
             Sign in
@@ -97,3 +110,11 @@ class LoginPage extends Component {
 }
 
 export default connect(null)(withRouter(LoginPage))
+
+
+function ErrorListItem(props) {
+  return (
+    props.error.map((msg, index) =>
+      <li key={index}>{msg}</li>
+    ))
+}

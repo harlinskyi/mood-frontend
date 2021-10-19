@@ -26,7 +26,7 @@ class Register extends Component {
             password: this.state.password,
         };
         const res = await accountService.register(model);
-        
+        this.setState({success: true})
         const { token } = res.data;
 
         // localStorage.setItem("authToken", token);
@@ -86,7 +86,7 @@ class Register extends Component {
               <li>Some problem 1</li>
             </ul>
           </span>
-          <div className={`alert alert-success ${success ? 'show' : 'hidden'}`}role="alert">
+          <div className={`alert alert-success ${success ? 'show' : 'hidden'}`} role="alert">
               Реєстрація пройшла успішно, <Link to="/login" className="login-msg" >авторизуйтесь</Link> використовуючи дані при реєстрації!
           </div>
           <button className="w-100 btn btn-lg btn-primary mb-2" type="submit">Register</button>

@@ -1,6 +1,7 @@
 import './Article.css'
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
+import default_photo from "../../../../../images/default_photo.jpg"
 
 class Article extends Component {
     render() {
@@ -8,7 +9,7 @@ class Article extends Component {
             <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container">
                 <div className="row py-2 article-item-header">
                     <div className="col-auto">
-                    <img src="https://cdn.popcake.tv/wp-content/uploads/2020/09/pokrov90_118863382_963425367814685_6603924445247511753_n.jpg" alt="mdo" width="55" height="55"/>
+                    <img src={default_photo} alt="mdo" width="55" height="55"/>
                     </div>
                     <div className="col-auto">
                         <div className="row fs-5 article-item-header-username">Sveta Ivanova</div>
