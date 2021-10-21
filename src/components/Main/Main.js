@@ -9,20 +9,26 @@ import Settings from './Settings/Settings';
 import Peoples from './Peoples/Peoples.js'
 import { connect } from "react-redux";
 import Home from './Home/Home';
+import getUserIdFromUrl from '../../utils/getUserIdFromUrl'
 
 class Main extends Component {
 
+    state = {
+        queryUserId: getUserIdFromUrl(window.location.pathname)
+    }
+
     render() {
-        const { isAuth, userId } = this.props;
+        const { isAuth , userId } = this.props;
+        const { queryUserId } = this.state
         return (
             <main className="container-lg">
                 {isAuth ?
                     <div className="row logged-in">
-                        <Route exact path={`/${userId}/profile`}>
+                        <Route exact path={`/profile/${queryUserId}`}>
                             <LeftSide />
                             <RightSide />
                         </Route>
-                        <Route exact path={`/${userId}/settings`}>
+                        <Route exact path={`/settings/${userId}/`}>
                             <Settings />
                         </Route>
                         <Route exact path="/peoples">

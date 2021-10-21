@@ -27,17 +27,9 @@ class Register extends Component {
         };
         const res = await accountService.register(model);
         this.setState({success: true})
-        const { token } = res.data;
-
-        // localStorage.setItem("authToken", token);
-        // authUser(token, this.props.dispatch);
-        // this.props.dispatch({type: REGISTER_AUTH});
-
-        // console.log("Усе пройшло добре", res);
-        
-        // this.props.history.push("/");
     } catch (error) {
-      console.log("Виникли проблеми");
+      this.setState({success: false})
+      console.log("Виникли проблеми", error.response.data);
     }
     finally {
       this.setState({loading: false})
@@ -86,9 +78,11 @@ class Register extends Component {
               <li>Some problem 1</li>
             </ul>
           </span>
-          <div className={`alert alert-success ${success ? 'show' : 'hidden'}`} role="alert">
-              Реєстрація пройшла успішно, <Link to="/login" className="login-msg" >авторизуйтесь</Link> використовуючи дані при реєстрації!
+          {success &&
+          <div className="alert alert-success" role="alert">
+              Registration was successful, <Link to="/login" className="login-msg" >log in</Link> using the data when registering!
           </div>
+          }
           <button className="w-100 btn btn-lg btn-primary mb-2" type="submit">Register</button>
         </form>
       </div>

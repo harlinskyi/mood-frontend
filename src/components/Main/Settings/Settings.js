@@ -5,7 +5,6 @@ import http from '../../../http-common';
 import store from '../../../store';
 import EclipseWidget from '../../common/eclipse/eclipse'
 import accountService from '../../../services/account.service';
-import classnames from 'classnames';
 
 
 class Settings extends Component {
@@ -26,7 +25,6 @@ class Settings extends Component {
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
-        console.log(this.state)
     }
 
     async handleSubmit(event) {

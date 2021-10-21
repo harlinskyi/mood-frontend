@@ -33,3 +33,10 @@
   .login-errors li {
     color: #dc3545;
   }
+
+  a.login-msg {
+    /* text-decoration: none; */
+    color: #3a8292;
+    font-weight: 500;
+  }
+  

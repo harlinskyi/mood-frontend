@@ -47,8 +47,3 @@ input[required] + label:after {
   display: block;
 }
 
-a.login-msg {
-  text-decoration: none;
-  color: #3a8292;
-  font-weight: 500;
-}

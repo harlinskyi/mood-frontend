@@ -6,18 +6,19 @@ import http from "../../../../http-common";
 import store from "../../../../store" 
 import EclipseWidget from "../../../common/eclipse/eclipse.js"
 import default_photo from "../../../../images/default_photo.jpg"
+import getUserIdFromUrl from "../../../../utils/getUserIdFromUrl"
 
 
 class RightSide extends Component {
     
     state = {
-        loading: true
+        loading: true,
+        userId: getUserIdFromUrl(window.location.pathname)
     }
     async componentDidMount() {
         console.log(this.state.loading)
-        const { userId } = store.getState().auth;
         try {
-            const response = await http.post(`get-user-profile?id=${userId}`);
+            const response = await http.post(`get-user-profile?id=${this.state.userId}`);
             const userProfile = response.data;
             console.log(userProfile)
             console.log(this.state.loading)
@@ -51,7 +52,7 @@ class RightSide extends Component {
                             <i className="fa fa-envelope-o" aria-hidden="true"></i><span>{email}</span>
                         </li> }
                         {bithDay &&<li className="mb-1">
-                            <i className="fa fa-calendar" aria-hidden="true"></i><span>{bithDay}</span>
+                            <i className="fa fa-calendar" aria-hidden="true"></i><span>{bithDay.substr(0, 10)}</span>
                         </li> }
                         {location && <li className="mb-1">
                             <i className="fa fa-map-marker" aria-hidden="true"></i><span>{location}</span>
