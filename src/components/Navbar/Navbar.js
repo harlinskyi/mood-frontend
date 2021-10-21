@@ -6,13 +6,13 @@ import { logout } from '../../actions/auth';
 import default_photo from '../../images/default_photo.jpg';
 
 class Navbar extends Component {
+    
     onClickLogout = async (e) => {
         e.preventDefault();
         try {
             logout(this.props.dispatch);
             localStorage.removeItem('authToken');
             this.props.history.push("/");
-            console.log("Logout був успішний!");
           } catch (error) {
             console.log("Logout був неуспішний:", error);
           }
@@ -38,7 +38,7 @@ class Navbar extends Component {
                                     </Link>
                                     <ul className="dropdown-menu text-small" aria-labelledby="profile-menu">
                                         <li><Link className="dropdown-item" to={`/settings/${userId}`}><i className="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
-                                        <li><Link className="dropdown-item" to={`/profile/${userId}/`}><i className="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
+                                        <li><Link className="dropdown-item" to={`/profile/${userId}`}><i className="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
                                         <li><hr className="dropdown-divider" /></li>
                                         <li><Link className="dropdown-item" to="/" onClick={this.onClickLogout}><i className="fa fa-sign-out me-2" aria-hidden="true"></i>Sign out</Link></li>
                                     </ul>

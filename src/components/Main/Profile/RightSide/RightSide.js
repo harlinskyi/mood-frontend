@@ -6,32 +6,29 @@ import http from "../../../../http-common";
 import store from "../../../../store" 
 import EclipseWidget from "../../../common/eclipse/eclipse.js"
 import default_photo from "../../../../images/default_photo.jpg"
-import getUserIdFromUrl from "../../../../utils/getUserIdFromUrl"
 
 
 class RightSide extends Component {
     
     state = {
         loading: true,
-        userId: getUserIdFromUrl(window.location.pathname)
+        userId: 0
     }
     async componentDidMount() {
-        console.log(this.state.loading)
+        const { id } = this.props.match.params
+        this.setState({userId : id})
         try {
-            const response = await http.post(`get-user-profile?id=${this.state.userId}`);
+            const response = await http.post(`get-user-profile?id=${id}`);
             const userProfile = response.data;
-            console.log(userProfile)
-            console.log(this.state.loading)
             this.setState(userProfile)
 
         } catch (badresponse) {
             alert(badresponse)
-            console.log("problem", badresponse);
-            // if(badresponse.response.status===401) {
-            //     this.props.history.push("/login");
-            // }
         }
         this.setState({ loading: false })
+    }
+
+   async componentDidUpdate(prevProps) {
     }
 
     render() {

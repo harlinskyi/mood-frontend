@@ -1,8 +1,7 @@
 export default function getUserIdFromUrl(pathname) {
     let id = ''
     if (pathname != '' && pathname != null) {
-        id = /[0-9]+/g.exec(pathname)
+        id = /[0-9]+/g.exec(pathname)[0];
     }
-    console.log('id', id)
-    return id;
+    return (id);
 }
