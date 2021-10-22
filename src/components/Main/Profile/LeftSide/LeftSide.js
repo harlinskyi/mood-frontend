@@ -18,6 +18,8 @@ class LeftSide extends Component {
   }
 
   async componentDidMount() {
+    const { id } = this.props.match.params
+    console.log(id)
     this.setState({ loading: true });
     try {
       const response = await http.post(
@@ -38,8 +40,8 @@ class LeftSide extends Component {
     const { posts } = this.state;
     return (
       <div className="LeftSide col-9">
-        <p class="btn btn-add-post m-2 shadow-sm" type="submit" onClick="">
-          <i class="fa fa-plus me-1" aria-hidden="true"></i>Create post
+        <p className="btn btn-add-post m-2 shadow-sm" type="submit">
+          <i className="fa fa-plus me-1" aria-hidden="true"></i>Create post
         </p>
         <hr />
         <ul className="Leftside-list-article p-0">

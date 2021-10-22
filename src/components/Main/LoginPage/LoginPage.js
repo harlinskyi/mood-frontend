@@ -27,11 +27,12 @@ class LoginPage extends Component {
       const token = res.data;
       localStorage.setItem("authToken", token);
       const userId = authUser(token, this.props.dispatch);
-      this.props.history.push(`/${userId}/profile`);
+      this.props.history.push(`/profile/${userId}`);
 
     } catch (badresponse) {
 
-      const { errors } = badresponse.response.data
+      // console.log(badresponse.response.data)
+      // const { errors } = badresponse.response.data
       // let problems = {};
 
       // if (errors.Email) {
@@ -45,7 +46,7 @@ class LoginPage extends Component {
       //   errors.Password.forEach((message) => { msg += message; });
       //   problems.password = msg;
       // }
-      this.setState({ errors: errors });
+      // this.setState({ errors: errors });
     }
     finally {
       this.setState({ loading: false })
@@ -69,7 +70,7 @@ class LoginPage extends Component {
           <div className="form-floating mb-2">
             <input
               type="email"
-              className={classnames("form-control", { "is-invalid": errors.Email })}
+              className={"form-control"}
               onChange={this.onChangeHandler}
               value={email}
               name="email"
@@ -82,7 +83,7 @@ class LoginPage extends Component {
           <div className="form-floating mb-2" data-children-count="1">
             <input
               type="password"
-              className={classnames("form-control", { "is-invalid": errors.Password })}
+              className={"form-control"}
               onChange={this.onChangeHandler}
               value={password}
               name="password"
@@ -92,10 +93,10 @@ class LoginPage extends Component {
             <label htmlFor="password">Password</label>
           </div>
           <span className={`login-errors`}>
-            <ul>
+            {/* <ul>
               {errors.Password && <ErrorListItem error={errors.Password} />}
               {errors.Email && <ErrorListItem error={errors.Email} />}
-            </ul>
+            </ul> */}
 
           </span>
           <button className="w-100 btn btn-lg btn-primary mb-2" type="submit">

@@ -25,8 +25,8 @@ class Main extends Component {
       <main className="container-lg">
         {isAuth ? (
           <div className="row logged-in">
-            <Route path={`/profile/:id`} component={LeftSide}></Route>
-            <Route path={'/profile/:id'} component={RightSide}></Route>
+            <Route exact path={`/profile/:id`} component={LeftSide}></Route>
+            <Route exact path={'/profile/:id'} component={RightSide}></Route>
             <Route path={`/settings/${userId}`}>
               <Settings />
             </Route>
@@ -36,7 +36,7 @@ class Main extends Component {
           </div>
         ) : (
           <div className="row-auto guest">
-            <Route path={["/", "/login"]}>
+            <Route exact path={["/", "/login"]}>
               <LoginPage />
             </Route>
             <Route path="/register">

@@ -59,7 +59,7 @@ class Settings extends Component {
     }
 
     render() {
-        const { bithDay, email, firstName, lastName, nickName, location, quote, link, sex } = this.state.user;
+        const { birthDay, email, firstName, lastName, nickName, location, quote, link, sex } = this.state.user;
         const { loading, success, errors } = this.state
         return (
             <div className="col-10 m-auto pt-2">
@@ -104,7 +104,7 @@ class Settings extends Component {
                     </div>
 
                     <div className="form-floating mb-2">
-                        <input defaultValue={bithDay && bithDay.substr(0, 10)} onChange={this.handleChange} type="date" className="form-control" name="bithDay" id="datebirthInput" placeholder="datebirth" data-tempmail="0" />
+                        <input defaultValue={birthDay && birthDay.substr(0, 10)} onChange={this.handleChange} type="date" className="form-control" name="birthDay" id="datebirthInput" placeholder="datebirth" data-tempmail="0" />
                         <label htmlFor="datebirthInput">Birthday</label>
                     </div>
 
