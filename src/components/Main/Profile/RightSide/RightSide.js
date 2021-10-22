@@ -28,8 +28,7 @@ class RightSide extends Component {
         this.setState({ loading: false })
     }
 
-   async componentDidUpdate(prevProps) {
-    }
+   async componentDidUpdate(prevProps) {}
 
     render() {
         const { loading, email, firstName, lastName, sex, bithDay, nickName, location, quote, link } = this.state;

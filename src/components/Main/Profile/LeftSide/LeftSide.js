@@ -12,14 +12,13 @@ class LeftSide extends Component {
     this.state = {
       posts: [],
       userId: getUserIdFromUrl(window.location.pathname),
-      errors: "",
-      success: false,
+      errors: ""
     };
   }
 
   async componentDidMount() {
     const { id } = this.props.match.params
-    console.log(id)
+
     this.setState({ loading: true });
     try {
       const response = await http.post(

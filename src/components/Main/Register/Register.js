@@ -12,8 +12,7 @@ class Register extends Component {
     errors: {
       password: "",
     },
-    success: false,
-    loading: false
+    success: false
   };
 
   onSubmitHandler = async (e) => {
