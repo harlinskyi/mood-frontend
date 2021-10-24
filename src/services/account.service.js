@@ -10,6 +10,9 @@ class AccountService {
     updateSettings(data, userId) {
         return http.post("update-settings/" + userId , data)
     }
+    createPost(data, userId) {
+        return http.post("create-post/" + userId , data)
+    }
 }
 
 export default new AccountService();

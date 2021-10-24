@@ -31,7 +31,6 @@ class Settings extends Component {
         event.preventDefault();
         this.setState({ loading: true })
         try {
-            console.log(this.state.user);
             var formData = new FormData();
             for (const [key, value] of Object.entries(this.state.user)) {
                 formData.append(key, value)

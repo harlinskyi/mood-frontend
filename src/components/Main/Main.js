@@ -25,7 +25,7 @@ class Main extends Component {
       <main className="container-lg">
         {isAuth ? (
           <div className="row logged-in">
-            <Route exact path={`/profile/:id`} component={LeftSide}></Route>
+            <Route exact path={'/profile/:id'} component={LeftSide}></Route>
             <Route exact path={'/profile/:id'} component={RightSide}></Route>
             <Route path={`/settings/${userId}`}>
               <Settings />
@@ -52,7 +52,7 @@ class Main extends Component {
 function mapState(stateRedux) {
   return {
     isAuth: stateRedux.auth.isAuth,
-    userId: stateRedux.auth.userId,
+    userId: stateRedux.auth.userId
   };
 }
 

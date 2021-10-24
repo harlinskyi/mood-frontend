@@ -40,3 +40,7 @@
     font-weight: 500;
   }
   
+  .alert-success span {
+    text-decoration: underline;
+    font-style: italic;
+  }

@@ -30,27 +30,23 @@ class LoginPage extends Component {
       this.props.history.push(`/profile/${userId}`);
 
     } catch (badresponse) {
-
-      // console.log(badresponse.response.data)
-      // const { errors } = badresponse.response.data
-      // let problems = {};
-
-      // if (errors.Email) {
-      //   let msg = "";
-      //   errors.Email.forEach((message) => { msg += message; });
-      //   problems.email = msg;
-      // }
-
-      // if (errors.Password) {
-      //   let msg = "";
-      //   errors.Password.forEach((message) => { msg += message; });
-      //   problems.password = msg;
-      // }
-      // this.setState({ errors: errors });
+      this.setState({ success: false })
+      const { errors } = badresponse.response.data;
+      if (errors) {
+        let problem = {};
+        Object.entries(errors).forEach(([key, values]) => {
+          problem[key] = values.map((msg, index) => {
+            return (
+              <li key={index}>{msg}</li>
+            );
+          });
+        });
+        this.setState({ errors: problem });
+      }
+      console.log(badresponse);
     }
     finally {
       this.setState({ loading: false })
-      console.log("Local state:", this.state)
     }
   };
 
@@ -70,7 +66,7 @@ class LoginPage extends Component {
           <div className="form-floating mb-2">
             <input
               type="email"
-              className={"form-control"}
+              className={classnames("form-control", {"is-invalid": errors.email})}
               onChange={this.onChangeHandler}
               value={email}
               name="email"
@@ -83,7 +79,7 @@ class LoginPage extends Component {
           <div className="form-floating mb-2" data-children-count="1">
             <input
               type="password"
-              className={"form-control"}
+              className={classnames("form-control", {"is-invalid": errors.email})}
               onChange={this.onChangeHandler}
               value={password}
               name="password"

@@ -5,6 +5,8 @@ import http from "../../../../http-common";
 import default_photo from "../../../../images/default_photo.jpg";
 import getUserIdFromUrl from "../../../../utils/getUserIdFromUrl";
 import { connect } from "react-redux";
+import accountService from "../../../../services/account.service";
+import EclipseWidget from "../../../common/eclipse/eclipse";
 
 class LeftSide extends Component {
   constructor(props) {
@@ -12,19 +14,18 @@ class LeftSide extends Component {
     this.state = {
       posts: [],
       userId: getUserIdFromUrl(window.location.pathname),
-      errors: ""
+      errors: "",
+      loading: false
     };
   }
 
   async componentDidMount() {
-    const { id } = this.props.match.params
-
-    this.setState({ loading: true });
+    const { id } = this.props.match.params;
+    this.setState({ loading: true, userId: id });
     try {
       const response = await http.post(
         `get-user-posts?id=${this.state.userId}`
       );
-
       const userPosts = response.data;
 
       this.setState({ posts: userPosts });
@@ -35,17 +36,93 @@ class LeftSide extends Component {
     this.setState({ loading: false });
   }
 
+  async handleSubmitAddPost(event) {
+    event.preventDefault();
+    this.setState({ loading: true });
+    try {
+      let formData = new FormData();
+      const timeStamp = new Date(Date.now()).toISOString();
+      formData.append("creationDate", timeStamp);
+      formData.append("description", 'test');
+      const res = await accountService.createPost(formData, store.getState().auth.userId);
+      console.log(res);
+    } catch (badresponse) {
+      console.log(badresponse);
+      this.setState({ errors: badresponse });
+    }
+    this.setState({ loading: false });
+  }
+
   render() {
-    const { posts } = this.state;
+    const { posts, loading } = this.state;
     return (
       <div className="LeftSide col-9">
-        <p className="btn btn-add-post m-2 shadow-sm" type="submit">
+        <button
+          type="button"
+          className="btn btn-add-post shadow-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#addPostModal"
+          data-bs-whatever="@mdo"
+        >
           <i className="fa fa-plus me-1" aria-hidden="true"></i>Create post
-        </p>
+        </button>
         <hr />
         <ul className="Leftside-list-article p-0">
-          {posts != "" ? <ArticleList posts={posts} /> : "No post"}
+          {posts !== "" ? <ArticleList posts={posts} /> : "No post"}
         </ul>
+
+        {/* Modal start */}
+        <div
+          className="modal fade"
+          id="addPostModal"
+          tabIndex="-1"
+          aria-labelledby="addPostModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="addPostModalLabel">
+                  New post
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <form onSubmit={this.handleSubmitAddPost}>
+                <div className="modal-body">
+                  <div className="mb-3">
+                    <label htmlFor="message-text" className="col-form-label">
+                      Description:
+                    </label>
+                    <textarea
+                      name="description"
+                      className="form-control"
+                      id="message-text"
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="submit" className="btn">
+                    Create
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {/* Modal end */}
+        {loading && <EclipseWidget />}
       </div>
     );
   }

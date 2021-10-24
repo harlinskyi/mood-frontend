@@ -4,39 +4,50 @@ import accountService from '../../../services/account.service';
 import { Link, withRouter } from 'react-router-dom';
 import { authUser } from '../../../actions/auth';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 
 class Register extends Component {
   state = {
     email: "",
     password: "",
-    errors: {
-      password: "",
-    },
-    success: false
+    errors: {}
   };
 
   onSubmitHandler = async (e) => {
     e.preventDefault();
     console.log("Hello state", this.state);
-    this.setState({loading: true})
+    this.setState({ loading: true })
     try {
-        const model = {
-            email: this.state.email,
-            password: this.state.password,
-        };
-        const res = await accountService.register(model);
-        this.setState({success: true})
-    } catch (error) {
-      this.setState({success: false})
-      console.log("Виникли проблеми", error.response.data);
+      const model = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+      await accountService.register(model);
+      this.setState({ success: true, errors: {} })
+    } catch (badresponse) {
+      this.setState({ success: false })
+      const { errors } = badresponse.response.data;
+      if (errors) {
+        let problem = {};
+        Object.entries(errors).forEach(([key, values]) => {
+          problem[key] = values.map((msg, index) => {
+            return (
+              <li key={index}>{msg}</li>
+            );
+          });
+        });
+        this.setState({ errors: problem });
+      }
+      console.log("Виникли проблеми ", badresponse);
+
     }
     finally {
-      this.setState({loading: false})
+      this.setState({ loading: false })
     }
   };
 
   onChangeHandler = (e) => {
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
@@ -50,36 +61,40 @@ class Register extends Component {
           <div className="form-floating mb-2">
             <input
               type="email"
-              className="form-control"
+              className={classnames("form-control", { "is-invalid": errors.Email })}
               value={email}
               id="email"
               name="email"
               placeholder="name@example.com"
               data-tempmail="0"
-              onChange = {this.onChangeHandler}
+              onChange={this.onChangeHandler}
             />
             <label htmlFor="email">Email</label>
           </div>
+          <ul>
+            {!!errors.Email && errors.Email}
+          </ul>
           <div className="form-floating mb-2" data-children-count="1">
             <input
               type="password"
-              className="form-control"
+              className={classnames("form-control", { "is-invalid": errors.Password })}
               value={password}
               id="password"
               name="password"
               placeholder="Password"
-              onChange = {this.onChangeHandler}
+              onChange={this.onChangeHandler}
+              autoComplete="false"
             />
             <label htmlFor="password">Password</label>
           </div>
-          <span className="login-errors hidden">
+          <span className="login-errors">
             <ul>
-              <li>Some problem 1</li>
+              {!!errors.Password && errors.Password}
             </ul>
           </span>
-          {success &&
-          <div className="alert alert-success" role="alert">
-              Registration was successful, <Link to="/login" className="login-msg" >log in</Link> using the data when registering!
+          {!!success &&
+            <div className="alert alert-success" role="alert">
+              Registration with email <span>{email}</span> was successful, please <Link to="/login" className="login-msg" >log in</Link>!
           </div>
           }
           <button className="w-100 btn btn-lg btn-primary mb-2" type="submit">Register</button>
