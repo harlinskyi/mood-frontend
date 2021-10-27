@@ -31,8 +31,8 @@ class LoginPage extends Component {
 
     } catch (badresponse) {
       this.setState({ success: false })
-      const { errors } = badresponse.response.data;
-      if (errors) {
+      if (badresponse.response.data.errors) {
+        const { errors } = badresponse.response.data;
         let problem = {};
         Object.entries(errors).forEach(([key, values]) => {
           problem[key] = values.map((msg, index) => {
@@ -43,7 +43,9 @@ class LoginPage extends Component {
         });
         this.setState({ errors: problem });
       }
-      console.log(badresponse);
+      else if (badresponse.response.data) {
+        this.setState({ errors: badresponse.response.data });
+      }
     }
     finally {
       this.setState({ loading: false })
@@ -89,10 +91,10 @@ class LoginPage extends Component {
             <label htmlFor="password">Password</label>
           </div>
           <span className={`login-errors`}>
-            {/* <ul>
+            <ul>
               {errors.Password && <ErrorListItem error={errors.Password} />}
               {errors.Email && <ErrorListItem error={errors.Email} />}
-            </ul> */}
+            </ul>
 
           </span>
           <button className="w-100 btn btn-lg btn-primary mb-2" type="submit">

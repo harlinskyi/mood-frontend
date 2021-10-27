@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { authUser } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import EclipseWidget from '../../common/eclipse/eclipse';
 
 class Register extends Component {
   state = {
@@ -26,8 +27,8 @@ class Register extends Component {
       this.setState({ success: true, errors: {} })
     } catch (badresponse) {
       this.setState({ success: false })
-      const { errors } = badresponse.response.data;
-      if (errors) {
+      if (badresponse.response.data.errors) {
+        const { errors } = badresponse.response.data;
         let problem = {};
         Object.entries(errors).forEach(([key, values]) => {
           problem[key] = values.map((msg, index) => {
@@ -51,7 +52,7 @@ class Register extends Component {
   }
 
   render() {
-    const { email, password, errors, success } = this.state;
+    const { email, password, errors, success, loading } = this.state;
 
     return (
       <div className="col-12 m-auto pt-5">
@@ -61,7 +62,7 @@ class Register extends Component {
           <div className="form-floating mb-2">
             <input
               type="email"
-              className={classnames("form-control", { "is-invalid": errors.Email })}
+              className={classnames("form-control", { "is-invalid": errors.email })}
               value={email}
               id="email"
               name="email"
@@ -71,13 +72,15 @@ class Register extends Component {
             />
             <label htmlFor="email">Email</label>
           </div>
+          <span className="login-errors">
           <ul>
-            {!!errors.Email && errors.Email}
+            {!!errors.email && errors.email}
           </ul>
+          </span>
           <div className="form-floating mb-2" data-children-count="1">
             <input
               type="password"
-              className={classnames("form-control", { "is-invalid": errors.Password })}
+              className={classnames("form-control", { "is-invalid": errors.password })}
               value={password}
               id="password"
               name="password"
@@ -89,7 +92,7 @@ class Register extends Component {
           </div>
           <span className="login-errors">
             <ul>
-              {!!errors.Password && errors.Password}
+              {!!errors.password && errors.password}
             </ul>
           </span>
           {!!success &&
@@ -99,6 +102,7 @@ class Register extends Component {
           }
           <button className="w-100 btn btn-lg btn-primary mb-2" type="submit">Register</button>
         </form>
+        {loading && <EclipseWidget />}
       </div>
     );
   }

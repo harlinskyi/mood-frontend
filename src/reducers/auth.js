@@ -6,9 +6,7 @@ const initialState = {
 
 function authReducer(auth = initialState, action) {
     const {type, data} = action;
-
-    console.log("reducer data", data);
-
+    
     switch(type){
         case REGISTER_AUTH: {
             return {

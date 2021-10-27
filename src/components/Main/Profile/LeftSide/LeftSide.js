@@ -13,6 +13,7 @@ class LeftSide extends Component {
     super(props);
     this.state = {
       posts: [],
+      postAuthor: [],
       userId: getUserIdFromUrl(window.location.pathname),
       errors: "",
       loading: false
@@ -26,18 +27,18 @@ class LeftSide extends Component {
       const response = await http.post(
         `get-user-posts?id=${this.state.userId}`
       );
-      const userPosts = response.data;
-
-      this.setState({ posts: userPosts });
+      const userPosts = response.data.posts;
+      const userPostName = response.data.userInfo;
+      this.setState({ posts: userPosts, postAuthor: userPostName });
     } catch (badresponse) {
       console.log("problem", badresponse);
       this.setState({ errors: badresponse });
     }
     this.setState({ loading: false });
   }
-
-  async handleSubmitAddPost(event) {
-    event.preventDefault();
+  
+  handleSubmitAddPost = async (e) => {
+    e.preventDefault();
     this.setState({ loading: true });
     try {
       let formData = new FormData();
@@ -54,7 +55,7 @@ class LeftSide extends Component {
   }
 
   render() {
-    const { posts, loading } = this.state;
+    const { posts, loading, postAuthor } = this.state;
     return (
       <div className="LeftSide col-9">
         <button
@@ -68,7 +69,7 @@ class LeftSide extends Component {
         </button>
         <hr />
         <ul className="Leftside-list-article p-0">
-          {posts !== "" ? <ArticleList posts={posts} /> : "No post"}
+          {posts !== "" ? <ArticleList posts={posts} author={postAuthor} /> : "No post"}
         </ul>
 
         {/* Modal start */}
@@ -129,15 +130,16 @@ class LeftSide extends Component {
 }
 
 function ArticleList(props) {
-  const postlist = props.posts.map((post) => (
-    <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container">
+  const {firstName , lastName } = props.author;
+  const postlist = props.posts.map((post, index) => (
+    <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container" key={index}>
       <div className="row py-2 article-item-header">
         <div className="col-auto">
           <img src={default_photo} alt="mdo" width="55" height="55" />
         </div>
         <div className="col-auto">
           <div className="row fs-5 article-item-header-username">
-            Sveta Ivanova
+            {firstName} {lastName}
           </div>
           <div className="row article-item-header-date">
             {post.creationDate}
