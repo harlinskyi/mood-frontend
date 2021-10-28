@@ -64,7 +64,7 @@ function User(props) {
                     <span>{lastName} {firstName}</span>
                 </div>
                 <div className="fs-6 text-center peoples-user nickname">
-                    <span>@sveta_666</span>
+                    <span>@{nickname}</span>
                 </div>
                 <div className="fs-6 text-center peoples-user nickname">
                     <span><i className="fa fa-envelope-o me-1" aria-hidden="true"></i>{email}</span>
