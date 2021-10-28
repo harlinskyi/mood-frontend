@@ -73,6 +73,7 @@ const LoginPage = () => {
               placeholder="name@example.com"
               data-tempmail="0"
               autoComplete="username"
+              label="Email"
             />
 
             <FormTextInput
@@ -81,6 +82,7 @@ const LoginPage = () => {
               id="floatingPassword"
               placeholder="Password"
               autoComplete="current-password"
+              label="Password"
             />
 
             <button type="submit" className="w-100 btn btn-lg btn-primary mb-2">Sign in</button>

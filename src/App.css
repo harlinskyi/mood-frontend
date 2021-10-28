@@ -29,7 +29,9 @@ button[type="submit"] {
   border-radius: 10px;
 }
 
-button[type="submit"]:hover {
+button[type="submit"]:hover,
+button[type="submit"]:active,
+button[type="submit"]:focus {
   background-color: #3a8292;
   border: 1px solid #32707e;
 }

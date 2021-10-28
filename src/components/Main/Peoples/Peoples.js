@@ -21,7 +21,6 @@ class Peoples extends Component {
 export default Peoples;
 
 function User(props) {
-    console.log(props)
         const { id } = props
         return (
             <div className="col-2 peoples-user-card mt-5 mx-auto">
