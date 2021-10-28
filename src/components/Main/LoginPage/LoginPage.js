@@ -1,12 +1,11 @@
 import './LoginPage.css'
 import React, { useRef, useState } from 'react';
-import { Formik, Form, useField } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import accountService from '../../../services/account.service';
 import FormTextInput from '../../common/formik-components/FormTextInput';
 import { useDispatch } from 'react-redux';
 import { authUser } from '../../../actions/auth';
-import { push } from "connected-react-router";
 import EclipseWidget from '../../common/eclipse/eclipse';
 import { useHistory } from 'react-router';
 

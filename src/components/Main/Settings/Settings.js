@@ -129,7 +129,7 @@ class Settings extends Component {
                     <div className={`alert alert-success ${success ? "show" : "hidden"}`} role="alert">
                         Зміни успішно збережено!
                     </div>
-                    <span className={`login-errors ${!errors == "" ? "show" : "hidden"}`}>
+                    <span className={`login-errors ${!errors === "" ? "show" : "hidden"}`}>
                         <ul>
                             <li>{errors.toString()}</li>
                         </ul>

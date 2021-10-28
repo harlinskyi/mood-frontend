@@ -1,6 +1,6 @@
 import './Navbar.css';
 import React, { Component } from "react";
-import { Link, withRouter, Route } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import default_photo from '../../images/default_photo.jpg';

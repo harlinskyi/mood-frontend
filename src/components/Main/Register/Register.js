@@ -2,7 +2,6 @@ import './Register.css'
 import React, { Component } from 'react'
 import accountService from '../../../services/account.service';
 import { Link, withRouter } from 'react-router-dom';
-import { authUser } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import EclipseWidget from '../../common/eclipse/eclipse';

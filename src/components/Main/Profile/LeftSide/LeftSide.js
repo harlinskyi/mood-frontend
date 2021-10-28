@@ -31,8 +31,8 @@ class LeftSide extends Component {
       const userPostName = response.data.userInfo;
       this.setState({ posts: userPosts, postAuthor: userPostName });
     } catch (badresponse) {
-      console.log("problem", badresponse);
-      this.setState({ errors: badresponse });
+      // console.log("Problem:", badresponse.response.data);
+      this.setState({ errors: badresponse.response.data});
     }
     this.setState({ loading: false });
   }
@@ -48,14 +48,14 @@ class LeftSide extends Component {
       const res = await accountService.createPost(formData, store.getState().auth.userId);
       console.log(res);
     } catch (badresponse) {
-      console.log(badresponse);
-      this.setState({ errors: badresponse });
+      console.log(badresponse.response);
+      this.setState({ errors: badresponse.response });
     }
     this.setState({ loading: false });
   }
 
   render() {
-    const { posts, loading, postAuthor } = this.state;
+    const { posts, loading, postAuthor, erros } = this.state;
     return (
       <div className="LeftSide col-9">
         <button
@@ -123,6 +123,7 @@ class LeftSide extends Component {
           </div>
         </div>
         {/* Modal end */}
+
         {loading && <EclipseWidget />}
       </div>
     );
