@@ -8,11 +8,11 @@ import Footer from "./components/Main/Footer/Footer";
 class App extends Component {
   render() {
     return (
-      <Router>
+      <>
         <Navbar />
         <Main />
         <Footer />
-      </Router>
+      </>
     );
   }
 }

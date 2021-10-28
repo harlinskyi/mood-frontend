@@ -18,7 +18,7 @@ class Navbar extends Component {
           }
     }
     render() {
-        const { isAuth, email, role, userId } = this.props;
+        const { isAuth, email, role , userId } = this.props;
         return (
             <header className="col-12 p-3 mb-3 border-bottom">
                 <div className="container-lg">
@@ -29,6 +29,9 @@ class Navbar extends Component {
                                 <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                                     <li>
                                         <Link to="/peoples" className="nav-link px-2 link-secondary">Peoples</Link>
+                                        {role === 'Admin' &&
+                                        <Link to="/peoples" className="nav-link px-2 link-secondary">Admin Panel</Link>
+                                        }
                                     </li>
                                 </ul>
                                 <div className="dropdown text-end">

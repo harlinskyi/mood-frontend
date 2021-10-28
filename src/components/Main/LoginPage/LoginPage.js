@@ -6,6 +6,7 @@ import { authUser } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import EclipseWidget from '../../common/eclipse/eclipse';
 import classnames from 'classnames';
+import * as yup from 'yup';
 class LoginPage extends Component {
 
   state = {

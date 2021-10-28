@@ -9,6 +9,7 @@ import default_photo from "../../../../images/default_photo.jpg"
 import getUserIdFromUrl from '../../../../utils/getUserIdFromUrl';
 
 
+
 class RightSide extends Component {
 
     constructor(props) {
@@ -19,7 +20,7 @@ class RightSide extends Component {
           errors: ""
         };
       }
-
+      
     async componentDidMount() {
         const { id } = this.props.match.params
         this.setState({ loading: true, userId: id });
@@ -35,8 +36,6 @@ class RightSide extends Component {
             this.setState({ loading: false })
         }
     }
-
-   async componentDidUpdate(prevProps) {}
 
     render() {
         const { loading, email, firstName, lastName, sex, bithDay, nickName, location, quote, link } = this.state;
@@ -55,7 +54,7 @@ class RightSide extends Component {
                         {email && <li className="mb-1">
                             <i className="fa fa-envelope-o" aria-hidden="true"></i><span>{email}</span>
                         </li> }
-                        {bithDay &&<li className="mb-1">
+                        {bithDay && <li className="mb-1">
                             <i className="fa fa-calendar" aria-hidden="true"></i><span>{bithDay.substr(0, 10)}</span>
                         </li> }
                         {location && <li className="mb-1">

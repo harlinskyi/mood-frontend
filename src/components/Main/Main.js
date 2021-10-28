@@ -8,13 +8,12 @@ import {
 } from "react-router-dom";
 import LeftSide from "./Profile/LeftSide/LeftSide";
 import RightSide from "./Profile/RightSide/RightSide";
+// import LoginPage from "./LoginPage/LoginPage1";
 import LoginPage from "./LoginPage/LoginPage";
 import Register from "./Register/Register";
 import Settings from "./Settings/Settings";
 import Peoples from "./Peoples/Peoples.js";
 import { connect } from "react-redux";
-import Home from "./Home/Home";
-import getUserIdFromUrl from "../../utils/getUserIdFromUrl";
 
 class Main extends Component {
   state = {};
@@ -25,23 +24,15 @@ class Main extends Component {
       <main className="container-lg">
         {isAuth ? (
           <div className="row logged-in">
-            <Route exact path={'/profile/:id'} component={LeftSide}></Route>
-            <Route exact path={'/profile/:id'} component={RightSide}></Route>
-            <Route path={`/settings/${userId}`}>
-              <Settings />
-            </Route>
-            <Route path="/peoples">
-              <Peoples />
-            </Route>
+            <Route exact path={'/profile/:id'} component={(props) => <LeftSide {...props} key={window.location.pathname} />}></Route>
+            <Route exact path={'/profile/:id'} component={(props) => <RightSide {...props} key={window.location.pathname} />}></Route>
+            <Route path={`/settings/${userId}`} component={Settings}></Route>
+            <Route exact path="/peoples" component={Peoples}></Route>
           </div>
         ) : (
           <div className="row-auto guest">
-            <Route exact path={["/", "/login"]}>
-              <LoginPage />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
+            <Route exact path={["/", "/login"]} component={LoginPage}></Route>
+            <Route exact path="/register" component={Register}></Route>
           </div>
         )}
       </main>
