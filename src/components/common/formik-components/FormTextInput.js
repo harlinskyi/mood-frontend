@@ -12,7 +12,7 @@ const FormTextInput = ({ label, ...props }) => {
             <label htmlFor={props.id || props.name}>{label}</label>
             {meta.touched && meta.error ? (
                 <div className="invalid-feedback">
-                    {meta.error}
+                    <li>{meta.error}</li>
                 </div>
             ) : null}
         </div>

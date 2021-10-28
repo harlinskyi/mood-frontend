@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import LeftSide from "./Profile/LeftSide/LeftSide";
 import RightSide from "./Profile/RightSide/RightSide";
-// import LoginPage from "./LoginPage/LoginPage1";
 import LoginPage from "./LoginPage/LoginPage";
 import Register from "./Register/Register";
 import Settings from "./Settings/Settings";
