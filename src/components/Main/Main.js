@@ -13,7 +13,7 @@ import Register from "./Register/Register";
 import Settings from "./Settings/Settings";
 import Peoples from "./Peoples/Peoples.js";
 import { connect } from "react-redux";
-import PageNotFound from "../common/PageNotFound/PageNotFound";
+import PageNotFound from "../common/pageNotFound/PageNotFound";
 
 class Main extends Component {
   state = {};
@@ -26,9 +26,8 @@ class Main extends Component {
           <div className="row logged-in">
             <Route exact path={'/profile/:id'} component={(props) => <LeftSide {...props} key={window.location.pathname} />}></Route>
             <Route exact path={'/profile/:id'} component={(props) => <RightSide {...props} key={window.location.pathname} />}></Route>
-            <Route path={`/settings/${userId}`} component={Settings}></Route>
+            <Route path={`/settings`} component={Settings}></Route>
             <Route exact path="/peoples" component={Peoples}></Route>
-            <Route exact path="/404" component={PageNotFound}></Route>
           </div>
         ) : (
           <div className="row-auto guest">
@@ -36,6 +35,7 @@ class Main extends Component {
             <Route exact path="/register" component={Register}></Route>
           </div>
         )}
+          <Route exact path="/404" component={PageNotFound}></Route>
       </main>
     );
   }

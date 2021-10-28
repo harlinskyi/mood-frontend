@@ -6,7 +6,9 @@ body {
   min-width: 240px;
   min-height: 240px;
 }
-
+.cursorNotAllowed {
+  cursor: not-allowed;
+}
 footer {
   background-color: #fff;
 }

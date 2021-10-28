@@ -11,10 +11,11 @@
     width: 100%;
     transition: background-color 0.3s;
     display: block;
-  }
+}
   
 .peoples-user-card a.peoples-user-button:hover {
     background-color: #3a8292;
+    color: #fff;
 }
 
 .peoples-user-photo {
@@ -41,6 +42,17 @@
     color: initial;
 }
 
-.peoples-user-nickname span{
+.peoples-user.nickname {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.peoples-user.nickname:hover {
+    text-overflow: clip;
+    white-space: normal;
+    word-break: break-all;
+}
+.peoples-user.nickname span {
+    white-space:pre-wrap;
     color: #888888;
 }

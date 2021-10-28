@@ -4,6 +4,8 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import default_photo from '../../images/default_photo.jpg';
+import store from '../../store';
+import getBaseUrl from '../../utils/getBaseUrl';
 
 class Navbar extends Component {
     
@@ -36,11 +38,11 @@ class Navbar extends Component {
                                 </ul>
                                 <div className="dropdown text-end">
                                     <Link to="#" className="d-block link-dark text-decoration-none dropdown-toggle" id="profile-menu" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src={default_photo} alt="mdo" width="32" height="32" className="rounded-circle" />
+                                    <img src={default_photo} alt="mdo" width="32" height="32" className="rounded-circle" />
                                         <span className="header-username">{email}</span>
                                     </Link>
                                     <ul className="dropdown-menu text-small" aria-labelledby="profile-menu">
-                                        <li><Link className="dropdown-item" to={`/settings/${userId}`}><i className="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
+                                        <li><Link className="dropdown-item" to={`/settings`}><i className="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
                                         <li><Link className="dropdown-item" to={`/profile/${userId}`}><i className="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
                                         <li><hr className="dropdown-divider" /></li>
                                         <li><Link className="dropdown-item" to="/" onClick={this.onClickLogout}><i className="fa fa-sign-out me-2" aria-hidden="true"></i>Sign out</Link></li>

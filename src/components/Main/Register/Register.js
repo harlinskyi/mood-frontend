@@ -26,6 +26,7 @@ class Register extends Component {
       this.setState({ success: true, errors: {} })
     } catch (badresponse) {
       this.setState({ success: false })
+      console.log(badresponse.response);
       if (badresponse.response.data.errors) {
         const { errors } = badresponse.response.data;
         let problem = {};

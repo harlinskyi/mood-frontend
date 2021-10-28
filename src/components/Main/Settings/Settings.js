@@ -5,7 +5,9 @@ import http from '../../../http-common';
 import store from '../../../store';
 import EclipseWidget from '../../common/eclipse/eclipse'
 import accountService from '../../../services/account.service';
-
+import isNotEmpty from '../../../utils/isNotEmpty';
+import getBaseUrl from '../../../utils/getBaseUrl';
+import default_photo from "../../../images/default_photo.jpg"
 
 class Settings extends Component {
     constructor(props) {
@@ -20,7 +22,6 @@ class Settings extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
     handleChange(event) {
         this.setState({ user : {[event.target.name]: event.target.value }});
     }
@@ -28,22 +29,36 @@ class Settings extends Component {
     handleSubmit = async (event) => {
         event.preventDefault();
         let targ = event.target;
-        console.log(event);
 
         this.setState({ loading: true })
         try {
             var formData = new FormData();
             Object.entries(targ).forEach(([key, element]) => {
-                if (element.name !== undefined && element.name !== '') {
-                    formData.append(element.name, element.value)
+                if (isNotEmpty(element.name)) {
+                    if (element.name === 'Image') {
+                        if (element.files[0]) {
+                            formData.append(element.name, element.files[0])
+                        }
+                    }
+                    else {
+                        formData.append(element.name, element.value)
+                    }
                 }
-              });
-            await accountService.updateSettings(formData, this.state.userId);
+            });
+            const res = await accountService.updateSettings(formData, this.state.userId);
+            console.log(res.status);
+            // const result = await http.post(`get-user-profile?id=${this.state.userId}`);
+            // console.log(result.data)
+            // this.setState({ user: {Image : Image }});
         }
         catch (badresponse) {
-            this.setState({errors: badresponse})
+            console.log(badresponse)
+            this.setState({ errors: badresponse })
         }
-        this.setState({ loading: false })
+        finally {
+            this.forceUpdate();
+            this.setState({ loading: false })
+        }
     }
 
     async componentDidMount() {
@@ -60,15 +75,21 @@ class Settings extends Component {
     }
 
     render() {
-        const { birthDay, email, firstName, lastName, nickName, location, quote, link, sex } = this.state.user;
+        const { birthDay, email, firstName, lastName, nickName, location, quote, link, sex, image } = this.state.user;
         const { loading, success, errors } = this.state
         return (
             <div className="col-10 m-auto pt-2">
                 <form className="form-edit p-4 mb-3 bg-body rounded-c shadow" id="formUserSettings" onSubmit={this.handleSubmit} >
                     <h1 className="h3 mb-3 fw-normal text-center fw-bold">Settings</h1>
-
+                    <div className="mb-2 imgUser">
+                        <img alt={image} src={image ? getBaseUrl() + image : default_photo} />
+                    </div>
                     <div className="mb-2">
                         <input type="file" className="form-control" id="inputGroupFile02" name="Image" />
+                    </div>
+                    <div className="form-floating mb-2" required>
+                        <input defaultValue={email} disabled readOnly type="email" onChange={this.handleChange} className="form-control cursorNotAllowed" name="Email" id="emailInput" placeholder="email@example.com" data-tempmail="0" required />
+                        <label htmlFor="emailInput">Email</label>
                     </div>
 
                     <div className="form-floating mb-2">
@@ -91,10 +112,6 @@ class Settings extends Component {
                         <label htmlFor="nicknameInput">Nickname</label>
                     </div>
 
-                    <div className="form-floating mb-2" required>
-                        <input defaultValue={email} type="email" onChange={this.handleChange} className="form-control" name="Email" id="emailInput" placeholder="email@example.com" data-tempmail="0" required />
-                        <label htmlFor="emailInput">Email address</label>
-                    </div>
                     <div className="form-floating mb-2">
                         <select value={sex} className="form-select" onChange={this.handleChange} name="Sex" aria-label="Default select example" required>
                             <option defaultValue="">Open this select menu</option>

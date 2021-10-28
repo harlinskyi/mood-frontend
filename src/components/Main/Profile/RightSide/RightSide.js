@@ -6,6 +6,7 @@ import http from "../../../../http-common";
 import EclipseWidget from "../../../common/eclipse/eclipse.js"
 import default_photo from "../../../../images/default_photo.jpg"
 import getUserIdFromUrl from '../../../../utils/getUserIdFromUrl';
+import getBaseUrl from '../../../../utils/getBaseUrl';
 
 
 
@@ -31,6 +32,7 @@ class RightSide extends Component {
             else {
                 this.props.history.push('/404')
             }
+            console.log('navbar', this.state)
         } catch (badresponse) {
             console.log("problem", badresponse);
             this.setState({ errors: badresponse });
@@ -42,12 +44,12 @@ class RightSide extends Component {
     }
 
     render() {
-        const { loading, email, firstName, lastName, sex, bithDay, nickName, location, quote, link, errors } = this.state;
+        const { loading, email, firstName, lastName, sex, bithDay, nickName, location, quote, link, image, errors } = this.state;
         return (
             <div className="RightSide col-3 mb-3">
                 <div className="d-flex flex-column p-3 bg-body rounded-c shadow-sm">
                     <div className="m-2 mx-auto RightSide-profile-photo">
-                        <img src={default_photo} className="rounded mx-auto d-block" alt="Profile" />
+                        <img src={image ? getBaseUrl() + image : default_photo} className="rounded mx-auto d-block" alt="Profile" />
                     </div>
                     <div className="mt-1 mx-auto fs-4 RightSide-profile-username">
                         <span>{firstName} {lastName}</span>
