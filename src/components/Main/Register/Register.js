@@ -73,9 +73,7 @@ class Register extends Component {
             <label htmlFor="email">Email</label>
           </div>
           <span className="login-errors">
-          <ul>
-            {!!errors.email && errors.email}
-          </ul>
+            {!!errors.email && <ul>errors.email</ul>}
           </span>
           <div className="form-floating mb-2" data-children-count="1">
             <input
@@ -91,9 +89,7 @@ class Register extends Component {
             <label htmlFor="password">Password</label>
           </div>
           <span className="login-errors">
-            <ul>
-              {!!errors.password && errors.password}
-            </ul>
+              {!!errors.password && <ul>errors.password</ul>}
           </span>
           {!!success &&
             <div className="alert alert-success" role="alert">
