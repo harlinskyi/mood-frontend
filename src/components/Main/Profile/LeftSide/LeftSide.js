@@ -131,7 +131,7 @@ class LeftSide extends Component {
 }
 
 function ArticleList(props) {
-  const {firstName , lastName } = props.author;
+  const { firstName , lastName, email } = props.author;
   const postlist = props.posts.map((post, index) => (
     <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container" key={index}>
       <div className="row py-2 article-item-header">
