@@ -13,7 +13,7 @@ import Register from "./Register/Register";
 import Settings from "./Settings/Settings";
 import Peoples from "./Peoples/Peoples.js";
 import { connect } from "react-redux";
-import PageNotFound from "../common/pageNotFound/PageNotFound";
+import PageNotFound from "../common/PageNotFound/PageNotFound";
 
 class Main extends Component {
   state = {};

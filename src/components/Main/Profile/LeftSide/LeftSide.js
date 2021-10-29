@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import store from "../../../../store";
 import http from "../../../../http-common";
 import default_photo from "../../../../images/default_photo.jpg";
-import getUserIdFromUrl from "../../../../utils/getUserIdFromUrl";
+import customFunc from "../../../../utils/customFunc";
 import { connect } from "react-redux";
 import accountService from "../../../../services/account.service";
 import EclipseWidget from "../../../common/eclipse/eclipse";
@@ -14,7 +14,7 @@ class LeftSide extends Component {
     this.state = {
       posts: [],
       postAuthor: [],
-      userId: getUserIdFromUrl(window.location.pathname),
+      userId: customFunc.getUserIdFromUrl(window.location.pathname),
       errors: "",
       loading: false
     };

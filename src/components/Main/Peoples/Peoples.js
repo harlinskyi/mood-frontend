@@ -2,7 +2,7 @@ import './Peoples.css'
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import http from '../../../http-common';
-import getBaseUrl from '../../../utils/getBaseUrl';
+import customFunc from '../../../utils/customFunc';
 import default_photo from "../../../images/default_photo.jpg"
 
 class Peoples extends Component {
@@ -55,16 +55,16 @@ export default Peoples;
 function User(props) {
     const { id, email, lastName, firstName, nickname, fileName } = props.infoUser
     return (
-        <div className="col-2 peoples-user-card mt-5 mx-auto">
+        <div className="col-2 peoples-user-card mt-5">
             <div className="bg-body rounded-c shadow-sm p-2">
                 <div className="mx-auto peoples-user-photo">
-                    <img srcalt={fileName} src={fileName ? getBaseUrl() + fileName : default_photo} className="rounded mx-auto d-block" alt="Profile" />
+                    <img srcalt={fileName} src={fileName ? customFunc.getBaseUrl() + fileName : default_photo} className="rounded mx-auto d-block" alt="Profile" />
                 </div>
                 <div className="mt-1 fs-5 text-center">
                     <span>{lastName} {firstName}</span>
                 </div>
                 <div className="fs-6 text-center peoples-user nickname">
-                    <span>@{nickname}</span>
+                    <span>{nickname && '@' + nickname}</span>
                 </div>
                 <div className="fs-6 text-center peoples-user nickname">
                     <span><i className="fa fa-envelope-o me-1" aria-hidden="true"></i>{email}</span>

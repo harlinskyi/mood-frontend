@@ -1,3 +1,13 @@
+.peoples-page {
+    justify-content: flex-start;
+}
+
+@media (max-width: 992px) {
+    .peoples-page {
+        justify-content: center;
+    }
+}
+
 .peoples-user-card {
     min-width: 185px;
 }
@@ -6,7 +16,7 @@
     background-color: #439baf;
     border: 1px solid #3a8292;
     color: #fff;
-    border-radius: 8px;
+    border-radius: 5px;
     margin: auto;
     width: 100%;
     transition: background-color 0.3s;
@@ -25,6 +35,7 @@
     width: 140px;
     height: 140px;
     margin-top: -20% !important;
+    border: 1px solid #e8e8e8;
 }
 
 .peoples-user-photo img {
@@ -53,6 +64,10 @@
     word-break: break-all;
 }
 .peoples-user.nickname span {
-    white-space:pre-wrap;
+    white-space: nowrap;
     color: #888888;
+}
+
+.peoples-user.nickname span:hover {
+    white-space: pre-wrap;
 }

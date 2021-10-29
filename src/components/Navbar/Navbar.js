@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import default_photo from '../../images/default_photo.jpg';
 import store from '../../store';
-import getBaseUrl from '../../utils/getBaseUrl';
 
 class Navbar extends Component {
     
