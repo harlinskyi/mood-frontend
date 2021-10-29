@@ -28,12 +28,11 @@ class Navbar extends Component {
                         {isAuth ?
                             <>
                                 <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                                    <li>
-                                        <Link to="/peoples" className="nav-link px-2 link-secondary">Peoples</Link>
-                                        {role === 'Admin' &&
-                                        <Link to="/peoples" className="nav-link px-2 link-secondary">Admin Panel</Link>
-                                        }
-                                    </li>
+                                    <li><Link to="/peoples" className="nav-link px-2 link-secondary">Peoples</Link></li>
+                                    {role === 'Admin' &&
+                                        <li><Link to="/admin-panel" className="nav-link px-2 link-secondary">Admin Panel</Link></li>
+                                    }
+                                    
                                 </ul>
                                 <div className="dropdown text-end">
                                     <Link to="#" className="d-block link-dark text-decoration-none dropdown-toggle" id="profile-menu" data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,7 +65,8 @@ function mapStateToProps(state) {
     return {
         isAuth: state.auth.isAuth,
         email: state.auth.email,
-        userId: state.auth.userId
+        userId: state.auth.userId,
+        role: state.auth.role
     };
 }
 
