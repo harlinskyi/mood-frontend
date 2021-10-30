@@ -6,6 +6,7 @@ import http from "../../../../http-common";
 import EclipseWidget from "../../../common/eclipse/eclipse.js"
 import default_photo from "../../../../images/default_photo.jpg"
 import customFunc from '../../../../utils/customFunc';
+import t from '../../../../utils/translations';
 
 
 
@@ -57,8 +58,8 @@ class RightSide extends Component {
                     <ul className="RightSide-profile-list-info">
                         {sex &&
                             <li className="mb-1">
-                                {sex === 'Male' && <><i className="fa fa-mars" aria-hidden="true"></i><span>{sex}</span></>}
-                                {sex === 'Female' && <><i className="fa fa-venus" aria-hidden="true"></i><span>{sex}</span></>}
+                                {sex === 'Male' && <><i className="fa fa-mars" aria-hidden="true"></i><span>{t(sex)}</span></>}
+                                {sex === 'Female' && <><i className="fa fa-venus" aria-hidden="true"></i><span>{t(sex)}</span></>}
                             </li>}
                         {email && <li className="mb-1">
                             <i className="fa fa-envelope-o" aria-hidden="true"></i><span>{email}</span>

@@ -56,7 +56,7 @@ class LeftSide extends Component {
   }
 
   render() {
-    const { posts, loading, postAuthor, erros } = this.state;
+    const { posts, loading, postAuthor, errors } = this.state;
     return (
       <div className="LeftSide col-9">
         <button
@@ -85,7 +85,7 @@ class LeftSide extends Component {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="addPostModalLabel">
-                  New post
+                  {t('New post')}
                 </h5>
                 <button
                   type="button"
@@ -98,7 +98,7 @@ class LeftSide extends Component {
                 <div className="modal-body">
                   <div className="mb-3">
                     <label htmlFor="message-text" className="col-form-label">
-                      Description:
+                      {t('Description')}:
                     </label>
                     <textarea
                       name="description"
@@ -113,10 +113,10 @@ class LeftSide extends Component {
                     className="btn btn-secondary"
                     data-bs-dismiss="modal"
                   >
-                    Close
+                    {t('Close')}
                   </button>
                   <button type="submit" className="btn">
-                    Create
+                    {t('Create')}
                   </button>
                 </div>
               </form>
