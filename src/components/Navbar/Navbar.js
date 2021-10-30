@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import default_photo from '../../images/default_photo.jpg';
 import store from '../../store';
+import t from '../../utils/translations';
 
 class Navbar extends Component {
     
@@ -18,6 +19,14 @@ class Navbar extends Component {
             console.log("Logout був неуспішний:", error);
           }
     }
+    
+    changeLanguage = (e) => {
+        e.preventDefault();
+        const selectedLanguage = e.target.value;
+        localStorage.language = selectedLanguage;
+        window.location.reload();
+    }
+    
     render() {
         const { isAuth, email, role , userId } = this.props;
         return (
@@ -40,19 +49,25 @@ class Navbar extends Component {
                                         <span className="header-username">{email}</span>
                                     </Link>
                                     <ul className="dropdown-menu text-small" aria-labelledby="profile-menu">
-                                        <li><Link className="dropdown-item" to={`/settings`}><i className="fa fa-cog me-2" aria-hidden="true"></i>Settings</Link></li>
-                                        <li><Link className="dropdown-item" to={`/profile/${userId}`}><i className="fa fa-user me-2" aria-hidden="true"></i>Profile</Link></li>
+                                        <li><Link className="dropdown-item" to={`/settings`}><i className="fa fa-cog me-2" aria-hidden="true"></i>{t('Settings')}</Link></li>
+                                        <li><Link className="dropdown-item" to={`/profile/${userId}`}><i className="fa fa-user me-2" aria-hidden="true"></i>{t('My Profile')}</Link></li>
                                         <li><hr className="dropdown-divider" /></li>
-                                        <li><Link className="dropdown-item" to="/" onClick={this.onClickLogout}><i className="fa fa-sign-out me-2" aria-hidden="true"></i>Sign out</Link></li>
+                                        <li><Link className="dropdown-item" to="/" onClick={this.onClickLogout}><i className="fa fa-sign-out me-2" aria-hidden="true"></i>{t('Sign out')}</Link></li>
                                     </ul>
                                 </div>
                             </>
                             :
                             <div className="header-login-page">
-                                <Link to="/login" className="header-sign-in">Sign In</Link>
-                                <Link to="/register" className="header-register">Regsiter</Link>
+                                <Link to="/login" className="header-sign-in">{t('Log in')}</Link>
+                                <Link to="/register" className="header-register">{t('Registration')}</Link>
                             </div>
                         }
+                        <span>
+                            <select className="ms-2" onChange={this.changeLanguage} value={localStorage.language}>
+                                <option defaultValue="EN">EN</option>
+                                <option value="UK">UK</option>
+                            </select>
+                        </span>
                     </div>
                 </div>
             </header>

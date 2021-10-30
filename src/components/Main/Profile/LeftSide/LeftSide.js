@@ -7,6 +7,7 @@ import customFunc from "../../../../utils/customFunc";
 import { connect } from "react-redux";
 import accountService from "../../../../services/account.service";
 import EclipseWidget from "../../../common/eclipse/eclipse";
+import t from "../../../../utils/translations";
 
 class LeftSide extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class LeftSide extends Component {
           data-bs-target="#addPostModal"
           data-bs-whatever="@mdo"
         >
-          <i className="fa fa-plus me-1" aria-hidden="true"></i>Create post
+          <i className="fa fa-plus me-1" aria-hidden="true"></i>{t('Create post')}
         </button>
         <hr />
         <ul className="Leftside-list-article p-0">

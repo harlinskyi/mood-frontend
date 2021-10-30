@@ -15,6 +15,9 @@ if (token) {
   console.log("User is logged-in [Token true]")
   authUser(token, store.dispatch);;
 }
+if (!localStorage.language) {
+  localStorage.setItem("language", "EN");
+}
 
 ReactDOM.render(
   <Provider store={store}>

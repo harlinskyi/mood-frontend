@@ -1,107 +1,111 @@
 import './Register.css'
-import React, { Component } from 'react'
+import React, { useRef, useState } from 'react';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 import accountService from '../../../services/account.service';
-import { Link, withRouter } from 'react-router-dom';
+import FormTextInput from '../../common/formik-components/FormTextInput';
+import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import EclipseWidget from '../../common/eclipse/eclipse';
+import { useHistory } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
+import t from '../../../utils/translations';
 
-class Register extends Component {
-  state = {
-    email: "",
-    password: "",
-    errors: {}
-  };
 
-  onSubmitHandler = async (e) => {
-    e.preventDefault();
-    console.log("Hello state", this.state);
-    this.setState({ loading: true })
-    try {
-      const model = {
-        email: this.state.email,
-        password: this.state.password,
-      };
-      await accountService.register(model);
-      this.setState({ success: true, errors: {} })
-    } catch (badresponse) {
-      this.setState({ success: false })
-      console.log(badresponse.response);
-      if (badresponse.response.data.errors) {
-        const { errors } = badresponse.response.data;
-        let problem = {};
-        Object.entries(errors).forEach(([key, values]) => {
-          problem[key] = values.map((msg, index) => {
-            return (
-              <li key={index}>{msg}</li>
-            );
-          });
-        });
-        this.setState({ errors: problem });
-      }
-      console.log("Виникли проблеми ", badresponse);
+const Register = () => {
 
-    }
-    finally {
-      this.setState({ loading: false })
-    }
-  };
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  onChangeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  }
+  const formikRef = useRef();
+  const titleRef = useRef();
+  const [invalid, setInvalid] = useState("");
+  const [success, setSuccess] = useState("");
 
-  render() {
-    const { email, password, errors, success, loading } = this.state;
-
-    return (
+  return (
+    <>
       <div className="col-12 m-auto pt-5">
-        <form className="form-register p-4 mb-5 bg-body rounded-c shadow" onSubmit={this.onSubmitHandler} >
-          <h1 className="h3 mb-3 fw-normal text-center fw-bold">Register</h1>
 
-          <div className="form-floating mb-2">
-            <input
+        <Formik
+          innerRef={formikRef}
+          initialValues={{
+            email: "",
+            password: "",
+            errors: {}
+          }}
+
+          validationSchema={Yup.object({
+            email: Yup.string()
+              .email('Email incorrectly specified.')
+              .required('Email is required field to fill.'),
+            password: Yup.string()
+              .required('Password is required field to fill.')
+              .min(8, 'Password length must be min 8 chars.')
+              .matches(/[0-9]/, 'Password must contain numbers.')
+              .matches(/[A-Z]/, 'Password must contain uppercase letters.')
+              .matches(/[a-z]/, 'Password must contain lowercase letters.')
+          })}
+
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              setSubmitting(true);
+              const model = {
+                email: values.email,
+                password: values.password,
+              };
+              await accountService.register(model);
+              setSuccess(values.email)
+            } catch (badresponse) {
+              if (badresponse.response !== undefined) {
+                setInvalid(badresponse.response.data.ErrorDescription);
+                titleRef.current.scrollIntoView({ behavior: 'smooth' });
+              }
+              else {
+                alert(`[Problems]\n${badresponse}`)
+              }
+            }
+          }}
+        >
+          {({ isSubmitting }) => (
+          <Form className="form-register p-4 mb-5 bg-body rounded-c shadow">
+            <h1 className="h3 mb-3 fw-normal text-center fw-bold">{t('Registration')}</h1>
+            <FormTextInput
               type="email"
-              className={classnames("form-control", { "is-invalid": errors.email })}
-              value={email}
-              id="email"
               name="email"
+              id="email"
               placeholder="name@example.com"
               data-tempmail="0"
-              onChange={this.onChangeHandler}
+              autoComplete="username"
+              label="Email"
             />
-            <label htmlFor="email">Email</label>
-          </div>
-          <span className="login-errors">
-            {!!errors.email && <ul>errors.email</ul>}
-          </span>
-          <div className="form-floating mb-2" data-children-count="1">
-            <input
-              type="password"
-              className={classnames("form-control", { "is-invalid": errors.password })}
-              value={password}
-              id="password"
-              name="password"
-              placeholder="Password"
-              onChange={this.onChangeHandler}
-              autoComplete="false"
-            />
-            <label htmlFor="password">Password</label>
-          </div>
-          <span className="login-errors">
-              {!!errors.password && <ul>errors.password</ul>}
-          </span>
-          {!!success &&
-            <div className="alert alert-success" role="alert">
-              Registration with email <span>{email}</span> was successful, please <Link to="/login" className="login-msg" >log in</Link>!
-          </div>
-          }
-          <button className="w-100 btn btn-lg btn-primary mb-2" type="submit">Register</button>
-        </form>
-        {loading && <EclipseWidget />}
-      </div>
-    );
-  }
-}
 
-export default connect(null)(withRouter(Register))
+            <FormTextInput
+              type="password"
+              name="password"
+              id="floatingPassword"
+              placeholder="Password"
+              autoComplete="current-password"
+              label="Password"
+            />
+
+            <button type="submit" className="w-100 btn btn-lg btn-primary mb-2">{t('Register')}</button>
+            {invalid &&
+              <div ref={titleRef} className="alert alert-danger">
+                {t(invalid)}
+              </div>
+            }
+            {success &&
+              <div className="alert alert-success m-0" role="alert">
+                Registration with email <span>{success}</span> was successful, please <Link to="/login" email={success} className="login-msg" >log in</Link>!
+              </div>
+            }
+            {isSubmitting && <EclipseWidget />}
+          </Form>
+          )}
+        </Formik>
+      </div>
+    </>
+  );
+};
+
+export default connect(null)(withRouter(Register));

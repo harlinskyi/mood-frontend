@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { authUser } from '../../../actions/auth';
 import EclipseWidget from '../../common/eclipse/eclipse';
 import { useHistory } from 'react-router';
+import t from '../../../utils/translations';
 
 
 const LoginPage = () => {
@@ -18,7 +19,6 @@ const LoginPage = () => {
   const formikRef = useRef();
   const titleRef = useRef();
   const [invalid, setInvalid] = useState("");
-
   return (
     <>
       <div className="col-12 m-auto pt-5">
@@ -34,11 +34,11 @@ const LoginPage = () => {
 
           validationSchema={Yup.object({
             email: Yup.string()
-              .email('Email incorrectly specified.')
-              .required('Email is required field to fill.'),
+              .email(t('Email incorrectly specified.'))
+              .required(t('Email is required field to fill.')),
             password: Yup.string()
-              .required('Password is required field to fill.')
-              .min(8, 'Password length must be min 8 chars.')
+              .required(t('Password is required field to fill.'))
+              .min(8, t('Password length must be min 8 chars.'))
             // .matches(/[A-Z]/, 'Password must contain uppercase letters.')
             // .matches(/[a-z]/, 'Password must contain lowercase letters.')
           })}
@@ -56,15 +56,19 @@ const LoginPage = () => {
               const userId = authUser(token, dispatch);
               history.push(`/profile/${userId}`)
             } catch (badresponse) {
-              console.log(badresponse.response);
-              setInvalid(badresponse.response.data.ErrorDescription);
-              titleRef.current.scrollIntoView({ behavior: 'smooth' });
+              if (badresponse.response !== undefined) {
+                setInvalid(badresponse.response.data.ErrorDescription);
+                titleRef.current.scrollIntoView({ behavior: 'smooth' });
+              }
+              else {
+                alert(`[Problems]\n${badresponse}`)
+              }
             }
           }}
         >
           {({ isSubmitting }) => (
           <Form className="form-signin p-4 mb-5 bg-body rounded-c shadow">
-            <h1 className="h3 mb-3 fw-normal text-center fw-bold">Sign In</h1>
+            <h1 className="h3 mb-3 fw-normal text-center fw-bold">{t('Login')}</h1>
             <FormTextInput
               type="email"
               name="email"
@@ -84,10 +88,10 @@ const LoginPage = () => {
               label="Password"
             />
 
-            <button type="submit" className="w-100 btn btn-lg btn-primary mb-2">Sign in</button>
+            <button type="submit" className="w-100 btn btn-lg btn-primary mb-2">{t('Log in')}</button>
             {invalid &&
               <div ref={titleRef} className="alert alert-danger">
-                {invalid}
+                {t(invalid)}
               </div>}
             {isSubmitting && <EclipseWidget />}
           </Form>
