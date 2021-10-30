@@ -2,8 +2,8 @@ export default function t(string) {
     if (string === undefined) { return }
     const language = localStorage.language;
     let str = string;
-    if (language === 'UK') {
-        UK.forEach((arr, index) => {
+    if (language === 'UA') {
+        UA.forEach((arr, index) => {
             if (arr[0] === str) str = arr[1];
         })
     }
@@ -11,7 +11,7 @@ export default function t(string) {
 }
 
 
-const UK = [
+const UA = [
     ["Login", "Вхід"],
     ["Log in", "Увійти"],
     ["Registration", "Реєстрація"],
