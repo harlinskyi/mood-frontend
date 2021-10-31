@@ -16,7 +16,7 @@ if (token) {
   authUser(token, store.dispatch);;
 }
 if (!localStorage.language) {
-  localStorage.setItem("language", "EN");
+  localStorage.setItem("language", "en");
 }
 
 ReactDOM.render(
