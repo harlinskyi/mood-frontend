@@ -141,8 +141,7 @@ const Settings = () => {
                             required
                         >
                             <option defaultValue="">{t("Please, select from list")}</option>
-                            <option value="Female">Female</option>
-                            <option value="Male">Male</option>
+                            {["Female","Male"].map((i)=>(<option key={i} value={i}>{t(i)}</option>))}
                         </FormSettingsSelect>
                         <FormSettingsInput
                             label="Site"
@@ -159,11 +158,7 @@ const Settings = () => {
                             aria-label="Default select example"
                         >
                             <option defaultValue="">{t("Please, select from list")}</option>
-                            <option value="Ukraine">Ukraine</option>
-                            <option value="Poland">Poland</option>
-                            <option value="Russia">Russia</option>
-                            <option value="USA">USA</option>
-                            <option value="Moldova">Moldova</option>
+                            {["Ukraine","Poland","Russia", "USA", "Moldova"].map((i)=>(<option key={i} value={i}>{t(i)}</option>))}
                         </FormSettingsSelect>
 
                         <div className="col-12">
