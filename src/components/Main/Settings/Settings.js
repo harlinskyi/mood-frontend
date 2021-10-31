@@ -140,7 +140,7 @@ const Settings = () => {
                             aria-label="Default select example"
                             required
                         >
-                            <option defaultValue="">Pleae, select from list</option>
+                            <option defaultValue="">{t("Please, select from list")}</option>
                             <option value="Female">Female</option>
                             <option value="Male">Male</option>
                         </FormSettingsSelect>
@@ -158,7 +158,7 @@ const Settings = () => {
                             id="locationInput"
                             aria-label="Default select example"
                         >
-                            <option defaultValue="">Pleae, select from list</option>
+                            <option defaultValue="">{t("Please, select from list")}</option>
                             <option value="Ukraine">Ukraine</option>
                             <option value="Poland">Poland</option>
                             <option value="Russia">Russia</option>

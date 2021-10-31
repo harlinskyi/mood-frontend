@@ -36,6 +36,7 @@ const UA = [
     ["Gender", "Стать"],
     ["Birthday", "День народження"],
     ["Country", "Країна"],
+    ["View", "Переглянути"],
     ["Save settings", "Зберегти налаштування"],
     ["Settings", "Налаштування"],
     ["Create post", "Створити допис"],
@@ -46,8 +47,9 @@ const UA = [
     ["Invalid email or password", "Ел. пошта або пароль є невірними."],
     ["Password must contain numbers.", "Пароль повинен містити цифри."],
     ["Password must contain uppercase letters.", "Пароль повинен містити літери верхнього регістру."],
-    ["Password must contain lowercase letters.", "Пароль повинен містити літери нижнього регістру."],,
+    ["Password must contain lowercase letters.", "Пароль повинен містити літери нижнього регістру."],
     ["Registration with email", "Реєстрація з ел. почтою"],
     ["was successful, please", "була успішна, будь ласка"],
-    ["log in", "авторизуйтесь"]
+    ["log in", "авторизуйтесь"],
+    ["Please, select from list", "Будь ласка, оберіть із списку"]
 ]

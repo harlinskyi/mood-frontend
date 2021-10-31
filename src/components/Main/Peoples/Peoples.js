@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import http from '../../../http-common';
 import customFunc from '../../../utils/customFunc';
 import default_photo from "../../../images/default_photo.jpg"
+import t from '../../../utils/translations';
 
 class Peoples extends Component {
     constructor(props) {
@@ -69,7 +70,7 @@ function User(props) {
                 <div className="fs-6 text-center peoples-user nickname">
                     <span><i className="fa fa-envelope-o me-1" aria-hidden="true"></i>{email}</span>
                 </div>
-                <Link to={`/profile/${id}`} className="mt-1 fs-6 text-center peoples-user-button">View</Link>
+                <Link to={`/profile/${id}`} className="mt-1 fs-6 text-center peoples-user-button">{t("View")}</Link>
             </div>
         </div>
     )

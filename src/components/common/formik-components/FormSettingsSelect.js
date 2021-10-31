@@ -11,7 +11,7 @@ const FormSettingsSelect = ({ label, ...props }) => {
         id={props.id}
         placeholder={props.placeholder}
         className="form-select" {...field} {...props}
-        aria-label="Pleae, select from list"
+        aria-label={t("Please, select from list")}
         >
       </select>
       <label htmlFor={props.id}>{t(label)}</label>
