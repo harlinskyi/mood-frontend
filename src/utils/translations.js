@@ -2,7 +2,7 @@ export default function t(string) {
     if (string === undefined) { return }
     const language = localStorage.language;
     let str = string;
-    if (language === 'UA') {
+    if (language === 'ua') {
         UA.forEach((arr, index) => {
             if (arr[0] === str) str = arr[1];
         })

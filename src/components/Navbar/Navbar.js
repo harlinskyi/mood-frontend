@@ -24,10 +24,8 @@ class Navbar extends Component {
           }
     }
     
-    changeLanguage = (e) => {
-        e.preventDefault();
-        const selectedLanguage = e.target.value;
-        localStorage.language = selectedLanguage;
+    changeLanguage = (languageCode) => {
+        localStorage.language = languageCode;
         window.location.reload();
     }
     
@@ -36,7 +34,6 @@ class Navbar extends Component {
         return (
             <header className="col-12 p-3 mb-3 border-bottom">
                 <div className="container-lg">
-                <ReactLanguageSelect languages={["en", "ua"]} />
                     <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between">
                         <Link to="/" className="logo mb-2 mb-lg-0 text-dark text-decoration-none">MOOD</Link>
                         {isAuth ?
@@ -68,10 +65,12 @@ class Navbar extends Component {
                             </div>
                         }
                         <span>
-                            <select className="form-select form-select-sm ms-2" onChange={this.changeLanguage} value={localStorage.language}>
-                                <option defaultValue="EN">EN</option>
-                                <option value="UA">UA</option>
-                            </select>
+                            <ReactLanguageSelect 
+                                className="ms-2"
+                                languages={["en", "ua"]}
+                                defaultLanguage={localStorage.language}
+                                onSelect={this.changeLanguage}
+                                />
                         </span>
                     </div>
                 </div>
