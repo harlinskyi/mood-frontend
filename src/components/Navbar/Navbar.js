@@ -64,7 +64,7 @@ class Navbar extends Component {
                                 <Link to="/register" className="header-register">{t('Registration')}</Link>
                             </div>
                         }
-                        <span>
+                        <span className="language-select">
                             <ReactLanguageSelect 
                                 className="ms-2"
                                 languages={["en", "ua"]}

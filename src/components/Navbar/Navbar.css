@@ -60,3 +60,10 @@ header .dropdown-item.active, .dropdown-item:active {
 .language-icon {
     width: 23px;
 }
+
+.language-select .flag-select__btn {
+    font-size: 16px;
+    border: 1px solid #f1f1f1;
+    border-radius: 5px;
+    padding: 0px 5px 0px 0px;
+}

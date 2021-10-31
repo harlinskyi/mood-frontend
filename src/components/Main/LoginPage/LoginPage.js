@@ -77,6 +77,7 @@ const LoginPage = () => {
               data-tempmail="0"
               autoComplete="username"
               label="Email"
+              required
             />
 
             <FormTextInput
@@ -86,6 +87,7 @@ const LoginPage = () => {
               placeholder="Password"
               autoComplete="current-password"
               label="Password"
+              required
             />
 
             <button type="submit" className="w-100 btn btn-lg btn-primary mb-2">{t('Log in')}</button>

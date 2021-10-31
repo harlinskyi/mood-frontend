@@ -14,6 +14,7 @@ export default function t(string) {
 const UA = [
     ["Login", "Вхід"],
     ["Log in", "Увійти"],
+    ["Sign out", "Вихід"],
     ["Registration", "Реєстрація"],
     ["Register", "Зареєструватись"],
     ["Password", "Пароль"],
@@ -27,6 +28,15 @@ const UA = [
     ["Create", "Створити"],
     ["Female", "Жінка"],
     ["Male", "Чоловік"],
+    ["Site", "Сайт"],
+    ["First Name", "Ім'я"],
+    ["Last Name", "Прізвище"],
+    ["Nickname", "Нікнейм"],
+    ["Quote", "Цитата"],
+    ["Gender", "Стать"],
+    ["Birthday", "День народження"],
+    ["Country", "Країна"],
+    ["Save settings", "Зберегти налаштування"],
     ["Settings", "Налаштування"],
     ["Create post", "Створити допис"],
     ["Email incorrectly specified.", "Ел. пошта вказано невірно."],
@@ -36,5 +46,8 @@ const UA = [
     ["Invalid email or password", "Ел. пошта або пароль є невірними."],
     ["Password must contain numbers.", "Пароль повинен містити цифри."],
     ["Password must contain uppercase letters.", "Пароль повинен містити літери верхнього регістру."],
-    ["Password must contain lowercase letters.", "Пароль повинен містити літери нижнього регістру."]
+    ["Password must contain lowercase letters.", "Пароль повинен містити літери нижнього регістру."],,
+    ["Registration with email", "Реєстрація з ел. почтою"],
+    ["was successful, please", "була успішна, будь ласка"],
+    ["log in", "авторизуйтесь"]
 ]

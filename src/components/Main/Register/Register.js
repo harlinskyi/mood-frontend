@@ -46,7 +46,7 @@ const Register = () => {
               .matches(/[a-z]/, 'Password must contain lowercase letters.')
           })}
 
-          onSubmit={async (values, { setSubmitting }) => {
+          onSubmit={ async (values, { setSubmitting }) => {
             try {
               setSubmitting(true);
               const model = {
@@ -77,6 +77,7 @@ const Register = () => {
               data-tempmail="0"
               autoComplete="username"
               label="Email"
+              required
             />
 
             <FormTextInput
@@ -86,6 +87,7 @@ const Register = () => {
               placeholder="Password"
               autoComplete="current-password"
               label="Password"
+              required
             />
 
             <button type="submit" className="w-100 btn btn-lg btn-primary mb-2">{t('Register')}</button>
@@ -96,7 +98,7 @@ const Register = () => {
             }
             {success &&
               <div className="alert alert-success m-0" role="alert">
-                Registration with email <span>{success}</span> was successful, please <Link to="/login" email={success} className="login-msg" >log in</Link>!
+                {t('Registration with email')} <span>{success}</span> {t('was successful, please')} <Link to="/login" email={success} className="login-msg" >{t('log in')}</Link>!
               </div>
             }
             {isSubmitting && <EclipseWidget />}
