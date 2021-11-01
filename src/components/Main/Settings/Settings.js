@@ -1,6 +1,6 @@
 import "./Settings.css";
-import React, { useRef, useState } from "react";
-import { Formik, Form, Field } from "formik";
+import React, { useRef, useState, useEffect } from "react";
+import { Formik, Form, Field, useFormik } from "formik";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch, useStore } from "react-redux";
 import http from "../../../http-common";
@@ -16,7 +16,7 @@ import FormSettingsInput from "../../common/formik-components/FormSettingsInput"
 import FormSettingsTextarea from "../../common/formik-components/FormSettingsTextarea";
 import FormSettingsSelect from "../../common/formik-components/FormSettingsSelect";
 
-const Settings = () => {
+const Settings = (props) => {
     const dispatch = useDispatch();
 
     const formikRef = useRef();
@@ -24,41 +24,71 @@ const Settings = () => {
     const [invalid, setInvalid] = useState("");
     const [success, setSuccess] = useState("");
     const SUPPORTED_FORMATS = ["png"];
+    const [user, setUser] = useState({
+        image: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        nickName: "",
+        quote: "",
+        birthDay: "",
+        sex: "",
+        link: "",
+        location: ""
+    });
+
+    const state = {
+        initialValues: {
+            user: {
+                user
+            },
+            userId: store.getState().auth.userId,
+            errors: "",
+            success: false
+        }
+    }
+
+
+    useEffect(async () => {
+        try {
+            const response = await http.post(`get-user-profile?id=2`);
+            const data = response.data;
+            console.log("Response", data);
+            setUser({...user, ...data});
+        } catch (badresponse) {
+            console.log("problem", badresponse);
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log({ user });
+    }, [user]);
+
+    const handleChange = (e) => {
+        setUser({...user, [e.target.name]: e.target.value })
+        console.log('test');
+    }
+
     return (
         <div className="col-10 m-auto pt-2">
             <Formik
                 innerRef={formikRef}
-                initialValues={{
-                    user: {
-                        Image: "",
-                        Email: "",
-                        FirstName: "",
-                        LastName: "",
-                        NickName: "",
-                        Quote: "",
-                        BirthDay: "",
-                        Sex: "",
-                        Link: "",
-                        Location: ""
-                    },
-                    userId: store.getState().auth.userId,
-                    errors: "",
-                    success: false
-                }}
+                initialValues={user}
+                enableReinitialize={true}
                 // validationSchema={Yup.object({
                 //   Email: Yup.string()
                 //     .email("Не коректно вказана пошта")
                 //     .required("Вкажіть пошту"),
                 // })}
                 onSubmit={async (values, { setSubmitting }) => {
-                    const formValues = values.user
+                    const formValues = values
                     console.log(formValues)
                     try {
+                        setSubmitting(true);
                         var formData = new FormData();
                         Object.entries(formValues).forEach(([key, value]) => formData.append(key, value));
                         const res = await accountService.updateSettings(formData, store.getState().auth.userId);
                         console.log(res.status);
-                        setSubmitting(true);
                     } catch (badresponse) {
                         if (badresponse.response !== undefined) {
                             setInvalid(badresponse.response.data.invalid);
@@ -68,6 +98,7 @@ const Settings = () => {
                         }
                     }
                 }}
+
             >
                 {({ isSubmitting }) => (
                     <Form
@@ -78,87 +109,106 @@ const Settings = () => {
                             {t("Settings")}
                         </h1>
                         <FormSettingsPhotoInput
-                            name="user.Image"
-                            field="Image"
+                            name="image"
+                            field="image"
                             formikRef={formikRef}
+                            src={user.image}
                         />
                         <FormSettingsInput
                             label="Email"
                             type="email"
                             id="emailInput"
-                            name="user.Email"
+                            name="email"
                             cursornotallowed="true"
                             disabled
                             readOnly
                             required
+                            value={user.email}
+                            onChange={handleChange}
                         />
                         <FormSettingsInput
                             label="First Name"
                             type="text"
-                            name="user.FirstName"
+                            name="firstName"
                             id="firstnameInput"
                             placeholder="FirstName"
+                            value={user.firstName}
                             required
+                            onChange={handleChange}
                         />
                         <FormSettingsInput
                             label="Last Name"
                             type="text"
                             id="lastnameInput"
                             placeholder="LastName"
-                            name="user.LastName"
+                            name="lastName"
+                            value={user.lastName}
+                            onChange={handleChange}
                             required
                         />
 
                         <FormSettingsInput
                             label="Nickname"
                             type="text"
-                            name="user.NickName"
+                            name="nickName"
+                            value={user.nickName}
                             id="nicknameInput"
                             placeholder="LastName"
+                            onChange={handleChange}
                             required
                         />
                         <FormSettingsTextarea
                             label="Quote"
-                            name="user.Quote"
+                            name="quote"
                             id="quoteInput"
                             placeholder="Quote"
+                            onChange={handleChange}
+                            value={user.quote}
 
                         />
                         <FormSettingsInput
                             label="Birthday"
                             type="date"
-                            name="user.BirthDay"
+                            name="birthDay"
+                            value={!!user.birthDay && user.birthDay.substr(0, 10)}
                             id="datebirthInput"
                             placeholder="BirthDay"
+                            onChange={handleChange}
                             required
                         />
                         <FormSettingsSelect
                             label="Gender"
                             as="select"
-                            name="user.Sex"
+                            name="sex"
+                            value={user.sex}
                             id="sexInput"
                             aria-label="Default select example"
+                            onChange={handleChange}
                             required
                         >
                             <option defaultValue="">{t("Please, select from list")}</option>
-                            {["Female","Male"].map((i)=>(<option key={i} value={i}>{t(i)}</option>))}
+                            {["Female", "Male"].map((i) => (<option key={i} value={i}>{t(i)}</option>))}
                         </FormSettingsSelect>
                         <FormSettingsInput
                             label="Site"
                             type="url"
-                            name="user.Link"
+                            name="link"
+                            value={user.link}
+                            onChange={handleChange}
                             id="siteInput"
                             placeholder="Site"
                         />
                         <FormSettingsSelect
                             label="Country"
                             as="select"
-                            name="user.Location"
+                            name="location"
+                            value={user.location}
+                            onChange={handleChange}
                             id="locationInput"
                             aria-label="Default select example"
                         >
                             <option defaultValue="">{t("Please, select from list")}</option>
-                            {["Ukraine","Poland","Russia", "USA", "Moldova"].map((i)=>(<option key={i} value={i}>{t(i)}</option>))}
+                            {["Ukraine", "Poland", "Russia", "USA", "Moldova"].map((i) => (<option key={i} value={i}>{t(i)}</option>))}
                         </FormSettingsSelect>
 
                         <div className="col-12">

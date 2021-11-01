@@ -23,3 +23,9 @@
 .login-errors li {
   color: #dc3545;
 }
+
+label.login-links a{
+  margin: 0px 1em;
+  color: #439baf;
+  text-decoration: none;
+}

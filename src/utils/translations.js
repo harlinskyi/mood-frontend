@@ -37,6 +37,8 @@ const UA = [
     ["Birthday", "День народження"],
     ["Country", "Країна"],
     ["View", "Переглянути"],
+    ["Not registered?", "Не зареєстрований?"],
+    ["Forgot your password?", "Забули пароль?"],
     ["Save settings", "Зберегти налаштування"],
     ["Settings", "Налаштування"],
     ["Create post", "Створити допис"],

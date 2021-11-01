@@ -9,6 +9,7 @@ import { authUser } from '../../../actions/auth';
 import EclipseWidget from '../../common/eclipse/eclipse';
 import { useHistory } from 'react-router';
 import t from '../../../utils/translations';
+import { Link } from 'react-router-dom';
 
 
 const LoginPage = () => {
@@ -89,7 +90,10 @@ const LoginPage = () => {
               label="Password"
               required
             />
-
+            <label className="d-flex justify-content-center mb-2 login-links">
+              <Link to={'/register'}>{t('Not registered?')}</Link>
+              <Link to={'/'}>{t('Forgot your password?')}</Link> {/* TODO: need create form for change password */}
+            </label>
             <button type="submit" className="w-100 btn btn-lg btn-primary mb-2">{t('Log in')}</button>
             {invalid &&
               <div ref={titleRef} className="alert alert-danger">
