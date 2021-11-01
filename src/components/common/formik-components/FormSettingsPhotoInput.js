@@ -8,8 +8,15 @@ const FormSettingsPhotoInput = ({
   formikRef,
   src
 }) => {
-  const userPhoto = customFunc.getBaseUrl() + src
-  const [image=src, setPhoto] = useState(default_photo);
+  const [image , setPhoto] = useState(default_photo);
+  
+  useEffect(() => {
+    if (src &&  src !== image) {
+      console.log(src)
+      const userPhoto = customFunc.getBaseUrl() + src
+      setPhoto(userPhoto);
+    }
+  }, [src]);
 
   const selectImage = (event) => {
     const file = event.currentTarget.files[0];

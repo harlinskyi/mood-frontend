@@ -23,7 +23,7 @@ const Settings = (props) => {
     const titleRef = useRef();
     const [invalid, setInvalid] = useState("");
     const [success, setSuccess] = useState("");
-    const SUPPORTED_FORMATS = ["png"];
+    const SUPPORTED_FORMATS = ["png", "jpg"];
     const [user, setUser] = useState({
         image: "",
         email: "",
@@ -37,21 +37,11 @@ const Settings = (props) => {
         location: ""
     });
 
-    const state = {
-        initialValues: {
-            user: {
-                user
-            },
-            userId: store.getState().auth.userId,
-            errors: "",
-            success: false
-        }
-    }
 
-
-    useEffect(async () => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect( async () => {
         try {
-            const response = await http.post(`get-user-profile?id=2`);
+            const response = await http.post(`get-user-profile?id=${store.getState().auth.userId}`);
             const data = response.data;
             console.log("Response", data);
             setUser({...user, ...data});
