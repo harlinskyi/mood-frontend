@@ -43,7 +43,7 @@ class RightSide extends Component {
     }
 
     render() {
-        const { loading, email, firstName, lastName, sex, bithDay, nickName, location, quote, link, image, errors } = this.state;
+        const { loading, email, firstName, lastName, sex, birthDay, nickName, location, quote, link, image, errors } = this.state;
         return (
             <div className="RightSide col-3 mb-3">
                 <div className="d-flex flex-column p-3 bg-body rounded-c shadow-sm">
@@ -64,8 +64,8 @@ class RightSide extends Component {
                         {email && <li className="mb-1">
                             <i className="fa fa-envelope-o" aria-hidden="true"></i><span>{email}</span>
                         </li>}
-                        {bithDay && <li className="mb-1">
-                            <i className="fa fa-calendar" aria-hidden="true"></i><span>{bithDay.substr(0, 10)}</span>
+                        {birthDay && <li className="mb-1">
+                            <i className="fa fa-calendar" aria-hidden="true"></i><span>{birthDay.substr(0, 10)}</span>
                         </li>}
                         {location && <li className="mb-1">
                             <i className="fa fa-map-marker" aria-hidden="true"></i><span>{location}</span>
