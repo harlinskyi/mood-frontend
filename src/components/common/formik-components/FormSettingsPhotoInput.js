@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import t from "../../../utils/translations";
 import default_photo from '../../../images/default_photo.jpg'
 import customFunc from "../../../utils/customFunc";
@@ -8,8 +8,9 @@ const FormSettingsPhotoInput = ({
   formikRef,
   src
 }) => {
-  const [image, setPhoto] = useState(default_photo);
-  
+  const userPhoto = customFunc.getBaseUrl() + src
+  const [image=src, setPhoto] = useState(default_photo);
+
   const selectImage = (event) => {
     const file = event.currentTarget.files[0];
     setPhoto(URL.createObjectURL(file));
