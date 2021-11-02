@@ -42,6 +42,7 @@ const UA = [
     ["Save settings", "Зберегти налаштування"],
     ["Settings", "Налаштування"],
     ["Create post", "Створити допис"],
+    ["Are you sure you want to delete this article?", "Ви дійсно хочете видалити цю статтю?"],
     ["Email incorrectly specified.", "Ел. пошта вказано невірно."],
     ["Email is required field to fill.", "Ел. пошта є обов'язкове до заповення."],
     ["Password is required field to fill.", "Пароль є обов'язковим для заповнення."],

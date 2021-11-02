@@ -17,7 +17,11 @@ class LeftSide extends Component {
       postAuthor: [],
       userId: customFunc.getUserIdFromUrl(window.location.pathname),
       errors: "",
-      loading: false
+      loading: false,
+      formPost: {
+        uploudPhoto: "",
+        description: ""
+      }
     };
   }
 
@@ -39,15 +43,18 @@ class LeftSide extends Component {
   }
   
   handleSubmitAddPost = async (e) => {
+    const { formPost } = this.state
     e.preventDefault();
     this.setState({ loading: true });
     try {
       let formData = new FormData();
-      const timeStamp = new Date(Date.now()).toISOString();
+      const timeStamp = new Date(Date.now()).toISOString().substr(0, 19);
       formData.append("creationDate", timeStamp);
-      formData.append("description", 'test');
+      formData.append("description", formPost.description);
+      formData.append("Image", formPost.uploudPhoto);
       const res = await accountService.createPost(formData, store.getState().auth.userId);
       console.log(res);
+      document.getElementById('addPostModal').hide()
     } catch (badresponse) {
       console.log(badresponse.response);
       this.setState({ errors: badresponse.response });
@@ -55,8 +62,24 @@ class LeftSide extends Component {
     this.setState({ loading: false });
   }
 
+
+  handleChange = (event) => {
+    let formPost = {...this.state.formPost}
+    formPost.description = event.target.value
+    this.setState({formPost})
+    console.log(this.state.formPost)
+  }
+
+  changePhoto = (event) => {
+    let formPost = {...this.state.formPost}
+    const file = event.currentTarget.files[0];
+    formPost.uploudPhoto = file
+    this.setState({formPost})
+  }
+
   render() {
     const { posts, loading, postAuthor, errors } = this.state;
+    const { uploudPhoto } = this.state.formPost;
     return (
       <div className="LeftSide col-9">
         <button
@@ -70,7 +93,7 @@ class LeftSide extends Component {
         </button>
         <hr />
         <ul className="Leftside-list-article p-0">
-          {posts !== "" ? <ArticleList posts={posts} author={postAuthor} /> : "No post"}
+          {posts !== "" ? <PostList posts={posts} author={postAuthor} userId={store.getState().auth.userId} /> : "No post"}
         </ul>
 
         {/* Modal start */}
@@ -104,7 +127,23 @@ class LeftSide extends Component {
                       name="description"
                       className="form-control"
                       id="message-text"
+                      required
+                      onChange={this.handleChange}
                     ></textarea>
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="message-text" className="col-form-label">
+                      {t('Photo')}:
+                    </label>
+                    <input
+                    type="file"
+                    className="form-control"
+                    required
+                    onChange={this.changePhoto}
+                    />
+                  </div>
+                  <div>
+                    <img alt={uploudPhoto} src={uploudPhoto && URL.createObjectURL(uploudPhoto)}/>
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -131,10 +170,24 @@ class LeftSide extends Component {
   }
 }
 
-function ArticleList(props) {
-  const { firstName , lastName, email } = props.author;
+const PostList = (props) => {
+
+  const handleDeletePost = async (id) => {
+    console.log('click', id)
+    if (window.confirm(t('Are you sure you want to delete this article?'))) {
+      try {
+        await http.post(`delete-post?id=${id}`);
+      } catch (badresponse) {
+        console.log(badresponse.response);
+      }
+    }
+  }
+
+  const { firstName, lastName, email } = props.author;
+  const { userId} = props
+  console.log(userId, customFunc.getUserIdFromUrl())
   const postlist = props.posts.map((post, index) => (
-    <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container" key={index}>
+    <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container" data-id={post.id} key={post.id}>
       <div className="row py-2 article-item-header">
         <div className="col-auto">
           <img src={default_photo} alt="mdo" width="55" height="55" />
@@ -147,15 +200,24 @@ function ArticleList(props) {
             {post.creationDate}
           </div>
         </div>
+        
+        <div className="col-md-2 offset-md-6 col-edit-post">
+        {userId === customFunc.getUserIdFromUrl() && 
+          <>
+          <label className="edit-post"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></label>
+          <label className="edit-delete" onClick={() => handleDeletePost(post.id)}><i className="fa fa-trash-o" aria-hidden="true"></i></label>
+          </>
+        }
+        </div>
       </div>
       <div className="row py-3 article-item-body">
         <div className="row-12">{post.description}</div>
-        {/* <div className="row-12 py-3">
+        <div className="row-12 py-3">
           <img
-            src="https://s.zagranitsa.com/images/articles/6729/870x486/53d189dfcd54fa9ecae756ddf5a7c2ee.jpg?1530714543"
+            src={customFunc.getBaseUrl() + post.image}
             alt="mdo"
           />
-        </div> */}
+        </div>
       </div>
     </li>
   ));

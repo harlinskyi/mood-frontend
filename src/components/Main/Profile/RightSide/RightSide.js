@@ -15,7 +15,7 @@ class RightSide extends Component {
         super(props);
         this.state = {
             posts: [],
-            userId: customFunc.getUserIdFromUrl(window.location.pathname),
+            userId: customFunc.getUserIdFromUrl(),
             errors: ""
         };
     }

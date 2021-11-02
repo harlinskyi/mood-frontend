@@ -4,7 +4,7 @@ class CustomFunc {
     getBaseUrl(betweenPath = '') {
         return http.defaults.baseURL + betweenPath;
     }
-    getUserIdFromUrl(pathname) {
+    getUserIdFromUrl(pathname=window.location.pathname) {
         let id = ''
         if (pathname !== '' && pathname !== null) {
             id = /[0-9]+/g.exec(pathname)[0];
