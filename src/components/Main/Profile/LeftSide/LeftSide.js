@@ -143,6 +143,7 @@ class LeftSide extends Component {
                     <input
                     type="file"
                     className="form-control"
+                    accept=".jpg,.png,.gif,.jpeg"
                     required
                     onChange={this.changePhoto}
                     />

@@ -44,7 +44,8 @@ const FormSettingsPhotoInput = ({
           break;
         default:
           console.log("File is does not valid");
-          document.getElementById("image").value="";        
+          document.getElementById("image").value="";
+          setPhoto(default_photo);    
           break;
       }
     };
