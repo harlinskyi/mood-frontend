@@ -33,7 +33,7 @@ class LeftSide extends Component {
       const response = await http.post(
         `get-user-posts?id=${this.state.userId}`
       );
-      const userPosts = response.data.posts;
+      const userPosts = response.data.posts.reverse();
       const userPostName = response.data.userInfo;
       this.setState({ posts: userPosts, postAuthor: userPostName });
     } catch (badresponse) {
@@ -182,6 +182,7 @@ const PostList = (props) => {
     if (window.confirm(t('Are you sure you want to delete this article?'))) {
       try {
         await http.post(`delete-post?id=${id}`);
+        window.location.reload();
       } catch (badresponse) {
         console.log(badresponse.response);
       }
