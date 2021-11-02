@@ -30,6 +30,7 @@ button[type="submit"] {
   background-color: #439baf;
   border: 1px solid #3a8292;
   border-radius: 10px;
+  color: #fff;
 }
 
 button[type="submit"]:hover,
@@ -37,6 +38,7 @@ button[type="submit"]:active,
 button[type="submit"]:focus {
   background-color: #3a8292;
   border: 1px solid #32707e;
+  color: #fff;
 }
 
 input[required] + label:after {

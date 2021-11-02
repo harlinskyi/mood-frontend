@@ -18,7 +18,6 @@
 }
 .article-item-header {
     border-bottom: 1px solid #E1E1E1;
-    justify-content: space-between;
 }
 .article-item-header-username {
     font-weight: bold;
@@ -52,4 +51,11 @@
 .LeftSide-list-article-item .col-edit-post label.edit-delete:hover {
     color: #fff;
     background-color: #ad2929;
+}
+.modal-photo {
+    overflow: hidden;
+    border-radius: 5px;
+}
+.modal-photo img {
+    width: 100%;
 }

@@ -34,6 +34,8 @@ const UA = [
     ["Nickname", "Нікнейм"],
     ["Quote", "Цитата"],
     ["Gender", "Стать"],
+    ["Photo", "Фото"],
+    ["Description", "Опис"],
     ["Birthday", "День народження"],
     ["Country", "Країна"],
     ["View", "Переглянути"],

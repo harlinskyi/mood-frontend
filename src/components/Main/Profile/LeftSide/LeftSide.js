@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import accountService from "../../../../services/account.service";
 import EclipseWidget from "../../../common/eclipse/eclipse";
 import t from "../../../../utils/translations";
+import classnames from "classnames";
 
 class LeftSide extends Component {
   constructor(props) {
@@ -54,9 +55,13 @@ class LeftSide extends Component {
       formData.append("Image", formPost.uploudPhoto);
       const res = await accountService.createPost(formData, store.getState().auth.userId);
       console.log(res);
-      document.getElementById('addPostModal').hide()
+      // reset form
+      document.querySelector('#addPostModal form').reset();
+      let reset = { description: '', uploudPhoto: ''}
+      this.setState({formPost : reset })
+      
     } catch (badresponse) {
-      console.log(badresponse.response);
+      console.log(badresponse);
       this.setState({ errors: badresponse.response });
     }
     this.setState({ loading: false });
@@ -142,7 +147,7 @@ class LeftSide extends Component {
                     onChange={this.changePhoto}
                     />
                   </div>
-                  <div>
+                  <div className="modal-photo">
                     <img alt={uploudPhoto} src={uploudPhoto && URL.createObjectURL(uploudPhoto)}/>
                   </div>
                 </div>
@@ -185,10 +190,9 @@ const PostList = (props) => {
 
   const { firstName, lastName, email } = props.author;
   const { userId} = props
-  console.log(userId, customFunc.getUserIdFromUrl())
   const postlist = props.posts.map((post, index) => (
     <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container" data-id={post.id} key={post.id}>
-      <div className="row py-2 article-item-header">
+      <div className={classnames("row py-2 article-item-header", { 'justify-content-between' : userId === customFunc.getUserIdFromUrl()})}>
         <div className="col-auto">
           <img src={default_photo} alt="mdo" width="55" height="55" />
         </div>
@@ -201,7 +205,7 @@ const PostList = (props) => {
           </div>
         </div>
         
-        <div className="col-md-2 offset-md-6 col-edit-post">
+        <div className="col-md-2 offset-md-5 col-edit-post">
         {userId === customFunc.getUserIdFromUrl() && 
           <>
           <label className="edit-post"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></label>

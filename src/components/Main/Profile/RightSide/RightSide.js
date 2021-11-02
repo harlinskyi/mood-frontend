@@ -64,7 +64,7 @@ class RightSide extends Component {
                         {email && <li className="mb-1">
                             <i className="fa fa-envelope-o" aria-hidden="true"></i><span>{email}</span>
                         </li>}
-                        {birthDay && <li className="mb-1">
+                        {!['0001-01-01T00:00:00', undefined].includes(birthDay) && <li className="mb-1">
                             <i className="fa fa-calendar" aria-hidden="true"></i><span>{birthDay.substr(0, 10)}</span>
                         </li>}
                         {location && <li className="mb-1">
