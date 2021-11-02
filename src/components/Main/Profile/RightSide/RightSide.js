@@ -55,11 +55,11 @@ class RightSide extends Component {
                     </div>
                     {nickName && <div className="mb-1 mx-auto fs-5 RightSide-profile-nickname">@{nickName}</div>}
                     {quote && <div className="mb-1 mx-auto fs-6 RightSide-profile-quote m-0">{quote && '"' + quote + '"'}</div>}
-                    <ul className="RightSide-profile-list-info">
+                    <ul className="RightSide-profile-list-info m-0">
                         {sex &&
-                            <li className="mb-1">
-                                {sex === 'Male' && <><i className="fa fa-mars" aria-hidden="true"></i><span>{t(sex)}</span></>}
-                                {sex === 'Female' && <><i className="fa fa-venus" aria-hidden="true"></i><span>{t(sex)}</span></>}
+                            <li className="mb-1 text-center">
+                                {sex === 'Male' && <i className="fa fa-mars" aria-hidden="true"></i>}
+                                {sex === 'Female' && <i className="fa fa-venus" aria-hidden="true"></i>}
                             </li>}
                         {email && <li className="mb-1">
                             <i className="fa fa-envelope-o" aria-hidden="true"></i><span>{email}</span>
@@ -68,7 +68,7 @@ class RightSide extends Component {
                             <i className="fa fa-calendar" aria-hidden="true"></i><span>{birthDay.substr(0, 10)}</span>
                         </li>}
                         {location && <li className="mb-1">
-                            <i className="fa fa-map-marker" aria-hidden="true"></i><span>{location}</span>
+                            <i className="fa fa-map-marker" aria-hidden="true"></i><span>{t(location)}</span>
                         </li>}
 
                         {link && <li className="mb-1">

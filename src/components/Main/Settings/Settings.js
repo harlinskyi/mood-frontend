@@ -56,7 +56,6 @@ const Settings = (props) => {
 
     const handleChange = (e) => {
         setUser({...user, [e.target.name]: e.target.value })
-        console.log('test');
     }
 
     return (
@@ -198,7 +197,7 @@ const Settings = (props) => {
                             aria-label="Default select example"
                         >
                             <option defaultValue="">{t("Please, select from list")}</option>
-                            {["Ukraine", "Poland", "Russia", "USA", "Moldova"].map((i) => (<option key={i} value={i}>{t(i)}</option>))}
+                            {["Ukraine", "Poland", "Kanada", "USA", "Moldova", "England"].map((i) => (<option key={i} value={i}>{t(i)}</option>))}
                         </FormSettingsSelect>
 
                         <div className="col-12">

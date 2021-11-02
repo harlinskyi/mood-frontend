@@ -59,6 +59,7 @@ class LeftSide extends Component {
       document.querySelector('#addPostModal form').reset();
       let reset = { description: '', uploudPhoto: ''}
       this.setState({formPost : reset })
+      window.location.reload();
       
     } catch (badresponse) {
       console.log(badresponse);
@@ -72,7 +73,6 @@ class LeftSide extends Component {
     let formPost = {...this.state.formPost}
     formPost.description = event.target.value
     this.setState({formPost})
-    console.log(this.state.formPost)
   }
 
   changePhoto = (event) => {
