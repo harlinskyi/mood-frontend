@@ -1,4 +1,4 @@
-import { REGISTER_AUTH, LOGIN_AUTH, LOGOUT,  } from "../actions/types";
+import { REGISTER_AUTH, LOGIN_AUTH, LOGOUT, CHANGE_USER_PHOTO } from "../actions/types";
 import store from "../store";
 
 const initialState = {
@@ -27,6 +27,12 @@ function authReducer(auth = initialState, action) {
         case LOGOUT: {
             return { 
                 isAuth: false
+            }
+        }
+
+        case CHANGE_USER_PHOTO: {
+            return { 
+                userPhoto: data
             }
         }
         default: 

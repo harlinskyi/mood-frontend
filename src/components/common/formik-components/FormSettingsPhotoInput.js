@@ -33,26 +33,17 @@ const FormSettingsPhotoInput = ({
 
       switch (header) {
         case "89504e47":
-          alert ("image/png");
-          setPhoto(URL.createObjectURL(file));
-          formikRef.current.setFieldValue(field, file);
-          break;
         case "47494638":
-          alert ("image/gif");
-          setPhoto(URL.createObjectURL(file));
-          formikRef.current.setFieldValue(field, file);
-          break;
         case "ffd8ffe0":
         case "ffd8ffe1":
         case "ffd8ffe2":
         case "ffd8ffe3":
         case "ffd8ffe8":
-          alert ("image/jpeg");
           setPhoto(URL.createObjectURL(file));
           formikRef.current.setFieldValue(field, file);
           break;
         default:
-          alert ("unknown");
+          console.log("File is does not valid");
           document.getElementById("image").value="";        
           break;
       }
@@ -73,7 +64,9 @@ const FormSettingsPhotoInput = ({
           className="form-control"
           id={field}
           name={field}
-          onChange={selectImage} />
+          onChange={selectImage}
+          accept="image/*"
+          />
       </div>
     </>
   );

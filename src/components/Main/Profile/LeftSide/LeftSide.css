@@ -54,8 +54,12 @@
 }
 .modal-photo {
     overflow: hidden;
-    border-radius: 5px;
+    border-radius: .25rem;
 }
 .modal-photo img {
     width: 100%;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    max-height: 260px;
+    object-fit: cover;
 }
