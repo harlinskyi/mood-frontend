@@ -192,7 +192,7 @@ const PostList = (props) => {
   const { userId} = props
   const postlist = props.posts.map((post, index) => (
     <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container" data-id={post.id} key={post.id}>
-      <div className={classnames("row py-2 article-item-header", { 'justify-content-between' : userId === customFunc.getUserIdFromUrl()})}>
+      <div className={classnames("row py-2 article-item-header")}>
         <div className="col-auto">
           <img src={default_photo} alt="mdo" width="55" height="55" />
         </div>
@@ -205,7 +205,7 @@ const PostList = (props) => {
           </div>
         </div>
         
-        <div className="col-md-2 offset-md-5 col-edit-post">
+        <div className="col-md-2 offset-md-7 col-edit-post">
         {userId === customFunc.getUserIdFromUrl() && 
           <>
           <label className="edit-post"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></label>
