@@ -49,6 +49,7 @@ const UA = [
     ["Forgot your password?", "Забули пароль?"],
     ["Save settings", "Зберегти налаштування"],
     ["Settings", "Налаштування"],
+    ["File is does not valid image", "Файл є недійсним зображенням"],
     ["Create post", "Створити допис"],
     ["Are you sure you want to delete this article?", "Ви дійсно хочете видалити цю статтю?"],
     ["Email incorrectly specified.", "Ел. пошта вказано невірно."],

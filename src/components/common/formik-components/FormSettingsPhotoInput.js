@@ -29,24 +29,15 @@ const FormSettingsPhotoInput = ({
       for (var i = 0; i < arr.length; i++) {
         header += arr[i].toString(16);
       }
-      console.log(header);
-
-      switch (header) {
-        case "89504e47":
-        case "47494638":
-        case "ffd8ffe0":
-        case "ffd8ffe1":
-        case "ffd8ffe2":
-        case "ffd8ffe3":
-        case "ffd8ffe8":
-          setPhoto(URL.createObjectURL(file));
-          formikRef.current.setFieldValue(field, file);
-          break;
-        default:
-          console.log("File is does not valid");
-          document.getElementById("image").value="";
-          setPhoto(default_photo);    
-          break;
+      const allowedExt = ["89504e47", "47494638", "ffd8ffe0", "ffd8ffe1" , "ffd8ffe2" , "ffd8ffe8" ]
+      if (allowedExt.includes(header)) {
+        setPhoto(URL.createObjectURL(file));
+        formikRef.current.setFieldValue(field, file);
+      }
+      else {
+        alert(t("File is does not valid image"));
+        document.getElementById("image").value = "";
+        setPhoto(default_photo);  
       }
     };
     fileReader.readAsArrayBuffer(blob);
