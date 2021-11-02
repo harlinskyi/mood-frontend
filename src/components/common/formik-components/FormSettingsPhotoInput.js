@@ -8,10 +8,10 @@ const FormSettingsPhotoInput = ({
   formikRef,
   src
 }) => {
-  const [image , setPhoto] = useState(default_photo);
-  
+  const [image, setPhoto] = useState(default_photo);
+
   useEffect(() => {
-    if (src &&  src !== image) {
+    if (src && src !== image) {
       console.log(src)
       const userPhoto = customFunc.getBaseUrl() + src
       setPhoto(userPhoto);
@@ -20,8 +20,44 @@ const FormSettingsPhotoInput = ({
 
   const selectImage = (event) => {
     const file = event.currentTarget.files[0];
-    setPhoto(URL.createObjectURL(file));
-    formikRef.current.setFieldValue(field, file);
+    console.log(event.currentTarget.value);
+    var blob = file; // See step 1 above
+    var fileReader = new FileReader();
+    fileReader.onloadend = function (e) {
+      var arr = (new Uint8Array(e.target.result)).subarray(0, 4);
+      var header = "";
+      for (var i = 0; i < arr.length; i++) {
+        header += arr[i].toString(16);
+      }
+      console.log(header);
+
+      switch (header) {
+        case "89504e47":
+          alert ("image/png");
+          setPhoto(URL.createObjectURL(file));
+          formikRef.current.setFieldValue(field, file);
+          break;
+        case "47494638":
+          alert ("image/gif");
+          setPhoto(URL.createObjectURL(file));
+          formikRef.current.setFieldValue(field, file);
+          break;
+        case "ffd8ffe0":
+        case "ffd8ffe1":
+        case "ffd8ffe2":
+        case "ffd8ffe3":
+        case "ffd8ffe8":
+          alert ("image/jpeg");
+          setPhoto(URL.createObjectURL(file));
+          formikRef.current.setFieldValue(field, file);
+          break;
+        default:
+          alert ("unknown");
+          document.getElementById("image").value="";        
+          break;
+      }
+    };
+    fileReader.readAsArrayBuffer(blob);
   }
 
   return (
