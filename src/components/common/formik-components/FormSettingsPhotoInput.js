@@ -65,7 +65,7 @@ const FormSettingsPhotoInput = ({
           id={field}
           name={field}
           onChange={selectImage}
-          accept=".jpg,.png,.gif"
+          accept=".jpg,.png,.gif,.jpeg"
           />
       </div>
     </>
