@@ -54,3 +54,10 @@ input[required] + label:after {
   display: block;
 }
 
+.m-0-auto {
+  margin: 0 auto !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  background-color: #609aa7;
+}

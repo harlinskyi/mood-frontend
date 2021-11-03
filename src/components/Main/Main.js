@@ -14,6 +14,7 @@ import Settings from "./Settings/Settings";
 import Peoples from "./Peoples/Peoples.js";
 import { connect } from "react-redux";
 import PageNotFound from "../common/PageNotFound/PageNotFound";
+import AdminPanel from "./AdminPanel/AdminPanel";
 
 class Main extends Component {
   state = {};
@@ -28,6 +29,7 @@ class Main extends Component {
             <Route exact path={'/profile/:id'} component={(props) => <RightSide {...props} key={window.location.pathname} />}></Route>
             <Route path={`/settings`} component={Settings}></Route>
             <Route exact path="/peoples" component={Peoples}></Route>
+            <Route exact path={[`/admin-panel`, `/admin-panel/*`]} component={AdminPanel}></Route>
           </div>
         ) : (
           <div className="row-auto guest">

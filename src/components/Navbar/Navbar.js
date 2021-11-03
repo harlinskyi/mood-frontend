@@ -6,7 +6,7 @@ import { logout } from '../../actions/auth';
 import default_photo from '../../images/default_photo.jpg';
 import store from '../../store';
 import t from '../../utils/translations';
-import Flags from 'country-flag-icons/react/3x2'
+import logo from '../../images/logo.png'
 
 import ReactLanguageSelect from 'react-languages-select';
 import 'react-languages-select/css/react-languages-select.css';
@@ -35,13 +35,15 @@ class Navbar extends Component {
             <header className="col-12 p-3 mb-3 border-bottom">
                 <div className="container-lg">
                     <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between">
-                        <Link to="/" className="logo mb-2 mb-lg-0 text-dark text-decoration-none">MOOD</Link>
+                        <Link to="/" className="logo mb-2 mb-lg-0 text-dark text-decoration-none">
+                        <img alt={logo} src={logo} className="me-1" width="22"/>MOOD
+                        </Link>
                         {isAuth ?
                             <>
                                 <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                                     <li><Link to="/peoples" className="nav-link px-2 link-secondary">{t('Peoples')}</Link></li>
                                     {role === 'Admin' &&
-                                        <li><Link to="/admin-panel" className="nav-link px-2 link-secondary">Admin Panel</Link></li>
+                                        <li><Link to="/admin-panel" className="nav-link px-2 link-secondary">{t('Admin-panel')}</Link></li>
                                     }
                                     
                                 </ul>

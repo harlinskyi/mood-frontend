@@ -1,0 +1,40 @@
+.admin-menu  {
+    height: 80vh;
+}
+.admin-menu {
+    max-height: auto;
+}
+/* .admin-panel .row > div {
+    min-height: 80vh;
+} */
+
+.admin-panel .admin-menu,
+.admin-panel .admin-body {
+    background-color: #ffffff;
+}
+.admin-panel .admin-menu {
+    border-right: 10px solid #f1f1f1;
+    border-radius: 0.25rem;
+}
+.link-white {
+    color: #fff;
+}
+.admin-menu .nav-item {
+    transition: background-color .2s;
+    border-radius: .25rem;
+}
+.admin-menu .nav-item:hover {
+    background-color: #f1f1f1;
+}
+.admin-logo {
+    display: flex;
+    align-items: center;
+    background-color: #00000012;
+    padding: 2px 10px;
+    border-radius: 0.25rem;
+    border: 1px solid gainsboro;
+}
+.admin-menu-info + ul li{
+    list-style-type: none;
+    color: rgb(119, 119, 119);
+}

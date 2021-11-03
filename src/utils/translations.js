@@ -45,6 +45,7 @@ const UA = [
     ["Kanada", "Канада"],
     ["Country", "Країна"],
     ["View", "Переглянути"],
+    ["Logs", "Логи"],
     ["Not registered?", "Не зареєстрований?"],
     ["Forgot your password?", "Забули пароль?"],
     ["Save settings", "Зберегти налаштування"],
@@ -63,5 +64,10 @@ const UA = [
     ["Registration with email", "Реєстрація з ел. почтою"],
     ["was successful, please", "була успішна, будь ласка"],
     ["log in", "авторизуйтесь"],
-    ["Please, select from list", "Будь ласка, оберіть із списку"]
+    ["Please, select from list", "Будь ласка, оберіть із списку"],
+    ["Harlinskyi Kyrylo", "Гарлінський Кирило"],
+    ["Mychko Andrii", "Мичко Андрій"],
+    ["Tyshchuk Mykola", "Тищук Микола"],
+    ["DEV. GROUP", "ГРУПА РОЗРОБНИКІВ"],
+    ["Admin-panel", "Адмін-панель"]
 ]
