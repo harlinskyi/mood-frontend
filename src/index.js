@@ -4,10 +4,11 @@ import 'font-awesome/css/font-awesome.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { authUser } from './actions/auth';
+import { authUser, changeUserPhoto } from './actions/auth';
 import App from './App';
 import store, { history } from './store';
 import { ConnectedRouter } from 'connected-react-router';
+import http from './http-common';
 
 const token = localStorage.authToken;
 
@@ -18,6 +19,7 @@ if (token) {
 if (!localStorage.language) {
   localStorage.setItem("language", "en");
 }
+
 
 ReactDOM.render(
   <Provider store={store}>

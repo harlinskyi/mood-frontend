@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import setAuthorisationToken from "../utils/setAuthorisationToken";
-import { LOGIN_AUTH, LOGOUT } from "./types";
+import { CHANGE_USER_PHOTO, LOGIN_AUTH, LOGOUT } from "./types";
 
 
 
@@ -21,6 +21,15 @@ export const logout = (dispatch) => {
     dispatch(
         {
             type: LOGOUT
+        }
+    );
+}
+
+export const changeUserPhoto = (imagePath, dispatch) => {
+    dispatch(
+        {
+            type: CHANGE_USER_PHOTO,
+            data: imagePath
         }
     );
 }

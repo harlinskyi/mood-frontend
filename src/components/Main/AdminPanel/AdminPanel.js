@@ -16,6 +16,7 @@ import logo from '../../../images/logo.png'
 import classnames from 'classnames';
 import http from '../../../http-common';
 import Pagination from '../../common/Pagination/Pagination';
+import EclipseWidget from '../../common/eclipse/eclipse';
 
 const AdminPanel = () => {
 
@@ -122,7 +123,9 @@ const LogTable = ({ logs, loading }) => {
     if (loading) {
         return (
             <tr>
-                <td>Loading...</td>
+                <td>
+                    <EclipseWidget />
+                </td>
             </tr>
         )
     }

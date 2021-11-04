@@ -5,6 +5,7 @@ import authReducer from "./reducers/auth";
 // import usersReducer from "./reducers/users";
 import { createBrowserHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
+import profileReducer from "./reducers/profile";
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 export const history = createBrowserHistory({ basename: baseUrl });
@@ -17,6 +18,7 @@ const middleware = [thunk, routerMiddleware(history)];
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    photo: profileReducer,
     router: connectRouter(history)
     // users: usersReducer
 });

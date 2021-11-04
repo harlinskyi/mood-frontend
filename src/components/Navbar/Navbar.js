@@ -2,7 +2,7 @@ import './Navbar.css';
 import React, { Component } from "react";
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../../actions/auth';
+import { changeUserPhoto, logout } from '../../actions/auth';
 import default_photo from '../../images/default_photo.jpg';
 import store from '../../store';
 import t from '../../utils/translations';
@@ -10,8 +10,17 @@ import logo from '../../images/logo.png'
 
 import ReactLanguageSelect from 'react-languages-select';
 import 'react-languages-select/css/react-languages-select.css';
+import customFunc from '../../utils/customFunc';
+import http from '../../http-common';
 
 class Navbar extends Component {
+
+    componentDidMount = async () => {
+        if (!store.getState().photo.userPhoto) {
+            const response = await http.post(`get-user-profile?id=${store.getState().auth.userId}`);
+            changeUserPhoto(response.data.image, this.props.dispatch);
+          }
+    }
     
     onClickLogout = async (e) => {
         e.preventDefault();
@@ -28,9 +37,10 @@ class Navbar extends Component {
         localStorage.language = languageCode;
         window.location.reload();
     }
+
     
     render() {
-        const { isAuth, email, role , userId } = this.props;
+        const { isAuth, email, role , userId, userPhoto } = this.props;
         return (
             <header className="col-12 p-3 mb-3 border-bottom">
                 <div className="container-lg">
@@ -49,7 +59,7 @@ class Navbar extends Component {
                                 </ul>
                                 <div className="dropdown text-end">
                                     <Link to="#" className="d-block link-dark text-decoration-none dropdown-toggle" id="profile-menu" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src={default_photo} alt="mdo" width="32" height="32" className="rounded-circle" />
+                                    <img src={userPhoto ? customFunc.getBaseUrl() + userPhoto : default_photo} alt="mdo" width="32" height="32" className="rounded-circle" />
                                         <span className="header-username">{email}</span>
                                     </Link>
                                     <ul className="dropdown-menu text-small" aria-labelledby="profile-menu">
@@ -87,7 +97,8 @@ function mapStateToProps(state) {
         isAuth: state.auth.isAuth,
         email: state.auth.email,
         userId: state.auth.userId,
-        role: state.auth.role
+        role: state.auth.role,
+        userPhoto: state.photo.userPhoto
     };
 }
 

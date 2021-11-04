@@ -1,5 +1,5 @@
 import "./LeftSide.css";
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import store from "../../../../store";
 import http from "../../../../http-common";
 import default_photo from "../../../../images/default_photo.jpg";
@@ -38,11 +38,11 @@ class LeftSide extends Component {
       this.setState({ posts: userPosts, postAuthor: userPostName });
     } catch (badresponse) {
       // console.log("Problem:", badresponse.response.data);
-      this.setState({ errors: badresponse.response.data});
+      this.setState({ errors: badresponse.response.data });
     }
     this.setState({ loading: false });
   }
-  
+
   handleSubmitAddPost = async (e) => {
     const { formPost } = this.state
     e.preventDefault();
@@ -57,10 +57,10 @@ class LeftSide extends Component {
       console.log(res);
       // reset form
       document.querySelector('#addPostModal form').reset();
-      let reset = { description: '', uploudPhoto: ''}
-      this.setState({formPost : reset })
+      let reset = { description: '', uploudPhoto: '' }
+      this.setState({ formPost: reset })
       window.location.reload();
-      
+
     } catch (badresponse) {
       console.log(badresponse);
       this.setState({ errors: badresponse.response });
@@ -70,16 +70,16 @@ class LeftSide extends Component {
 
 
   handleChange = (event) => {
-    let formPost = {...this.state.formPost}
+    let formPost = { ...this.state.formPost }
     formPost.description = event.target.value
-    this.setState({formPost})
+    this.setState({ formPost })
   }
 
   changePhoto = (event) => {
-    let formPost = {...this.state.formPost}
+    let formPost = { ...this.state.formPost }
     const file = event.currentTarget.files[0];
     formPost.uploudPhoto = file
-    this.setState({formPost})
+    this.setState({ formPost })
   }
 
   render() {
@@ -98,7 +98,15 @@ class LeftSide extends Component {
         </button>
         <hr />
         <ul className="Leftside-list-article p-0">
-          {posts !== "" ? <PostList posts={posts} author={postAuthor} userId={store.getState().auth.userId} /> : "No post"}
+          {console.log(posts)}
+          {posts.length > 0 ?
+            <PostList
+              posts={posts}
+              author={postAuthor}
+              userId={store.getState().auth.userId}
+              userPhoto={store.getState().photo.userPhoto} />
+            : t('There are no posts.')
+            }
         </ul>
 
         {/* Modal start */}
@@ -141,15 +149,15 @@ class LeftSide extends Component {
                       {t('Photo')}:
                     </label>
                     <input
-                    type="file"
-                    className="form-control"
-                    accept=".jpg,.png,.gif,.jpeg"
-                    required
-                    onChange={this.changePhoto}
+                      type="file"
+                      className="form-control"
+                      accept=".jpg,.png,.gif,.jpeg"
+                      required
+                      onChange={this.changePhoto}
                     />
                   </div>
                   <div className="modal-photo">
-                    <img alt={uploudPhoto} src={uploudPhoto && URL.createObjectURL(uploudPhoto)}/>
+                    <img alt={uploudPhoto} src={uploudPhoto && URL.createObjectURL(uploudPhoto)} />
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -177,7 +185,7 @@ class LeftSide extends Component {
 }
 
 const PostList = (props) => {
-
+  const [photoNew, setPhoto] = useState('')
   const handleDeletePost = async (id) => {
     console.log('click', id)
     if (window.confirm(t('Are you sure you want to delete this article?'))) {
@@ -189,14 +197,21 @@ const PostList = (props) => {
       }
     }
   }
+  useEffect(() => {
+    setPhoto(props.userPhoto)
+  }, [props.userPhoto])
 
   const { firstName, lastName, email } = props.author;
-  const { userId} = props
+  console.log(props)
+  const { userId } = props
+  const { userPhoto } = props
+  console.log(props.userId, props.userPhoto)
+
   const postlist = props.posts.map((post, index) => (
     <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container" data-id={post.id} key={post.id}>
       <div className={classnames("row py-2 article-item-header")}>
         <div className="col-auto">
-          <img src={default_photo} alt="mdo" width="55" height="55" />
+          <img src={userPhoto ? customFunc.getBaseUrl() + photoNew : default_photo} alt="mdo" width="55" height="55" />
         </div>
         <div className="col-auto">
           <div className="row fs-5 article-item-header-username">
@@ -206,14 +221,14 @@ const PostList = (props) => {
             {post.creationDate}
           </div>
         </div>
-        
+
         <div className="col-md-2 offset-md-7 col-edit-post">
-        {userId === customFunc.getUserIdFromUrl() && 
-          <>
-          <label className="edit-post"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></label>
-          <label className="edit-delete" onClick={() => handleDeletePost(post.id)}><i className="fa fa-trash-o" aria-hidden="true"></i></label>
-          </>
-        }
+          {userId === customFunc.getUserIdFromUrl() &&
+            <>
+              <label className="edit-post"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></label>
+              <label className="edit-delete" onClick={() => handleDeletePost(post.id)}><i className="fa fa-trash-o" aria-hidden="true"></i></label>
+            </>
+          }
         </div>
       </div>
       <div className="row py-3 article-item-body">
@@ -233,6 +248,7 @@ const PostList = (props) => {
 function mapStateToProps(state) {
   return {
     userId: state.auth.userId,
+    userPhoto: state.photo.userPhoto
   };
 }
 

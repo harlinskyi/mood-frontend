@@ -15,6 +15,7 @@ import FormSettingsPhotoInput from "../../common/formik-components/FormSettingsP
 import FormSettingsInput from "../../common/formik-components/FormSettingsInput";
 import FormSettingsTextarea from "../../common/formik-components/FormSettingsTextarea";
 import FormSettingsSelect from "../../common/formik-components/FormSettingsSelect";
+import { changeUserPhoto } from "../../../actions/auth";
 
 const Settings = (props) => {
     const dispatch = useDispatch();
@@ -51,7 +52,6 @@ const Settings = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log({ user });
     }, [user]);
 
     const handleChange = (e) => {
@@ -68,13 +68,17 @@ const Settings = (props) => {
                 email: Yup.string()
                     .required(t('That filed is required!')),
                 firstName: Yup.string()
-                    .required(t('That filed is required!')),
+                    .required(t('That filed is required!'))
+                    .matches(/^[a-zA-Zа-яА-ЯІіЇїЄє]+$/, 'Only alphabets are allowed for this field'),
                 lastName: Yup.string()
-                    .required(t('That filed is required!')),
+                    .required(t('That filed is required!'))
+                    .matches(/^[a-zA-Zа-яА-ЯІіЇїЄє]+$/, t('Only alphabets are allowed for this field')),
                 nickName: Yup.string()
                     .required(t('That filed is required!'))
                     .max(10, t('Maximum value of the field is ') + 10)
-                    .min(3, t('Maximum value of the field is ') + 3),
+                    .min(3, t('Maximum value of the field is ') + 3)
+                    .matches(/^[0-9a-zA-Zа-я_]+$/, t('Only numbers, letters and underscore!'))
+                    .lowercase(),
                 birthDay: Yup.date()
                     .required(t('That filed is required!'))
                     .max(new Date(Date.now()), t('Date of birth cannot be more than the flow date!'))
@@ -93,8 +97,10 @@ const Settings = (props) => {
                         var formData = new FormData();
                         Object.entries(formValues).forEach(([key, value]) => formData.append(key, value));
                         const res = await accountService.updateSettings(formData, store.getState().auth.userId);
-                        console.log(res.status);
+                        const response = await http.post(`get-user-profile?id=${store.getState().auth.userId}`);
+                        changeUserPhoto(response.data.image, dispatch);
                         setSuccess(true)
+
                     } catch (badresponse) {
                         setSuccess(false)
                         if (badresponse.response !== undefined) {
@@ -218,7 +224,7 @@ const Settings = (props) => {
                             <option defaultValue="">{t("Please, select from list")}</option>
                             {["Ukraine", "Poland", "Kanada", "USA", "Moldova", "England"].map((i) => (<option key={i} value={i}>{t(i)}</option>))}
                         </FormSettingsSelect>
-                        {success && <div class="alert alert-success" role="alert"><i className="fa fa-check-circle me-1" aria-hidden="true"></i>{t('All changes have been saved successfully!')}</div>}
+                        {success && <div className="alert alert-success" role="alert"><i className="fa fa-check-circle me-1" aria-hidden="true"></i>{t('All changes have been saved successfully!')}</div>}
 
                         <div className="col-12">
                             <button

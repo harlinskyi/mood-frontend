@@ -82,5 +82,8 @@ const UA = [
     ["Minimum value of the field is ", "Мінімальне значення поля "],
     ["Invalid field value!", "Некоректне значення поля!"],
     ["Date of birth cannot be more than the flow date!", "Дата народження не може бути більше, ніж поточна дата!"],
-    ["Date of birth cannot be less than ", "Дата народження не може бути меншою, ніж "]
+    ["Date of birth cannot be less than ", "Дата народження не може бути меншою, ніж "],
+    ["Only alphabets are allowed for this field", "Для цього поля дозволені лише алфавіти"],
+    ["Only numbers, letters and underscore!", "Тільки цифри, літери та підкреслення!"],
+    ["There are no posts.", "Дописів немає."]
 ]

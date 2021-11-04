@@ -55,7 +55,7 @@ const Register = () => {
               };
               await accountService.register(model);
               setSuccess(values.email)
-              setInvalid('')
+              setInvalid(false)
             } catch (badresponse) {
               if (badresponse.response !== undefined) {
                 setInvalid(badresponse.response.data.ErrorDescription);
