@@ -34,7 +34,7 @@ const AdminPanel = () => {
                         <ul className="nav nav-pills flex-column mb-auto">
                             <li className="nav-item">
                                 <Link to="/admin-panel/logs" className={classnames("nav-link link-dark", { "active": window.location.pathname === '/admin-panel/logs' })} aria-current="page">
-                                    <i className="fa fa-tasks me-3" aria-hidden="true"></i>{t('Logs')}
+                                    <i className="fa fa-clock-o me-3" aria-hidden="true"></i>{t('Logs')}
                                 </Link>
                             </li>
                             <li className="nav-item">
@@ -57,22 +57,7 @@ const AdminPanel = () => {
                 <div className="col-10 admin-body">
                     <Switch>
                         <Route path={`/admin-panel/logs`}>
-                            <div id="container">
-                                <table className="table table-striped table-hover table-logs">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Id</th>
-                                            <th scope="col">{t('Action Type')}</th>
-                                            <th scope="col">{t('Description')}</th>
-                                            <th scope="col">{t('Date')}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {/* <Logs itemsPerPage={5}/> */}
-                                        <Logs />
-                                    </tbody>
-                                </table>
-                            </div>
+                            <Logs />
                         </Route>
                         <Route path={`/admin-panel/peoples`} component={Peoples} />
                     </Switch>
@@ -87,7 +72,7 @@ const Logs = () => {
     const [logs, setLogs] = useState([])
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
-    const [logsPerPage] = useState(5);
+    const [logsPerPage] = useState(15);
 
     useEffect(() => {
         const fetchLogs = async () => {
@@ -107,28 +92,44 @@ const Logs = () => {
     const indexOfLastLog = currentPage * logsPerPage;
     const indexOfFirstLog = indexOfLastLog - logsPerPage;
     const currentLogs = logs.slice(indexOfFirstLog, indexOfLastLog)
-    console.log(currentPage)
     return (
         <>
-            <LogTable logs={currentLogs} loading={loading} />
-            <Pagination logsPerPage={logsPerPage} totalLogs={logs.length} paginate={paginate} prev={prev} next={next} currentPage={currentPage} />
+            <div className="logs-table table-responsive flex-column">
+                <table className="table table-striped table-hover table-logs">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">{t('Action Type')}</th>
+                            <th scope="col">{t('Description')}</th>
+                            <th scope="col">{t('Date')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <LogTable logs={currentLogs} loading={loading} />
+                    </tbody>
+                </table>
+                <Pagination logsPerPage={logsPerPage} totalLogs={logs.length} paginate={paginate} prev={prev} next={next} currentPage={currentPage} />
+            </div>
+            
         </>
     )
 }
 
 const LogTable = ({ logs, loading }) => {
     if (loading) {
-        return <tr>
-            <td>Loading...</td>
-        </tr>
+        return (
+            <tr>
+                <td>Loading...</td>
+            </tr>
+        )
     }
     return (
         <>
             {logs.map(log => (
                 <tr key={log.id}>
-                    <td>{log.id}</td>
+                    <th scope="row">{log.id}</th>
                     <td>{log.actionType}</td>
-                    <td>{log.description}</td>
+                    <td className="wrap">{log.description}</td>
                     <td>{log.date}</td>
                 </tr>
             ))}

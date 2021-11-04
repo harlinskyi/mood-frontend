@@ -1,3 +1,4 @@
+import './Pagination.css'
 import classnames from 'classnames';
 import React from 'react';
 import t from '../../../utils/translations';
@@ -8,18 +9,17 @@ const Pagination = ({ logsPerPage, totalLogs, paginate, prev, next, currentPage 
     for (let i = 1; i <= Math.ceil(totalLogs / logsPerPage); i++) {
         pageNumbers.push(i);
     }
-    console.log(currentPage);
 
     return (
-        <nav>
-            <ul className='pagination'>
+        <nav className="Page navigation">
+            <ul className='pagination justify-content-center'>
                 <li className={classnames('page-item', { 'disabled': currentPage === 1 })}>
                     <span onClick={() => prev()} className='page-link'>
                         {t('prev')}
                     </span>
                 </li>
                 {pageNumbers.map(number => (
-                    <li key={number} className='page-item'>
+                    <li key={number} className={classnames('page-item', { 'active': currentPage === number })}>
                         <span onClick={() => paginate(number)} className='page-link'>
                             {number}
                         </span>

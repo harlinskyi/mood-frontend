@@ -38,6 +38,19 @@
     list-style-type: none;
     color: rgb(119, 119, 119);
 }
-.table-logs th{
+.table-logs th ,
+.table-logs td {
     white-space: nowrap;
+}
+.table-logs td.wrap {
+    white-space: pre-wrap;
+}
+
+.table-logs tr th:first-child {
+}
+
+.logs-table {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
 }

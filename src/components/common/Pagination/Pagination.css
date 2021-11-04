@@ -1,3 +1,22 @@
-.pagination .page-item.disabled {
-  background-color: silver;
+.pagination li:not(.disabled) {
+  cursor: pointer !important;
+}
+
+.pagination li.disabled {
+  cursor: no-drop !important;
+}
+.pagination .page-item.active .page-link,
+.pagination .page-item.active .page-link:hover {
+  color: #fff;
+}
+.pagination .page-item .page-link {
+  user-select: none;
+  color: #5d5d5d;
+}
+.pagination .page-item .page-link:hover {
+  color: #525252;
+}
+.pagination .page-item.active .page-link {
+  background-color: #609aa7;
+  border-color: #53838e;
 }
