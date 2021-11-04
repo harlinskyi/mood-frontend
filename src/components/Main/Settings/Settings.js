@@ -64,11 +64,27 @@ const Settings = (props) => {
                 innerRef={formikRef}
                 initialValues={user}
                 enableReinitialize={true}
-                // validationSchema={Yup.object({
-                //   Email: Yup.string()
-                //     .email("Не коректно вказана пошта")
-                //     .required("Вкажіть пошту"),
-                // })}
+                validationSchema={Yup.object({
+                email: Yup.string()
+                    .required(t('That filed is required!')),
+                firstName: Yup.string()
+                    .required(t('That filed is required!')),
+                lastName: Yup.string()
+                    .required(t('That filed is required!')),
+                nickName: Yup.string()
+                    .required(t('That filed is required!'))
+                    .max(10, t('Maximum value of the field is ') + 10)
+                    .min(3, t('Maximum value of the field is ') + 3),
+                birthDay: Yup.date()
+                    .required(t('That filed is required!'))
+                    .max(new Date(Date.now()), t('Date of birth cannot be more than the flow date!'))
+                    .min(new Date('1920-01-01'), t('Date of birth cannot be less than ') + '1920-01-01!'),
+                quote: Yup.string()
+                    .max(150, t('Maximum value of the field is ') + 150)
+                    .min(10, t('Maximum value of the field is ') + 10),
+                link: Yup.string()
+                    .url(t('Invalid field value!'))
+                })}
                 onSubmit={async (values, { setSubmitting }) => {
                     const formValues = values
                     console.log(formValues)
@@ -78,7 +94,9 @@ const Settings = (props) => {
                         Object.entries(formValues).forEach(([key, value]) => formData.append(key, value));
                         const res = await accountService.updateSettings(formData, store.getState().auth.userId);
                         console.log(res.status);
+                        setSuccess(true)
                     } catch (badresponse) {
+                        setSuccess(false)
                         if (badresponse.response !== undefined) {
                             setInvalid(badresponse.response.data.invalid);
                             titleRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -97,6 +115,7 @@ const Settings = (props) => {
                         <h1 className="h3 mb-3 fw-normal text-center fw-bold">
                             {t("Settings")}
                         </h1>
+                        
                         <FormSettingsPhotoInput
                             name="image"
                             field="image"
@@ -199,6 +218,7 @@ const Settings = (props) => {
                             <option defaultValue="">{t("Please, select from list")}</option>
                             {["Ukraine", "Poland", "Kanada", "USA", "Moldova", "England"].map((i) => (<option key={i} value={i}>{t(i)}</option>))}
                         </FormSettingsSelect>
+                        {success && <div class="alert alert-success" role="alert"><i className="fa fa-check-circle me-1" aria-hidden="true"></i>{t('All changes have been saved successfully!')}</div>}
 
                         <div className="col-12">
                             <button

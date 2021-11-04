@@ -55,6 +55,7 @@ const Register = () => {
               };
               await accountService.register(model);
               setSuccess(values.email)
+              setInvalid('')
             } catch (badresponse) {
               if (badresponse.response !== undefined) {
                 setInvalid(badresponse.response.data.ErrorDescription);
@@ -93,11 +94,12 @@ const Register = () => {
             <button type="submit" className="w-100 btn btn-lg btn-primary mb-2">{t('Register')}</button>
             {invalid &&
               <div ref={titleRef} className="alert alert-danger">
-                {t(invalid)}
+                <i className="fa fa-window-close me-1" aria-hidden="true"></i>{t(invalid)}
               </div>
             }
             {success &&
               <div className="alert alert-success m-0" role="alert">
+              <i className="fa fa-check-circle me-1" aria-hidden="true"></i>
                 {t('Registration with email')} <span>{success}</span> {t('was successful, please')} <Link to="/login" email={success} className="login-msg" >{t('log in')}</Link>!
               </div>
             }

@@ -34,12 +34,12 @@ const AdminPanel = () => {
                         <ul className="nav nav-pills flex-column mb-auto">
                             <li className="nav-item">
                                 <Link to="/admin-panel/logs" className={classnames("nav-link link-dark", { "active": window.location.pathname === '/admin-panel/logs' })} aria-current="page">
-                                    <i className="fa fa-clock-o me-3" aria-hidden="true"></i>{t('Logs')}
+                                    <i className="fa fa-clock-o me-2" aria-hidden="true"></i>{t('Logs')}
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/admin-panel/peoples" className={classnames("nav-link link-dark", { "active": window.location.pathname === '/admin-panel/peoples' })} aria-current="page">
-                                    <i className="fa fa-users me-3" aria-hidden="true"></i>{t('Peoples')}
+                                    <i className="fa fa-users me-2" aria-hidden="true"></i>{t('Peoples')}
                                 </Link>
                             </li>
                         </ul>
@@ -95,22 +95,25 @@ const Logs = () => {
     return (
         <>
             <div className="logs-table table-responsive flex-column">
-                <table className="table table-striped table-hover table-logs">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">{t('Action Type')}</th>
-                            <th scope="col">{t('Description')}</th>
-                            <th scope="col">{t('Date')}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <LogTable logs={currentLogs} loading={loading} />
-                    </tbody>
-                </table>
+                <div>
+                    <h2 className="text-center">{t('Logs')}</h2>
+                    <table className="table table-striped table-hover table-logs">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">{t('Action Type')}</th>
+                                <th scope="col">{t('Description')}</th>
+                                <th scope="col">{t('Date')}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <LogTable logs={currentLogs} loading={loading} />
+                        </tbody>
+                    </table>
+                </div>
                 <Pagination logsPerPage={logsPerPage} totalLogs={logs.length} paginate={paginate} prev={prev} next={next} currentPage={currentPage} />
             </div>
-            
+
         </>
     )
 }
@@ -138,5 +141,5 @@ const LogTable = ({ logs, loading }) => {
 
 }
 const Peoples = () => {
-    return "2"
+    return (<h2 className="text-center">{t('Peoples')}</h2>)
 }

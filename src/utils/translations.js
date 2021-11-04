@@ -75,5 +75,12 @@ const UA = [
     ["DEV. GROUP", "ГРУПА РОЗРОБНИКІВ"],
     ["Admin-panel", "Адмін-панель"],
     ["prev", "попередня"],
-    ["next", "наступна"]
+    ["next", "наступна"],
+    ["All changes have been saved successfully!", "Усі зміни було успішно збережено!"],
+    ["That filed is required!", "Це поле обов'язкове!"],
+    ["Maximum value of the field is ", "Максимальне значення поля "],
+    ["Minimum value of the field is ", "Мінімальне значення поля "],
+    ["Invalid field value!", "Некоректне значення поля!"],
+    ["Date of birth cannot be more than the flow date!", "Дата народження не може бути більше, ніж поточна дата!"],
+    ["Date of birth cannot be less than ", "Дата народження не може бути меншою, ніж "]
 ]

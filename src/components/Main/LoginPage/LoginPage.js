@@ -97,7 +97,7 @@ const LoginPage = () => {
             <button type="submit" className="w-100 btn btn-lg btn-primary mb-2">{t('Log in')}</button>
             {invalid &&
               <div ref={titleRef} className="alert alert-danger">
-                {t(invalid)}
+                <i className="fa fa-window-close me-1" aria-hidden="true"></i>{t(invalid)}
               </div>}
             {isSubmitting && <EclipseWidget />}
           </Form>
