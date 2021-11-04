@@ -38,3 +38,6 @@
     list-style-type: none;
     color: rgb(119, 119, 119);
 }
+.table-logs th{
+    white-space: nowrap;
+}

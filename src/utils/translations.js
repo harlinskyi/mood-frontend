@@ -45,6 +45,8 @@ const UA = [
     ["Kanada", "Канада"],
     ["Country", "Країна"],
     ["View", "Переглянути"],
+    ["previous", "попередня"],
+    ["next", "наступна"],
     ["Logs", "Логи"],
     ["Not registered?", "Не зареєстрований?"],
     ["Forgot your password?", "Забули пароль?"],
