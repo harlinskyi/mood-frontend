@@ -61,3 +61,7 @@ input[required] + label:after {
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
   background-color: #609aa7;
 }
+
+.disabled span {
+  background-color: #efefef !important;
+}

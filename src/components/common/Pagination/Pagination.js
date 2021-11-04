@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import React from 'react';
+import t from '../../../utils/translations';
 
 const Pagination = ({ logsPerPage, totalLogs, paginate, prev, next, currentPage }) => {
     const pageNumbers = [];
@@ -14,7 +15,7 @@ const Pagination = ({ logsPerPage, totalLogs, paginate, prev, next, currentPage 
             <ul className='pagination'>
                 <li className={classnames('page-item', { 'disabled': currentPage === 1 })}>
                     <span onClick={() => prev()} className='page-link'>
-                        prev
+                        {t('prev')}
                     </span>
                 </li>
                 {pageNumbers.map(number => (
@@ -26,7 +27,7 @@ const Pagination = ({ logsPerPage, totalLogs, paginate, prev, next, currentPage 
                 ))}
                 <li className={classnames('page-item', { 'disabled': currentPage === pageNumbers.length })}>
                     <span onClick={() => next(pageNumbers.length)} className='page-link'>
-                        next
+                        {t('next')}
                     </span>
                 </li>
             </ul>

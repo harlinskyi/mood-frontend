@@ -1,6 +1,5 @@
 import './AdminPanel.css'
 import React, { useEffect, useRef, useState } from 'react';
-import ReactPaginate from 'react-paginate';
 import { Formik, Form } from 'formik';
 import {
     BrowserRouter as Router,
@@ -63,9 +62,9 @@ const AdminPanel = () => {
                                     <thead>
                                         <tr>
                                             <th scope="col">Id</th>
-                                            <th scope="col">Action Type</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Date</th>
+                                            <th scope="col">{t('Action Type')}</th>
+                                            <th scope="col">{t('Description')}</th>
+                                            <th scope="col">{t('Date')}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -84,7 +83,7 @@ const AdminPanel = () => {
 }
 export default AdminPanel
 
-const Logs =  () => {
+const Logs = () => {
     const [logs, setLogs] = useState([])
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
@@ -102,26 +101,26 @@ const Logs =  () => {
     }, [])
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
-    const prev = () => {currentPage > 1 ?? setCurrentPage(currentPage - 1)} 
-    const next = (pageNumbersLenght) => {currentPage < pageNumbersLenght ?? setCurrentPage(currentPage + 1)} 
-    
+    const prev = () => { currentPage > 1 && setCurrentPage(currentPage - 1) }
+    const next = (pageNumbersLenght) => { currentPage < pageNumbersLenght && setCurrentPage(currentPage + 1) }
+
     const indexOfLastLog = currentPage * logsPerPage;
     const indexOfFirstLog = indexOfLastLog - logsPerPage;
     const currentLogs = logs.slice(indexOfFirstLog, indexOfLastLog)
     console.log(currentPage)
     return (
         <>
-        <LogTable logs={currentLogs} loading={loading}/>
-        <Pagination logsPerPage={logsPerPage} totalLogs={logs.length} paginate={paginate} prev={prev} next={next} currentPage={currentPage}/>
+            <LogTable logs={currentLogs} loading={loading} />
+            <Pagination logsPerPage={logsPerPage} totalLogs={logs.length} paginate={paginate} prev={prev} next={next} currentPage={currentPage} />
         </>
     )
 }
 
-const LogTable = ({logs, loading}) => {
-    if(loading) {
-        return  <tr>
-                    <td>Loading</td>
-                </tr>
+const LogTable = ({ logs, loading }) => {
+    if (loading) {
+        return <tr>
+            <td>Loading...</td>
+        </tr>
     }
     return (
         <>
@@ -137,102 +136,6 @@ const LogTable = ({logs, loading}) => {
     )
 
 }
-// const Logs =  ({ currentItems }) => {
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//     useEffect( async () => {
-//         try {
-//             const response = await http.post(`get-history`);
-//             var logsObject = response.data
-//             console.log(logsObject)
-//         } catch (badresponse) {
-//             console.log("logs problem", badresponse);
-//         }
-//     }, []);
-
-//     return ('logs')
-// }
-
 const Peoples = () => {
     return "2"
 }
-
-
-// var items = [];
-
-// function Items({ currentItems }) {
-//     return (
-//         <>
-//             {currentItems &&
-//                 currentItems.map((item) => (
-//                     <tr key={item.id}>
-//                         <td>{item.id}</td>
-//                         <td>{item.actionType}</td>
-//                         <td>{item.description}</td>
-//                         <td>{item.date}</td>
-//                     </tr>
-//                 ))}
-//         </>
-//     );
-// }
-// function Logs({ itemsPerPage }) {
-//     // We start with an empty list of items.
-//     const [currentItems, setCurrentItems] = useState(null);
-//     const [pageCount, setPageCount] = useState(0);
-//     // Here we use item offsets; we could also use page offsets
-//     // following the API or data you're working with.
-//     const [itemOffset, setItemOffset] = useState(0);
-//     const [asyncData, changeAsyncData] = useState([]);
-
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//     useEffect( () => {
-//         // // Fetch items from another resources.
-//             const endOffset = itemOffset + itemsPerPage;
-//             setCurrentItems(items.slice(itemOffset, endOffset));
-//             setPageCount(Math.ceil(items.length / itemsPerPage));
-//     }, [itemOffset, itemsPerPage, asyncData]);
-
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//     useEffect ( async () => {
-//         try {
-//             const res = await http.post('get-history')
-//             items = res.data
-//             // items = res.data
-//             // const endOffset = itemOffset + itemsPerPage;
-//             // setCurrentItems(items.slice(itemOffset, endOffset));
-//             setCurrentItems(items)
-//             changeAsyncData(res.data)
-//         } catch (error) {
-//         }
-//     }, [])
-//     // Invoke when user click to request another page.
-//     const handlePageClick = (event) => {
-//         const newOffset = (event.selected * itemsPerPage) % items.length;
-//         console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
-//         setItemOffset(newOffset);
-//     };
-
-//     return (
-//         <>
-//             <Items currentItems={items} />
-//             <ReactPaginate
-//                 nextLabel={<i className='fa fa-chevron-right' aria-hidden='true'></i>}
-//                 onPageChange={handlePageClick}
-//                 pageRangeDisplayed={20}
-//                 pageCount={pageCount}
-//                 previousLabel={<i className="fa fa-chevron-left" aria-hidden="true"></i>}
-//                 pageClassName="page-item"
-//                 pageLinkClassName="page-link"
-//                 previousClassName="page-item"
-//                 previousLinkClassName="page-link"
-//                 nextClassName="page-item"
-//                 nextLinkClassName="page-link"
-//                 breakLabel="..."
-//                 breakClassName="page-item"
-//                 breakLinkClassName="page-link"
-//                 containerClassName="pagination"
-//                 activeClassName="active"
-//                 renderOnZeroPageCount={null}
-//             />
-//         </>
-//     );
-// }
