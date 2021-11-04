@@ -16,6 +16,7 @@ import t from '../../../utils/translations';
 import logo from '../../../images/logo.png'
 import classnames from 'classnames';
 import http from '../../../http-common';
+import Pagination from '../../common/Pagination/Pagination';
 
 const AdminPanel = () => {
 
@@ -68,7 +69,8 @@ const AdminPanel = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <Logs itemsPerPage={5}/>
+                                        {/* <Logs itemsPerPage={5}/> */}
+                                        <Logs />
                                     </tbody>
                                 </table>
                             </div>
@@ -82,7 +84,59 @@ const AdminPanel = () => {
 }
 export default AdminPanel
 
+const Logs =  () => {
+    const [logs, setLogs] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [logsPerPage] = useState(5);
 
+    useEffect(() => {
+        const fetchLogs = async () => {
+            setLoading(true)
+            const res = await http.post('get-history')
+            setLogs(res.data)
+            setLoading(false)
+        }
+
+        fetchLogs();
+    }, [])
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+    const prev = () => {currentPage > 1 ?? setCurrentPage(currentPage - 1)} 
+    const next = (pageNumbersLenght) => {currentPage < pageNumbersLenght ?? setCurrentPage(currentPage + 1)} 
+    
+    const indexOfLastLog = currentPage * logsPerPage;
+    const indexOfFirstLog = indexOfLastLog - logsPerPage;
+    const currentLogs = logs.slice(indexOfFirstLog, indexOfLastLog)
+    console.log(currentPage)
+    return (
+        <>
+        <LogTable logs={currentLogs} loading={loading}/>
+        <Pagination logsPerPage={logsPerPage} totalLogs={logs.length} paginate={paginate} prev={prev} next={next} currentPage={currentPage}/>
+        </>
+    )
+}
+
+const LogTable = ({logs, loading}) => {
+    if(loading) {
+        return  <tr>
+                    <td>Loading</td>
+                </tr>
+    }
+    return (
+        <>
+            {logs.map(log => (
+                <tr key={log.id}>
+                    <td>{log.id}</td>
+                    <td>{log.actionType}</td>
+                    <td>{log.description}</td>
+                    <td>{log.date}</td>
+                </tr>
+            ))}
+        </>
+    )
+
+}
 // const Logs =  ({ currentItems }) => {
 //     // eslint-disable-next-line react-hooks/exhaustive-deps
 //     useEffect( async () => {
@@ -103,81 +157,82 @@ const Peoples = () => {
 }
 
 
-var items = [];
+// var items = [];
 
-function Items({ currentItems }) {
-    return (
-        <>
-            {currentItems &&
-                currentItems.map((item) => (
-                    <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.actionType}</td>
-                        <td>{item.description}</td>
-                        <td>{item.date}</td>
-                    </tr>
-                ))}
-        </>
-    );
-}
-function Logs({ itemsPerPage }) {
-    // We start with an empty list of items.
-    const [currentItems, setCurrentItems] = useState(null);
-    const [pageCount, setPageCount] = useState(0);
-    // Here we use item offsets; we could also use page offsets
-    // following the API or data you're working with.
-    const [itemOffset, setItemOffset] = useState(0);
-    const [asyncData, changeAsyncData] = useState([]);
+// function Items({ currentItems }) {
+//     return (
+//         <>
+//             {currentItems &&
+//                 currentItems.map((item) => (
+//                     <tr key={item.id}>
+//                         <td>{item.id}</td>
+//                         <td>{item.actionType}</td>
+//                         <td>{item.description}</td>
+//                         <td>{item.date}</td>
+//                     </tr>
+//                 ))}
+//         </>
+//     );
+// }
+// function Logs({ itemsPerPage }) {
+//     // We start with an empty list of items.
+//     const [currentItems, setCurrentItems] = useState(null);
+//     const [pageCount, setPageCount] = useState(0);
+//     // Here we use item offsets; we could also use page offsets
+//     // following the API or data you're working with.
+//     const [itemOffset, setItemOffset] = useState(0);
+//     const [asyncData, changeAsyncData] = useState([]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect( () => {
-        // // Fetch items from another resources.
-            const endOffset = itemOffset + itemsPerPage;
-            setCurrentItems(items.slice(itemOffset, endOffset));
-            setPageCount(Math.ceil(items.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage, asyncData]);
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//     useEffect( () => {
+//         // // Fetch items from another resources.
+//             const endOffset = itemOffset + itemsPerPage;
+//             setCurrentItems(items.slice(itemOffset, endOffset));
+//             setPageCount(Math.ceil(items.length / itemsPerPage));
+//     }, [itemOffset, itemsPerPage, asyncData]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect ( async () => {
-        try {
-            const res = await http.post('get-history')
-            items = res.data
-            // items = res.data
-            // const endOffset = itemOffset + itemsPerPage;
-            // setCurrentItems(items.slice(itemOffset, endOffset));
-            changeAsyncData(res.data)
-        } catch (error) {
-        }
-    }, [])
-    // Invoke when user click to request another page.
-    const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % items.length;
-        console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
-        setItemOffset(newOffset);
-    };
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//     useEffect ( async () => {
+//         try {
+//             const res = await http.post('get-history')
+//             items = res.data
+//             // items = res.data
+//             // const endOffset = itemOffset + itemsPerPage;
+//             // setCurrentItems(items.slice(itemOffset, endOffset));
+//             setCurrentItems(items)
+//             changeAsyncData(res.data)
+//         } catch (error) {
+//         }
+//     }, [])
+//     // Invoke when user click to request another page.
+//     const handlePageClick = (event) => {
+//         const newOffset = (event.selected * itemsPerPage) % items.length;
+//         console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
+//         setItemOffset(newOffset);
+//     };
 
-    return (
-        <>
-            <Items currentItems={items} />
-            <ReactPaginate
-                nextLabel={<i className='fa fa-chevron-right' aria-hidden='true'></i>}
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={20}
-                pageCount={pageCount}
-                previousLabel={<i className="fa fa-chevron-left" aria-hidden="true"></i>}
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakLabel="..."
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
-                renderOnZeroPageCount={null}
-            />
-        </>
-    );
-}
+//     return (
+//         <>
+//             <Items currentItems={items} />
+//             <ReactPaginate
+//                 nextLabel={<i className='fa fa-chevron-right' aria-hidden='true'></i>}
+//                 onPageChange={handlePageClick}
+//                 pageRangeDisplayed={20}
+//                 pageCount={pageCount}
+//                 previousLabel={<i className="fa fa-chevron-left" aria-hidden="true"></i>}
+//                 pageClassName="page-item"
+//                 pageLinkClassName="page-link"
+//                 previousClassName="page-item"
+//                 previousLinkClassName="page-link"
+//                 nextClassName="page-item"
+//                 nextLinkClassName="page-link"
+//                 breakLabel="..."
+//                 breakClassName="page-item"
+//                 breakLinkClassName="page-link"
+//                 containerClassName="pagination"
+//                 activeClassName="active"
+//                 renderOnZeroPageCount={null}
+//             />
+//         </>
+//     );
+// }
