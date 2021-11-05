@@ -45,12 +45,28 @@
 .table-logs td.wrap {
     white-space: pre-wrap;
 }
-
-.table-logs tr th:first-child {
-}
-
 .logs-table {
     height: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+.admin-panel-users-photo {
+    background-color: #949494;
+    overflow: hidden;
+    width: 30px;
+    border-radius: 50%;
+    height: 30px;
+}
+
+.admin-panel-users-photo img {
+    margin: auto;
+    object-fit: cover;
+    width: 30px;
+    height: 30px;
+}
+
+.logs-table label.edit-delete:hover i{
+    color: #ad2929;
+    cursor: pointer;
 }

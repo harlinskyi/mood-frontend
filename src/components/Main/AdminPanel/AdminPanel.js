@@ -12,6 +12,7 @@ import classnames from 'classnames';
 import http from '../../../http-common';
 import Pagination from '../../common/Pagination/Pagination';
 import EclipseWidget from '../../common/eclipse/eclipse';
+import customFunc from '../../../utils/customFunc';
 
 const AdminPanel = () => {
 
@@ -52,10 +53,10 @@ const AdminPanel = () => {
                 </div>
                 <div className="col-10 admin-body">
                     <Switch>
-                        <Route path={`/admin-panel/logs`}>
-                            <Logs />
-                        </Route>
-                        <Route path={`/admin-panel/peoples`} component={Peoples} />
+                        <div className="logs-table table-responsive flex-column">
+                            <Route path={`/admin-panel/logs`} component={Logs} />
+                            <Route path={`/admin-panel/peoples`} component={Peoples} />
+                        </div>
                     </Switch>
                 </div>
             </div>
@@ -90,31 +91,28 @@ const Logs = () => {
     const currentLogs = logs.slice(indexOfFirstLog, indexOfLastLog)
     return (
         <>
-            <div className="logs-table table-responsive flex-column">
-                <div>
-                    <h2 className="text-center">{t('Logs')}</h2>
-                    <table className="table table-striped table-hover table-logs">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">{t('Action Type')}</th>
-                                <th scope="col">{t('Description')}</th>
-                                <th scope="col">{t('Date')}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <LogTable logs={currentLogs} loading={loading} />
-                        </tbody>
-                    </table>
-                </div>
-                <Pagination logsPerPage={logsPerPage} totalLogs={logs.length} paginate={paginate} prev={prev} next={next} currentPage={currentPage} />
+            <div>
+                <h2 className="text-center">{t('Logs')}</h2>
+                <table className="table table-striped table-hover table-logs">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">{t('Action Type')}</th>
+                            <th scope="col">{t('Description')}</th>
+                            <th scope="col">{t('Date')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <LogsTable logs={currentLogs} loading={loading} />
+                    </tbody>
+                </table>
             </div>
-
+            <Pagination logsPerPage={logsPerPage} totalLogs={logs.length} paginate={paginate} prev={prev} next={next} currentPage={currentPage} />
         </>
     )
 }
 
-const LogTable = ({ logs, loading }) => {
+const LogsTable = ({ logs, loading }) => {
     if (loading) {
         return (
             <tr>
@@ -138,6 +136,114 @@ const LogTable = ({ logs, loading }) => {
     )
 
 }
+
+
 const Peoples = () => {
-    return (<h2 className="text-center">{t('Peoples')}</h2>)
+    const [logs, setLogs] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [logsPerPage] = useState(15);
+    const [userDel, setDelteUser] = useState(false);
+
+    useEffect(() => {
+        const fetchLogs = async () => {
+            setLoading(true)
+            const res = await http.post('get-users')
+            setLogs(res.data.userShortInfos)
+            setLoading(false)
+        }
+
+        fetchLogs();
+    }, [], [userDel])
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+    const prev = () => { currentPage > 1 && setCurrentPage(currentPage - 1) }
+    const next = (pageNumbersLenght) => { currentPage < pageNumbersLenght && setCurrentPage(currentPage + 1) }
+
+    const indexOfLastLog = currentPage * logsPerPage;
+    const indexOfFirstLog = indexOfLastLog - logsPerPage;
+    const currentLogs = logs.slice(indexOfFirstLog, indexOfLastLog)
+    console.log(currentLogs)
+    return (
+        <>
+            <div>
+                <h2 className="text-center">{t('Peoples')}</h2>
+                <table className="table table-striped table-hover table-logs">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">{t('Email')}</th>
+                            <th scope="col">{t('First Name')}</th>
+                            <th scope="col">{t('Last Name')}</th>
+                            <th scope="col">{t('Nickname')}</th>
+                            <th scope="col">{t('Birthday')}</th>
+                            <th scope="col">{t('Country')}</th>
+                            <th scope="col">{t('Photo')}</th>
+                            <th scope="col">{t('Actions')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <UsersTable logs={currentLogs} loading={loading} />
+                    </tbody>
+                </table>
+            </div>
+            <Pagination logsPerPage={logsPerPage} totalLogs={logs.length} paginate={paginate} prev={prev} next={next} currentPage={currentPage} />
+        </>
+    )
+}
+
+
+const UsersTable = ({ logs, loading }) => {
+
+    const handleDeleteUser = async (id) => {
+        console.log('click', id)
+        if (window.confirm(t('Are you sure you want to delete this article?'))) {
+            if (id !== 1) {
+                try {
+                    await http.post(`delete-user?id=${id}`);
+                    window.location.reload();
+                } catch (badresponse) {
+                    console.log(badresponse.response);
+                }
+            }
+            else {
+                alert(t('It is forbidden to delete this user.'))
+            }
+
+        }
+    }
+
+    if (loading) {
+        return (
+            <tr>
+                <td>
+                    <EclipseWidget />
+                </td>
+            </tr>
+        )
+    }
+    console.log('UsersTable', logs)
+    return (
+        <>
+            {logs.map(log => (
+                <tr key={log.id}>
+                    <th scope="row">{log.id}</th>
+                    <td>{log.email}</td>
+                    <td>{log.firstName}</td>
+                    <td>{log.lastName}</td>
+                    <td>{log.nickname}</td>
+                    <td>{log.bithDay}</td>
+                    <td>{log.location}</td>
+                    <td>{log.fileName ?
+                        <div className="admin-panel-users-photo">
+                            <img alt="User photo" src={customFunc.getBaseUrl() + log.fileName} />
+                        </div> : t('No photo')}
+                    </td>
+                    <td>
+                        <label className="edit-delete" onClick={() => handleDeleteUser(log.id)}><i className="fa fa-trash-o" aria-hidden="true"></i></label>
+                    </td>
+                </tr>
+            ))}
+        </>
+    )
 }

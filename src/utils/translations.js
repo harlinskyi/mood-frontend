@@ -56,6 +56,7 @@ const UA = [
     ["Settings", "Налаштування"],
     ["File is does not valid image", "Файл є недійсним зображенням"],
     ["Create post", "Створити допис"],
+    ["No photo", "Фото відсутнє"],
     ["Are you sure you want to delete this article?", "Ви дійсно хочете видалити цю статтю?"],
     ["Email incorrectly specified.", "Ел. пошта вказано невірно."],
     ["Email is required field to fill.", "Ел. пошта є обов'язкове до заповення."],
@@ -85,5 +86,6 @@ const UA = [
     ["Date of birth cannot be less than ", "Дата народження не може бути меншою, ніж "],
     ["Only alphabets are allowed for this field", "Для цього поля дозволені лише алфавіти"],
     ["Only numbers, letters and underscore!", "Тільки цифри, літери та підкреслення!"],
-    ["There are no posts.", "Дописів немає."]
+    ["There are no posts.", "Дописів немає."],
+    ["It is forbidden to delete this user.", "Видаляти цього користувача заборонено."]
 ]
