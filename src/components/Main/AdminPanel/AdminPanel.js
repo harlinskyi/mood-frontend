@@ -240,7 +240,8 @@ const UsersTable = ({ logs, loading }) => {
                         </div> : t('No photo')}
                     </td>
                     <td>
-                        <label className="edit-delete" onClick={() => handleDeleteUser(log.id)}><i className="fa fa-trash-o" aria-hidden="true"></i></label>
+                        <label className="edit me-2" onClick={() => handleDeleteUser(log.id)}><i className="fa fa-edit" aria-hidden="true"></i></label>
+                        <label className="delete" onClick={() => handleDeleteUser(log.id)}><i className="fa fa-trash-o" aria-hidden="true"></i></label>
                     </td>
                 </tr>
             ))}
