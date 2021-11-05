@@ -21,7 +21,7 @@ const AdminPanel = () => {
             <div className="row">
                 <div className="col-2 admin-menu">
                     <div className="d-flex flex-column flex-shrink-0 pt-3 h-100">
-                        <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none m-0-auto">
+                        <Link to="/admin-panel" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none m-0-auto">
                             <label className="fs-5 admin-logo ">
                                 <img alt={logo} src={logo} className="me-2" width="22" />
                                 {t('Admin-panel')}
@@ -232,7 +232,7 @@ const UsersTable = ({ logs, loading }) => {
                     <td>{log.firstName}</td>
                     <td>{log.lastName}</td>
                     <td>{log.nickname}</td>
-                    <td>{log.bithDay}</td>
+                    <td>{log.birthDay}</td>
                     <td>{log.location}</td>
                     <td>{log.fileName ?
                         <div className="admin-panel-users-photo">
