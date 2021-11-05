@@ -26,8 +26,7 @@ function authReducer(auth = initialState, action) {
         }
         case LOGOUT: {
             return { 
-                isAuth: false,
-                photo: ''
+                isAuth: false
             }
         }
 

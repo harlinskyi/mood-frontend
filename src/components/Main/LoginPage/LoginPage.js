@@ -56,6 +56,7 @@ const LoginPage = () => {
               localStorage.setItem("authToken", token);
               const userId = authUser(token, dispatch);
               history.push(`/profile/${userId}`)
+              window.location.reload();
             } catch (badresponse) {
               if (badresponse.response !== undefined) {
                 setInvalid(badresponse.response.data.ErrorDescription);

@@ -69,7 +69,7 @@ const Logs = () => {
     const [logs, setLogs] = useState([])
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
-    const [logsPerPage] = useState(15);
+    const [logsPerPage] = useState(7);
 
     useEffect(() => {
         const fetchLogs = async () => {
@@ -142,7 +142,7 @@ const Peoples = () => {
     const [logs, setLogs] = useState([])
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
-    const [logsPerPage] = useState(15);
+    const [logsPerPage] = useState(7);
     const [userDel, setDelteUser] = useState(false);
 
     useEffect(() => {

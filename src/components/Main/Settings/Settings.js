@@ -71,7 +71,7 @@ const Settings = (props) => {
                     .matches(/^[a-zA-Zа-яА-ЯІіЇїЄє]+$/, t('Only alphabets are allowed for this field')),
                 nickName: Yup.string()
                     .required(t('That filed is required!'))
-                    .max(10, t('Maximum value of the field is ') + '10')
+                    .max(15, t('Maximum value of the field is ') + '15')
                     .min(3, t('Maximum value of the field is ') + '3')
                     .matches(/^[0-9a-zA-Zа-я_]+$/, t('Only numbers, letters and underscore!'))
                     .lowercase(),

@@ -87,5 +87,6 @@ const UA = [
     ["Only alphabets are allowed for this field", "Для цього поля дозволені лише алфавіти"],
     ["Only numbers, letters and underscore!", "Тільки цифри, літери та підкреслення!"],
     ["There are no posts.", "Дописів немає."],
-    ["It is forbidden to delete this user.", "Видаляти цього користувача заборонено."]
+    ["It is forbidden to delete this user.", "Видаляти цього користувача заборонено."],
+    ["Actions", "Дії"]
 ]

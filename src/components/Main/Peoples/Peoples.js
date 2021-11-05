@@ -43,7 +43,7 @@ class Peoples extends Component {
         const { users } = this.state;
         return (
             <div className="row col-12 peoples-page">
-                {users.map( (user) => {
+                {users.reverse().map( (user) => {
                     return <User key={user.id} id={user.id} infoUser={user} />
                 })}
             </div>
