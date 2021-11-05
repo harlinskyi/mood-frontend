@@ -43,7 +43,7 @@ class RightSide extends Component {
     }
 
     render() {
-        const { loading, email, firstName, lastName, sex, birthDay, nickName, location, quote, link, image, errors } = this.state;
+        const { loading, email, firstName, lastName, sex, birthDay, nickName, location, quote, link, image } = this.state;
         return (
             <div className="RightSide col-3 mb-3">
                 <div className="d-flex flex-column p-3 bg-body rounded-c shadow-sm">

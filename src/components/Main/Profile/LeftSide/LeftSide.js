@@ -1,5 +1,5 @@
 import "./LeftSide.css";
-import React, { Component, useEffect, useState } from "react";
+import React, { Component } from "react";
 import store from "../../../../store";
 import http from "../../../../http-common";
 import default_photo from "../../../../images/default_photo.jpg";
@@ -37,8 +37,7 @@ class LeftSide extends Component {
       const userPostName = response.data.userInfo;
       this.setState({ posts: userPosts, postAuthor: userPostName });
     } catch (badresponse) {
-      // console.log("Problem:", badresponse.response.data);
-      this.setState({ errors: badresponse.response.data });
+      console.log(badresponse)
     }
     this.setState({ loading: false });
   }
@@ -83,11 +82,13 @@ class LeftSide extends Component {
   }
 
   render() {
-    const { posts, loading, postAuthor, errors } = this.state;
+    const { posts, loading, postAuthor, userId, errors } = this.state;
     const { uploudPhoto } = this.state.formPost;
     return (
       <div className="LeftSide col-9">
-        <button
+        {
+          store.getState().auth.userId === userId &&
+          <button
           type="button"
           className="btn btn-add-post shadow-sm"
           data-bs-toggle="modal"
@@ -96,6 +97,7 @@ class LeftSide extends Component {
         >
           <i className="fa fa-plus me-1" aria-hidden="true"></i>{t('Create post')}
         </button>
+        }
         <hr />
         <ul className="Leftside-list-article p-0">
           {console.log(posts)}
@@ -199,10 +201,8 @@ const PostList = (props) => {
 
 
   const { firstName, lastName, email , image} = props.author;
-  console.log(props)
+  console.log('props',props)
   const { userId } = props
-  const { userPhoto } = props
-  console.log(props.userId, props.userPhoto)
 
   const postlist = props.posts.map((post, index) => (
     <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container" data-id={post.id} key={post.id}>
@@ -212,14 +212,15 @@ const PostList = (props) => {
         </div>
         <div className="col-auto">
           <div className="row fs-5 article-item-header-username">
-            {firstName} {lastName}
+            {/* {firstName} {lastName} */}
+            {firstName ? firstName + ' ' + lastName : email}
           </div>
           <div className="row article-item-header-date">
             {post.creationDate}
           </div>
         </div>
 
-        <div className="col-md-2 offset-md-7 col-edit-post">
+        <div className="col-md-2 offset-md-6 col-edit-post">
           {userId === customFunc.getUserIdFromUrl() &&
             <>
               <label className="edit-post"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></label>

@@ -20,7 +20,7 @@ class Main extends Component {
   state = {};
 
   render() {
-    const { isAuth, userId } = this.props;
+    const { isAuth } = this.props;
     return (
       <main className="container-lg">
         {isAuth ? (
@@ -37,7 +37,7 @@ class Main extends Component {
             <Route exact path="/register" component={Register}></Route>
           </div>
         )}
-          <Route exact path="/404" component={PageNotFound}></Route>
+          <Route path="/404" component={PageNotFound}></Route>
       </main>
     );
   }

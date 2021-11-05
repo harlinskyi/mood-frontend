@@ -1,16 +1,13 @@
 import "./Settings.css";
 import React, { useRef, useState, useEffect } from "react";
-import { Formik, Form, Field, useFormik } from "formik";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useDispatch, useStore } from "react-redux";
+import { Formik, Form } from "formik";
+import { useDispatch } from "react-redux";
 import http from "../../../http-common";
 import store from "../../../store";
 import * as Yup from "yup";
 import EclipseWidget from "../../common/eclipse/eclipse";
 import accountService from "../../../services/account.service";
-import customFunc from "../../../utils/customFunc";
 import t from "../../../utils/translations";
-import { push } from "connected-react-router";
 import FormSettingsPhotoInput from "../../common/formik-components/FormSettingsPhotoInput";
 import FormSettingsInput from "../../common/formik-components/FormSettingsInput";
 import FormSettingsTextarea from "../../common/formik-components/FormSettingsTextarea";
@@ -24,7 +21,6 @@ const Settings = (props) => {
     const titleRef = useRef();
     const [invalid, setInvalid] = useState("");
     const [success, setSuccess] = useState("");
-    const SUPPORTED_FORMATS = ["png", "jpg"];
     const [user, setUser] = useState({
         image: "",
         email: "",
@@ -75,8 +71,8 @@ const Settings = (props) => {
                     .matches(/^[a-zA-Zа-яА-ЯІіЇїЄє]+$/, t('Only alphabets are allowed for this field')),
                 nickName: Yup.string()
                     .required(t('That filed is required!'))
-                    .max(10, t('Maximum value of the field is ') + 10)
-                    .min(3, t('Maximum value of the field is ') + 3)
+                    .max(10, t('Maximum value of the field is ') + '10')
+                    .min(3, t('Maximum value of the field is ') + '3')
                     .matches(/^[0-9a-zA-Zа-я_]+$/, t('Only numbers, letters and underscore!'))
                     .lowercase(),
                 birthDay: Yup.date()
@@ -84,8 +80,8 @@ const Settings = (props) => {
                     .max(new Date(Date.now()), t('Date of birth cannot be more than the flow date!'))
                     .min(new Date('1920-01-01'), t('Date of birth cannot be less than ') + '1920-01-01!'),
                 quote: Yup.string()
-                    .max(150, t('Maximum value of the field is ') + 150)
-                    .min(10, t('Maximum value of the field is ') + 10),
+                    .max(150, t('Maximum value of the field is ') + '150')
+                    .min(10, t('Maximum value of the field is ') + '10'),
                 link: Yup.string()
                     .url(t('Invalid field value!'))
                 })}
@@ -96,7 +92,7 @@ const Settings = (props) => {
                         setSubmitting(true);
                         var formData = new FormData();
                         Object.entries(formValues).forEach(([key, value]) => formData.append(key, value));
-                        const res = await accountService.updateSettings(formData, store.getState().auth.userId);
+                        await accountService.updateSettings(formData, store.getState().auth.userId);
                         const response = await http.post(`get-user-profile?id=${store.getState().auth.userId}`);
                         changeUserPhoto(response.data.image, dispatch);
                         setSuccess(true)

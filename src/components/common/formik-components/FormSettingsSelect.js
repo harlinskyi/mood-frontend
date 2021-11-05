@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import { useField } from "formik";
 import t from "../../../utils/translations";
 
@@ -10,7 +11,7 @@ const FormSettingsSelect = ({ label, ...props }) => {
         name={props.name}
         id={props.id}
         placeholder={props.placeholder}
-        className="form-select" {...field} {...props}
+        className={classnames("form-control", { "is-invalid": meta.touched && meta.error })} {...field} {...props}
         aria-label={t("Please, select from list")}
         >
       </select>

@@ -1,16 +1,11 @@
 import './AdminPanel.css'
-import React, { useEffect, useRef, useState } from 'react';
-import { Formik, Form } from 'formik';
+import React, { useEffect, useState } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    useParams,
     Link
 } from "react-router-dom";
-import { connect } from 'react-redux';
-import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
 import t from '../../../utils/translations';
 import logo from '../../../images/logo.png'
 import classnames from 'classnames';

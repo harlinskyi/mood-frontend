@@ -21,7 +21,7 @@ const FormSettingsPhotoInput = ({
   const selectImage = (event) => {
     const file = event.currentTarget.files[0];
     console.log(event.currentTarget.value);
-    var blob = file; // See step 1 above
+    var blob = file;
     var fileReader = new FileReader();
     fileReader.onloadend = function (e) {
       var arr = (new Uint8Array(e.target.result)).subarray(0, 4);
