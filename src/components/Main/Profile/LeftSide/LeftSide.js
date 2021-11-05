@@ -185,7 +185,6 @@ class LeftSide extends Component {
 }
 
 const PostList = (props) => {
-  const [photoNew, setPhoto] = useState('')
   const handleDeletePost = async (id) => {
     console.log('click', id)
     if (window.confirm(t('Are you sure you want to delete this article?'))) {
@@ -197,11 +196,9 @@ const PostList = (props) => {
       }
     }
   }
-  useEffect(() => {
-    setPhoto(props.userPhoto)
-  }, [props.userPhoto])
 
-  const { firstName, lastName, email } = props.author;
+
+  const { firstName, lastName, email , image} = props.author;
   console.log(props)
   const { userId } = props
   const { userPhoto } = props
@@ -211,7 +208,7 @@ const PostList = (props) => {
     <li className="LeftSide-list-article-item py-2 mb-3 bg-body rounded-c shadow-sm container" data-id={post.id} key={post.id}>
       <div className={classnames("row py-2 article-item-header")}>
         <div className="col-auto">
-          <img src={userPhoto ? customFunc.getBaseUrl() + photoNew : default_photo} alt="mdo" width="55" height="55" />
+          <img src={image ? customFunc.getBaseUrl() + image : default_photo} alt="mdo" width="55" height="55" />
         </div>
         <div className="col-auto">
           <div className="row fs-5 article-item-header-username">
